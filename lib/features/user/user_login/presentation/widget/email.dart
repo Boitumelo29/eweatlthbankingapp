@@ -21,7 +21,7 @@ class LoginEmail extends StatelessWidget {
       },
       obsureText: false,
       showSuffixIcon: false,
-      hintText: "Enter Email/Cellphone",
+      hintText: "Enter Email",
       labelText: Strings.username,
       onChanged: (value) {},
       controller: email,

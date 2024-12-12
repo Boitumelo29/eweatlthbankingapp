@@ -33,6 +33,67 @@ class _LoginPageState extends State<LoginPage> {
   bool isLoading = false;
   bool isForgotPasswordLoading = false;
 
+  Future<void> _login() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? userDataJson = prefs.getString('userData');
+
+      if (userDataJson != null) {
+        // Parse the stored user data
+        final Map<String, dynamic> userData = jsonDecode(userDataJson);
+        
+        // Check if email and password match
+        if (userData['email'] == email.text && 
+            userData['password'] == password.text) {
+          // Store login state and user data
+          await prefs.setBool('isLoggedIn', true);
+          await prefs.setString('accountId', userData['email']); // Using email as accountId
+          await prefs.setString('username', userData['firstName']);
+          await prefs.setString('surname', userData['lastName']);
+
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => MainHomeScreen()),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Invalid email or password'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('No registered users found'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      print("Login error: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error: ${e.toString()}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return UserLayoutScreen(
@@ -80,55 +141,5 @@ class _LoginPageState extends State<LoginPage> {
             ))
       ],
     );
-  }
-
-  Future<void> _login() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-
-    setState(() {
-      isLoading = true;
-    });
-
-    final apiService = ApiService();
-
-    try {
-      final loginModel = LoginModel(
-        username: email.text,
-        password: password.text,
-      );
-      final response = await apiService.loginUser(loginModel);
-
-      if (response.statusCode == 200) {
-        final responseData = jsonDecode(response.body);
-
-        final SharedPreferences prefs = await SharedPreferences.getInstance();
-        final accountId = responseData['accountId'].toString();
-        await prefs.setBool('isLoggedIn', true);
-        await prefs.setString('userToken', response.body);
-        await prefs.setString('accountId', accountId);
-
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => MainHomeScreen()),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to log in: ${response.body}')),
-        );
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error: ${e.toString()}'),
-          backgroundColor: Colors.red,
-        ),
-      );
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
   }
 }

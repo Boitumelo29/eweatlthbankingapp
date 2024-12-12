@@ -1,7 +1,6 @@
 import 'package:eweatlthbankingapp/features/auth/auth.dart';
 import 'package:eweatlthbankingapp/features/deposit/presentation/deposit_page.dart';
 import 'package:eweatlthbankingapp/features/tranfer_screen/presnation/transfer_screen.dart';
-import 'package:eweatlthbankingapp/network/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -13,41 +12,31 @@ class MainHomeScreen extends StatefulWidget {
 
 class _MainHomeScreenState extends State<MainHomeScreen> {
   int depositAmount = 0;
-  final ApiService _apiService = ApiService();
-  List<Map<String, dynamic>> transactions = []; // Store transaction data
+  List<Map<String, dynamic>> transactions = [];
+  String? userName;
+  String? accountNumber;
 
   @override
   void initState() {
     super.initState();
+    _loadUserData();
     _loadDepositAmount();
-
-    SharedPreferences.getInstance().then((prefs) {
-      final accountId = prefs.getString('accountId') ?? '';
-      if (accountId.isNotEmpty) {
-        fetchTrans(accountId);
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Account ID not found')),
-        );
-      }
-    });
   }
 
-  fetchTrans(String accountId) async {
+  Future<void> _loadUserData() async {
     try {
-      final response = await _apiService.fetchUser(accountId);
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? userDataJson = prefs.getString('userData');
 
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
+      if (userDataJson != null) {
+        final userData = jsonDecode(userDataJson);
         setState(() {
-          transactions = List<Map<String, dynamic>>.from(
-              data['transactions'].map((transaction) => {
-                    "bank": transaction['bank'],
-                    "amount": transaction['amount'],
-                  }));
+          userName = '${userData['firstName']} ${userData['lastName']}';
+          accountNumber = userData['email'];
         });
       }
     } catch (e) {
+      print('Error loading user data: $e');
     }
   }
 
@@ -62,19 +51,26 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
           final Map<String, List<int>> deposits =
               (jsonDecode(depositsJson) as Map<String, dynamic>).map(
             (key, value) {
-              // Ensure the value is a list and convert it to a List<int>
               if (value is List<dynamic>) {
                 return MapEntry(key, List<int>.from(value));
               } else {
-                return MapEntry(key, <int>[]); // Fallback to an empty list
+                return MapEntry(key, <int>[]);
               }
             },
           );
 
           setState(() {
             depositAmount = deposits[accountId]?.reduce((a, b) => a + b) ?? 0;
+            transactions = deposits[accountId]
+                    ?.map((amount) => {
+                          "bank": "Transaction",
+                          "amount": amount,
+                        })
+                    .toList() ??
+                [];
           });
         } catch (e) {
+          print('Error loading deposits: $e');
         }
       }
     }
@@ -121,12 +117,11 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
                       const Divider(
                         color: Colors.green,
                       ),
-
                       const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text('**** **** **** 1234'),
-                          Icon(
+                          const Icon(
                             Icons.credit_card,
                             color: Colors.green,
                           ),
@@ -204,7 +199,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
   Future<void> logoutUser(BuildContext context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove('isLoggedIn');
-    await prefs.remove('userToken');
+    await prefs.remove('accountId');
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => const AuthPage()));
   }

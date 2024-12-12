@@ -31,7 +31,6 @@ class _DepositPageState extends State<DepositPage> {
     });
   }
 
-  final ApiService _apiService = ApiService();
   String? userName;
   String? accountNumber;
   bool isLoadingUser = true;
@@ -42,18 +41,18 @@ class _DepositPageState extends State<DepositPage> {
     });
 
     try {
-      final response = await _apiService.fetchUser(accountId);
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? userDataJson = prefs.getString('userData');
+      
+      if (userDataJson != null) {
+        final userData = jsonDecode(userDataJson);
         setState(() {
-          userName = '${data['firstName']} ${data['lastName']}';
-          accountNumber = data['accountNumber'].toString();
+          userName = '${userData['firstName']} ${userData['lastName']}';
+          accountNumber = userData['email']; // Using email as account number
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text('Failed to fetch user details: ${response.body}')),
+          const SnackBar(content: Text('User data not found')),
         );
       }
     } catch (e) {

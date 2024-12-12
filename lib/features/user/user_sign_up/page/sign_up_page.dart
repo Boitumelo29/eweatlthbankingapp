@@ -189,43 +189,36 @@ class _SignUpPageState extends State<SignUpPage> {
       isLoading = true;
     });
 
-    final apiService = ApiService();
-
     try {
-      final registerModel = RegisterModel(
-        firstName: username.text,
-        lastName: lastname.text,
-        cellNumber: cellphone.text,
-        email: email.text,
-        province: selectedProvince ?? '',
-        suburb: sub.text,
-        city: city.text,
-        streetNumber: "123",
-        streetName: streetName.text,
-        idNumber: id.text,
-        dateOfBirth: dobController.text,
-        password: password.text,
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      
+      final accountId = email.text;
+      await prefs.setBool('isLoggedIn', true);
+      await prefs.setString('accountId', accountId);
+      await prefs.setString('username', username.text);
+      await prefs.setString('surname', lastname.text);
+      
+      final userData = {
+        'firstName': username.text,
+        'lastName': lastname.text,
+        'cellNumber': cellphone.text,
+        'email': email.text,
+        'province': selectedProvince,
+        'suburb': sub.text,
+        'city': city.text,
+        'streetNumber': "123",
+        'streetName': streetName.text,
+        'idNumber': id.text,
+        'dateOfBirth': dobController.text,
+        'password': password.text,
+      };
+      
+      await prefs.setString('userData', jsonEncode(userData));
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => OnboardingPage()),
       );
-
-      final response = await apiService.registerUser(registerModel);
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        final responseData = jsonDecode(response.body);
-
-        final SharedPreferences prefs = await SharedPreferences.getInstance();
-        final accountId = responseData['accountId'].toString();
-        await prefs.setBool('isLoggedIn', true);
-        await prefs.setString('userToken', response.body);
-        await prefs.setString('accountId', accountId);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => OnboardingPage()),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to register: ${response.body}')),
-        );
-      }
     } catch (e) {
       print(e);
       ScaffoldMessenger.of(context).showSnackBar(

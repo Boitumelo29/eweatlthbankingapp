@@ -6,8 +6,6 @@ import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.da
 import 'package:eweatlthbankingapp/util/validation/validation.dart';
 import 'package:flutter/material.dart';
 
-
-
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -45,13 +43,12 @@ class _TransferScreenState extends State<TransferScreen> {
       if (depositsJson != null) {
         try {
           final Map<String, List<int>> deposits =
-          (jsonDecode(depositsJson) as Map<String, dynamic>).map(
-                (key, value) {
-              // Ensure the value is a list and convert it to a List<int>
+              (jsonDecode(depositsJson) as Map<String, dynamic>).map(
+            (key, value) {
               if (value is List<dynamic>) {
                 return MapEntry(key, List<int>.from(value));
               } else {
-                return MapEntry(key, <int>[]); // Fallback to an empty list
+                return MapEntry(key, <int>[]);
               }
             },
           );
@@ -59,104 +56,71 @@ class _TransferScreenState extends State<TransferScreen> {
           setState(() {
             currentBalance = deposits[accountId]?.reduce((a, b) => a + b) ?? 0;
           });
-        } catch (e) {
-        }
+        } catch (e) {}
       }
     }
   }
+
   Future<void> _processTransfer() async {
     if (!_formKey.currentState!.validate()) return;
-
-    final int transferAmount = int.parse(amountController.text);
-
-    if (transferAmount > currentBalance) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Insufficient balance'),
-          backgroundColor: Colors.red,
-        ),
-      );
-      return;
-    }
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final accountId = prefs.getString('accountId');
 
-    if (accountId == null) {
+    if (accountId == null || accountId.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Account ID not found'),
-          backgroundColor: Colors.red,
-        ),
+        const SnackBar(content: Text('Account ID not found')),
       );
       return;
     }
 
     try {
-      // Parse and validate deposits
-      final depositsJson = prefs.getString('deposits');
+      final String? depositsJson = prefs.getString('deposits');
       final Map<String, List<int>> deposits = depositsJson != null
           ? (jsonDecode(depositsJson) as Map<String, dynamic>).map(
               (key, value) {
                 if (value is List<dynamic>) {
                   return MapEntry(key, List<int>.from(value));
                 } else {
-                  return MapEntry(key, <int>[]); // Fallback to empty list
+                  return MapEntry(key, <int>[]);
                 }
               },
             )
           : {};
 
-      // Ensure the account has a deposit list
+      final int transferAmount = int.parse(amountController.text);
+
       if (!deposits.containsKey(accountId)) {
         deposits[accountId] = [];
       }
 
-      // Deduct transfer amount
-      deposits[accountId]?.add(-transferAmount);
-
-      // Update SharedPreferences with the new deposits
+      deposits[accountId]!.add(-transferAmount);
       await prefs.setString('deposits', jsonEncode(deposits));
 
-      // Prepare API payload
-      final transferPayload = {
-        "amount": transferAmount,
-        "accountName": accountNameController.text,
-        "beneficiaryReference": beneficiaryReferenceController.text,
-        "bank": selectedBank ?? '',
-        "myReference": myReferenceController.text,
-        "accNumber": int.parse(accountNumberController.text),
-      };
+      final String? transactionsJson = prefs.getString('transactions');
+      final List<Map<String, dynamic>> transactions = transactionsJson != null
+          ? List<Map<String, dynamic>>.from(jsonDecode(transactionsJson))
+          : [];
 
-      final response = await http.post(
-        Uri.parse(
-            'https://94a9-41-193-50-201.ngrok-free.app/api/transactions/transfer'),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": accountId,
-        },
-        body: jsonEncode(transferPayload),
+      transactions.add({
+        'accountId': accountId,
+        'amount': -transferAmount,
+        'bank': selectedBank,
+        'accountName': accountNameController.text,
+        'date': DateTime.now().toIso8601String(),
+        'type': 'transfer'
+      });
+
+      await prefs.setString('transactions', jsonEncode(transactions));
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => SuccessScreen()),
       );
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => SuccessScreen()),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Transfer failed: ${response.body}'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
     } catch (e) {
+      print(e);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error: $e'),
-          backgroundColor: Colors.red,
-        ),
+        SnackBar(content: Text('Error: $e')),
       );
     }
   }
@@ -185,7 +149,7 @@ class _TransferScreenState extends State<TransferScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                     borderSide: BorderSide(
-                      color: Colors.green, // Default border color
+                      color: Colors.green,
                       width: 1.0,
                     ),
                   ),
@@ -193,7 +157,6 @@ class _TransferScreenState extends State<TransferScreen> {
                     borderRadius: BorderRadius.circular(20),
                     borderSide: BorderSide(
                       color: Colors.green,
-                      // Border color when the field is focused
                       width: 2.0,
                     ),
                   ),
@@ -201,7 +164,7 @@ class _TransferScreenState extends State<TransferScreen> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                     borderSide: const BorderSide(
-                      color: Colors.green, // Default border color
+                      color: Colors.green,
                       width: 1.0,
                     ),
                   ),
@@ -278,8 +241,6 @@ class _TransferScreenState extends State<TransferScreen> {
                 isRed: true,
               ),
               const SizedBox(height: 20),
-
-              ///todo you can not transfer anything about the amout so I need to do a check here
               LongTextFieldForm(
                 controller: amountController,
                 hintText: 'Amount',
@@ -297,29 +258,6 @@ class _TransferScreenState extends State<TransferScreen> {
               LongButton(
                 onTap: () {
                   _processTransfer();
-                  //we need to clear over here
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => SuccessScreen()),
-                  // );
-                  // if (_formKey.currentState!.validate()) {
-                  //   // Here you would usually send the data to the backend or your database
-                  //   showDialog(
-                  //     context: context,
-                  //     builder: (context) => AlertDialog(
-                  //       title: Text('Success'),
-                  //       content: Text('Transfer initiated successfully'),
-                  //       actions: <Widget>[
-                  //         TextButton(
-                  //           onPressed: () {
-                  //             Navigator.of(context).pop();
-                  //           },
-                  //           child: Text('OK'),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   );
-                  // }
                 },
                 title: "Transfer",
                 isLoading: false,
@@ -396,9 +334,7 @@ class _SuccessScreenState extends State<SuccessScreen>
                   const SizedBox(height: 20),
                   const Text(
                     "Transfer success!!",
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
                   const Text(
@@ -414,8 +350,7 @@ class _SuccessScreenState extends State<SuccessScreen>
                           context,
                           MaterialPageRoute(
                               builder: (context) => MainHomeScreen()),
-                          (Route<dynamic> route) =>
-                              false,
+                          (Route<dynamic> route) => false,
                         );
                       },
                       title: "Done",
@@ -487,7 +422,7 @@ class _FailScreenState extends State<FailScreen>
     );
 
     _positionAnimation = Tween<Offset>(
-      begin: Offset(0, 0.05), // slight vertical offset
+      begin: Offset(0, 0.05),
       end: Offset.zero,
     ).animate(
       CurvedAnimation(
@@ -524,16 +459,9 @@ class _FailScreenState extends State<FailScreen>
                   const SizedBox(height: 20),
                   const Text(
                     "Fail!!",
-                    style: TextStyle(
-                        // color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
-                  // const Text(
-                  //   "You transferred €900 to Brooklyn Simmons.",
-                  //   style: TextStyle(fontSize: 18),
-                  // ),
                   const Text(
                     "Oops and error has occurred.",
                     style: TextStyle(fontSize: 16),
@@ -542,13 +470,11 @@ class _FailScreenState extends State<FailScreen>
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: LongErrorButton(
-                      ///we send them to the home screen insted over here
                       onTap: () {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const TransferScreen()),
-                          // This predicate will always return false, removing all routes
                         );
                       },
                       title: "Try Again",
@@ -592,150 +518,3 @@ class StarFailPainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
-
-// {
-//   final _formKey = GlobalKey<FormState>();
-//   List<String> banks = ['FNB', 'Standard Bank', 'ABSA', 'Nedbank'];
-//   String? selectedBank;
-//   TextEditingController accountNameController = TextEditingController();
-//   TextEditingController accountNumberController = TextEditingController();
-//   TextEditingController beneficiaryReferenceController =
-//       TextEditingController();
-//   TextEditingController myReferenceController = TextEditingController();
-//   TextEditingController amountController = TextEditingController();
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Money Transfer'),
-//       ),
-//       body: Form(
-//         key: _formKey,
-//         child: SingleChildScrollView(
-//           padding: EdgeInsets.all(20),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: <Widget>[
-//               DropdownButtonFormField<String>(
-//                 decoration: InputDecoration(
-//                   labelText: 'Bank',
-//                   border: OutlineInputBorder(),
-//                 ),
-//                 value: selectedBank,
-//                 onChanged: (String? newValue) {
-//                   setState(() {
-//                     selectedBank = newValue!;
-//                   });
-//                 },
-//                 items: banks.map<DropdownMenuItem<String>>((String value) {
-//                   return DropdownMenuItem<String>(
-//                     value: value,
-//                     child: Text(value),
-//                   );
-//                 }).toList(),
-//                 validator: (value) =>
-//                     value == null ? 'Please select a bank' : null,
-//               ),
-//               SizedBox(height: 20),
-//               TextFormField(
-//                 controller: accountNameController,
-//                 decoration: InputDecoration(
-//                   labelText: 'Account Name',
-//                   border: OutlineInputBorder(),
-//                 ),
-//                 validator: (value) {
-//                   if (value == null || value.isEmpty) {
-//                     return 'Please enter account name';
-//                   }
-//                   return null;
-//                 },
-//               ),
-//               SizedBox(height: 20),
-//               TextFormField(
-//                 controller: accountNumberController,
-//                 decoration: InputDecoration(
-//                   labelText: 'Account Number',
-//                   border: OutlineInputBorder(),
-//                 ),
-//                 validator: (value) {
-//                   if (value == null || value.isEmpty) {
-//                     return 'Please enter account number';
-//                   }
-//                   return null;
-//                 },
-//               ),
-//               SizedBox(height: 20),
-//               TextFormField(
-//                 controller: beneficiaryReferenceController,
-//                 decoration: InputDecoration(
-//                   labelText: 'Beneficiary Reference',
-//                   border: OutlineInputBorder(),
-//                 ),
-//                 validator: (value) {
-//                   if (value == null || value.isEmpty) {
-//                     return 'Please enter beneficiary reference';
-//                   }
-//                   return null;
-//                 },
-//               ),
-//               SizedBox(height: 20),
-//               TextFormField(
-//                 controller: myReferenceController,
-//                 decoration: InputDecoration(
-//                   labelText: 'My Reference',
-//                   border: OutlineInputBorder(),
-//                 ),
-//                 validator: (value) {
-//                   if (value == null || value.isEmpty) {
-//                     return 'Please enter your reference';
-//                   }
-//                   return null;
-//                 },
-//               ),
-//               SizedBox(height: 20),
-//               TextFormField(
-//                 controller: amountController,
-//                 decoration: InputDecoration(
-//                   labelText: 'Amount',
-//                   border: OutlineInputBorder(),
-//                 ),
-//                 keyboardType: TextInputType.number,
-//                 validator: (value) {
-//                   if (value == null || value.isEmpty) {
-//                     return 'Please enter an amount';
-//                   }
-//                   return null;
-//                 },
-//               ),
-//               SizedBox(height: 20),
-//               ElevatedButton(
-//                 onPressed: () {
-//                   if (_formKey.currentState!.validate()) {
-//                     // Here you would usually send the data to the backend or your database
-//                     showDialog(
-//                       context: context,
-//                       builder: (context) => AlertDialog(
-//                         title: Text('Success'),
-//                         content: Text('Transfer initiated successfully'),
-//                         actions: <Widget>[
-//                           TextButton(
-//                             onPressed: () {
-//                               Navigator.of(context).pop();
-//                             },
-//                             child: Text('OK'),
-//                           ),
-//                         ],
-//                       ),
-//                     );
-//                   }
-//                 },
-//                 child: Text('Transfer Money'),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
