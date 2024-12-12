@@ -248,7 +248,21 @@ class _TransferScreenState extends State<TransferScreen> {
                 showPrefixIcon: false,
                 onChanged: (value) {},
                 validator: (value) {
-                  return Validation.textValidation(value);
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter an amount';
+                  }
+                  try {
+                    int amount = int.parse(value);
+                    if (amount <= 0) {
+                      return 'Amount must be greater than 0';
+                    }
+                    if (amount > currentBalance) {
+                      return 'Amount exceeds current balance';
+                    }
+                  } catch (e) {
+                    return 'Please enter a valid number';
+                  }
+                  return null;
                 },
                 showSuffixIcon: false,
                 obsureText: false,
