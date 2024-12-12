@@ -4,13 +4,11 @@ import 'package:eweatlthbankingapp/common_widgets/screens/user_layout/user_layou
 import 'package:eweatlthbankingapp/common_widgets/sized_box/sized_space.dart';
 import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.dart';
 import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
-import 'package:eweatlthbankingapp/features/user/user_login/model/model.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/email.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/have_an_account.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/logo_image.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/mylearning_text.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/password.dart';
-import 'package:eweatlthbankingapp/network/api_service.dart';
 import 'package:eweatlthbankingapp/util/constants/strings/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

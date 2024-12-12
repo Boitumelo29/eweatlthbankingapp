@@ -6,7 +6,6 @@ import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.da
 import 'package:eweatlthbankingapp/features/onboarding/presentation/onboarding_page.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/logo_image.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/mylearning_text.dart';
-import 'package:eweatlthbankingapp/features/user/user_sign_up/model/model.dart';
 import 'package:eweatlthbankingapp/features/user/user_sign_up/widget/SignupEmail.dart';
 import 'package:eweatlthbankingapp/features/user/user_sign_up/widget/address.dart';
 import 'package:eweatlthbankingapp/features/user/user_sign_up/widget/already_have_account.dart';
@@ -16,7 +15,6 @@ import 'package:eweatlthbankingapp/util/constants/strings/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../network/api_service.dart';
 
 class SignUpPage extends StatefulWidget {
   final VoidCallback? show;

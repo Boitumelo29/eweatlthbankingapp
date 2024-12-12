@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.dart';
 import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
 import 'package:eweatlthbankingapp/features/tranfer_screen/presnation/transfer_screen.dart';
-import 'package:eweatlthbankingapp/network/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -48,7 +47,7 @@ class _DepositPageState extends State<DepositPage> {
         final userData = jsonDecode(userDataJson);
         setState(() {
           userName = '${userData['firstName']} ${userData['lastName']}';
-          accountNumber = userData['email']; // Using email as account number
+          accountNumber = userData['email'];
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
