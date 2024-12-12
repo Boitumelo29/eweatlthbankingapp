@@ -1,4 +1,4 @@
-import 'package:eweatlthbankingapp/features/home_scree/presenation/home_page.dart';
+import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
 import 'package:eweatlthbankingapp/features/tranfer_screen/presnation/transfer_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +37,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   title: "Key Features",
                   content:
                       "With eWealth, you can check your balances in real-time, transfer money instantly. \n\n Our secure and easy-to-navigate app ensures that your financial needs are met, anywhere and anytime.",
-                  // image: 'assets/features.png',
                 ),
                 createPage(
                   title: "Get Started",
@@ -57,7 +56,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               height: 60,
               width: double.infinity,
               child: TextButton(
-                child: Text(
+                child: const Text(
                   'Get Started',
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
@@ -75,7 +74,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       topRight: Radius.circular(20))),
               alignment: Alignment.bottomRight,
               height: 60,
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -83,7 +82,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     onPressed: () {
                       _pageController.jumpToPage(2);
                     },
-                    child: Text(
+                    child: const Text(
                       'SKIP',
                       style: TextStyle(color: Colors.white),
                     ),

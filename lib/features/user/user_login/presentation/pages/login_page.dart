@@ -3,11 +3,9 @@ import 'dart:convert';
 import 'package:eweatlthbankingapp/common_widgets/screens/user_layout/user_layout_screen.dart';
 import 'package:eweatlthbankingapp/common_widgets/sized_box/sized_space.dart';
 import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.dart';
-import 'package:eweatlthbankingapp/features/home_scree/presenation/home_page.dart';
+import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/model/model.dart';
-import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/auth_row.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/email.dart';
-import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/forget_password.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/have_an_account.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/logo_image.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/mylearning_text.dart';
@@ -121,9 +119,11 @@ class _LoginPageState extends State<LoginPage> {
         );
       }
     } catch (e) {
-      print("this is my error: $e");
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: ${e.toString()}')),
+        SnackBar(
+          content: Text('Error: ${e.toString()}'),
+          backgroundColor: Colors.red,
+        ),
       );
     } finally {
       setState(() {

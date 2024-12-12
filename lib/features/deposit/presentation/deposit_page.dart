@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.dart';
-import 'package:eweatlthbankingapp/features/home_scree/presenation/home_page.dart';
+import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
 import 'package:eweatlthbankingapp/features/tranfer_screen/presnation/transfer_screen.dart';
 import 'package:eweatlthbankingapp/network/api_service.dart';
 import 'package:flutter/material.dart';
@@ -239,67 +239,6 @@ class _DepositPageState extends State<DepositPage> {
       );
     }
   }
-
-
-  // _amountDepost() async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   final accountId = prefs.getString('accountId');
-  //
-  //   if (accountId == null || accountId.isEmpty) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(content: Text('Account ID not found')),
-  //     );
-  //     return;
-  //   }
-  //
-  //   try {
-  //     final String? depositsJson = prefs.getString('deposits');
-  //     Map<String, String> deposits = {};
-  //
-  //     if (depositsJson != null) {
-  //       deposits = Map<String, String>.from(jsonDecode(depositsJson));
-  //     }
-  //
-  //     final depositAmount = _amountController.text;
-  //     deposits[accountId] = depositAmount;
-  //
-  //     await prefs.setString('deposits', jsonEncode(deposits));
-  //
-  //     Navigator.pushReplacement(
-  //       context,
-  //       MaterialPageRoute(builder: (context) => PaymentSuccessScreen()),
-  //     );
-  //   } catch (e) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text('Error: $e')),
-  //     );
-  //   }
-  // }
-
-  // Widget buildUserInfo() {
-  //   return const Row(
-  //     children: <Widget>[
-  //       Icon(Icons.person),
-  //       SizedBox(width: 10),
-  //       Expanded(
-  //         child: Column(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: <Widget>[
-  //             Text(
-  //               "Tumi Jane",
-  //               style: TextStyle(fontWeight: FontWeight.bold),
-  //             ),
-  //             Text(
-  //               "****** ****** 4321",
-  //               style: TextStyle(color: Colors.grey),
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //       Icon(Icons.check_circle, color: Colors.green),
-  //     ],
-  //   );
-  // }
 
   Widget buildUserInfo() {
     if (isLoadingUser) {

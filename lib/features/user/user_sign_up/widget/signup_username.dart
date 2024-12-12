@@ -1,8 +1,6 @@
 import 'package:eweatlthbankingapp/common_widgets/widgets/textfield/textfields.dart';
-import 'package:eweatlthbankingapp/util/constants/strings/strings.dart';
 import 'package:eweatlthbankingapp/util/validation/validation.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class SignupUsername extends StatelessWidget {
   final TextEditingController username;
