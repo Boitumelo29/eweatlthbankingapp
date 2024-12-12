@@ -2,13 +2,13 @@ import 'dart:math';
 
 import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.dart';
 import 'package:eweatlthbankingapp/common_widgets/widgets/textfield/textfields.dart';
+import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
 import 'package:eweatlthbankingapp/util/validation/validation.dart';
 import 'package:flutter/material.dart';
 
-import '../../home_scree/presenation/home_page.dart';
+
 
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -293,8 +293,6 @@ class _TransferScreenState extends State<TransferScreen> {
                 obsureText: false,
                 isRed: true,
               ),
-
-              ///todo you need to use the number textfield or creat a custome textfield
               const SizedBox(height: 20),
               LongButton(
                 onTap: () {
@@ -361,7 +359,7 @@ class _SuccessScreenState extends State<SuccessScreen>
     );
 
     _positionAnimation = Tween<Offset>(
-      begin: Offset(0, 0.05), // slight vertical offset
+      begin: Offset(0, 0.05),
       end: Offset.zero,
     ).animate(
       CurvedAnimation(
@@ -399,15 +397,10 @@ class _SuccessScreenState extends State<SuccessScreen>
                   const Text(
                     "Transfer success!!",
                     style: TextStyle(
-                        // color: Colors.white,
                         fontSize: 24,
                         fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
-                  // const Text(
-                  //   "You transferred €900 to Brooklyn Simmons.",
-                  //   style: TextStyle(fontSize: 18),
-                  // ),
                   const Text(
                     "Find the details in transactions page.",
                     style: TextStyle(fontSize: 16),
@@ -416,14 +409,13 @@ class _SuccessScreenState extends State<SuccessScreen>
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: LongButton(
-                      ///we send them to the home screen insted over here
                       onTap: () {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
                               builder: (context) => MainHomeScreen()),
                           (Route<dynamic> route) =>
-                              false, // This predicate will always return false, removing all routes
+                              false,
                         );
                       },
                       title: "Done",

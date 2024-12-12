@@ -262,8 +262,6 @@ class _SignUpPageState extends State<SignUpPage> {
       String day = id.substring(4, 6);
 
       int yearInt = int.parse(year);
-      int monthInt = int.parse(month);
-      int dayInt = int.parse(day);
 
       int currentYearLastTwoDigits = DateTime.now().year % 100;
       int fullYear = (yearInt > currentYearLastTwoDigits)

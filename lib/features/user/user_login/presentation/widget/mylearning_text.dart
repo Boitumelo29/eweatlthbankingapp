@@ -1,4 +1,3 @@
-import 'package:eweatlthbankingapp/util/constants/strings/strings.dart';
 import 'package:flutter/material.dart';
 
 class MyLearningText extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:eweatlthbankingapp/features/home_scree/presenation/home_page.dart';
+import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/pages/login_page.dart';
 import 'package:eweatlthbankingapp/features/user/user_sign_up/page/sign_up_page.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,6 @@ class AuthState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      ///we use it here getUserToken
       future: checkLoginStatus(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
@@ -21,7 +20,7 @@ class AuthState extends StatelessWidget {
             return isLoggedIn ? MainHomeScreen() : const AuthPage();
           }
         }
-        return Scaffold(body: Center(child: CircularProgressIndicator()));
+        return const Scaffold(body: Center(child: CircularProgressIndicator()));
       },
     );
   }
@@ -60,96 +59,3 @@ class _AuthPageState extends State<AuthPage> {
   }
 }
 
-class MyAuthPage extends StatelessWidget {
-  const MyAuthPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.green.shade200, Colors.green.shade100],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Spacer(flex: 2),
-            Text(
-              'Secure your financial future with us.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-                color: Colors.black,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Text(
-                'Your financial future, our priority. Secure your finances with our trusted banking services.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
-                ),
-              ),
-            ),
-            Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
-                    }, // Add your login function here
-                    child: Text('Log In'),
-                    style: ElevatedButton.styleFrom(
-                      // primary: Colors.black,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SignUpPage()),
-                      );
-                    }, // Add your register function here
-                    child: Text('Register'),
-                    style: ElevatedButton.styleFrom(
-                      // primary: Colors.green[300],
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Spacer(),
-          ],
-        ),
-      ),
-    );
-  }
-}
