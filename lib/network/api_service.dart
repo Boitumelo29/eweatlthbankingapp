@@ -1,11 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:eweatlthbankingapp/features/user/user_login/model/model.dart';
 import 'package:http/http.dart' as http;
 
 import '../features/user/user_sign_up/model/model.dart';
 
 class ApiService {
-  final String baseUrl = "https://94a9-41-193-50-201.ngrok-free.app/api";
+  final String baseUrl = Platform.isAndroid ? 'http://10.0.2.2:8080/api' : 'http://localhost:8080/api';
 
   Future<http.Response> fetchUser(String accountId) async {
     final url = Uri.parse('$baseUrl/accounts/$accountId');
