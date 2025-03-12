@@ -1,5 +1,5 @@
 import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
-import 'package:eweatlthbankingapp/features/tranfer_screen/presnation/transfer_screen.dart';
+import 'package:eweatlthbankingapp/features/tranfer_screen/presentation/transfer_screen.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingPage extends StatefulWidget {

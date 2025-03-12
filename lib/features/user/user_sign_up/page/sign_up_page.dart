@@ -5,7 +5,8 @@ import 'package:eweatlthbankingapp/common_widgets/sized_box/sized_space.dart';
 import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.dart';
 import 'package:eweatlthbankingapp/features/onboarding/presentation/onboarding_page.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/logo_image.dart';
-import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/mylearning_text.dart';
+import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/ewealth_text.dart';
+import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/my_ewealth_sub_text.dart';
 import 'package:eweatlthbankingapp/features/user/user_sign_up/widget/SignupEmail.dart';
 import 'package:eweatlthbankingapp/features/user/user_sign_up/widget/address.dart';
 import 'package:eweatlthbankingapp/features/user/user_sign_up/widget/already_have_account.dart';
@@ -75,8 +76,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 const SizedSpace(
                   height: 20,
                 ),
-                const MyLearningText(),
-                const MyLearningSubText(),
+                const EWealthText(),
+                const EWealthSubText(),
                 const LogoImage(),
                 SignupUsername(username: username, username_f: username_f),
                 const SizedSpace(

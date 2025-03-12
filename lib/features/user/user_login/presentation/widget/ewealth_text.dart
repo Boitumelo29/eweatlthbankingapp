@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MyLearningText extends StatelessWidget {
-  const MyLearningText({super.key});
+class EWealthText extends StatelessWidget {
+  const EWealthText({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,14 +12,3 @@ class MyLearningText extends StatelessWidget {
   }
 }
 
-class MyLearningSubText extends StatelessWidget {
-  const MyLearningSubText({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      "Transfers made simple.",
-      style: TextStyle(color: Colors.grey[800], fontSize: 20, fontWeight: FontWeight.w300),
-    );
-  }
-}

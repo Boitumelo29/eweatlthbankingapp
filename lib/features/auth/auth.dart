@@ -17,7 +17,7 @@ class AuthState extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
             bool isLoggedIn = snapshot.data as bool;
-            return isLoggedIn ? MainHomeScreen() : const AuthPage();
+            return isLoggedIn ? const HomePage() : const AuthPage();
           }
         }
         return const Scaffold(body: Center(child: CircularProgressIndicator()));

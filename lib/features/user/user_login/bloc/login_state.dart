@@ -1,6 +1,11 @@
 part of 'login_bloc.dart';
 
-@immutable
-sealed class LoginState {}
+enum LoginStatus { initial, loading, success, failure }
 
-final class LoginInitial extends LoginState {}
+@freezed
+class LoginState with _$LoginState {
+  const factory LoginState({
+    @Default(LoginStatus.initial) LoginStatus status,
+    String? error,
+  }) = _LoginState;
+}

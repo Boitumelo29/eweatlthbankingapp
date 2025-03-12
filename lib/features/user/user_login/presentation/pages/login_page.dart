@@ -4,13 +4,16 @@ import 'package:eweatlthbankingapp/common_widgets/screens/user_layout/user_layou
 import 'package:eweatlthbankingapp/common_widgets/sized_box/sized_space.dart';
 import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.dart';
 import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
+import 'package:eweatlthbankingapp/features/user/user_login/bloc/login_bloc.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/email.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/have_an_account.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/logo_image.dart';
-import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/mylearning_text.dart';
+import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/ewealth_text.dart';
+import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/my_ewealth_sub_text.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/password.dart';
 import 'package:eweatlthbankingapp/util/constants/strings/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
@@ -45,15 +48,13 @@ class _LoginPageState extends State<LoginPage> {
       final String? userDataJson = prefs.getString('userData');
 
       if (userDataJson != null) {
-        // Parse the stored user data
         final Map<String, dynamic> userData = jsonDecode(userDataJson);
-        
-        // Check if email and password match
-        if (userData['email'] == email.text && 
+
+        if (userData['email'] == email.text &&
             userData['password'] == password.text) {
-          // Store login state and user data
           await prefs.setBool('isLoggedIn', true);
-          await prefs.setString('accountId', userData['email']); // Using email as accountId
+          await prefs.setString(
+              'accountId', userData['email']); // Using email as accountId
           await prefs.setString('username', userData['firstName']);
           await prefs.setString('surname', userData['lastName']);
 
@@ -94,50 +95,64 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return UserLayoutScreen(
-      children: [
-        const MyLearningText(),
-        const MyLearningSubText(),
-        const LogoImage(),
-        const SizedSpace(
-          height: 60,
-        ),
-        Form(
-            key: _formKey,
-            child: Column(
-              children: <Widget>[
-                LoginEmail(
-                  email: email,
-                  emailFocus: emailFocus,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                LoginPassword(
-                  password: password,
-                  passwordFocus: passwordFocus,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                LongButton(
-                  isLoading: isLoading,
-                  onTap: () {
-                    emailFocus.unfocus();
-                    passwordFocus.unfocus();
-                    if (_formKey.currentState!.validate()) {
-                      _login();
-                    }
-                  },
-                  title: Strings.login,
-                ),
-                const SizedSpace(
-                  height: 10,
-                ),
-                DontHaveAnAccount(onPressed: widget.show),
-              ],
-            ))
-      ],
+    return BlocConsumer<LoginBloc, LoginState>(
+      listener: _listener,
+      builder: (context, state) {
+        return UserLayoutScreen(
+          children: [
+            const EWealthText(),
+            const EWealthSubText(),
+            const LogoImage(),
+            const SizedSpace(
+              height: 60,
+            ),
+            Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    LoginEmail(
+                      email: email,
+                      emailFocus: emailFocus,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    LoginPassword(
+                      password: password,
+                      passwordFocus: passwordFocus,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    LongButton(
+                      isLoading: isLoading,
+                      onTap: () {
+                        emailFocus.unfocus();
+                        passwordFocus.unfocus();
+                        if (_formKey.currentState!.validate()) {
+                          context.read<LoginBloc>().add(
+                                LoginSubmitted(
+                                    email: email.text, password: password.text),
+                              );
+                          // _login();
+                        }
+                      },
+                      title: Strings.login,
+                    ),
+                    const SizedSpace(
+                      height: 10,
+                    ),
+                    DontHaveAnAccount(onPressed: widget.show),
+                  ],
+                ))
+          ],
+        );
+      },
     );
+  }
+
+  void _listener(BuildContext context, LoginState state) {
+
+    // if(state.)
   }
 }
