@@ -159,14 +159,14 @@ class _HomePageState extends State<HomePage> {
 }
 
 @RoutePage()
-class MainHomeScreen extends StatefulWidget {
-  const MainHomeScreen({super.key});
+class MainHomePage extends StatefulWidget {
+  const MainHomePage({super.key});
 
   @override
-  State<MainHomeScreen> createState() => _MainHomeScreenState();
+  State<MainHomePage> createState() => _MainHomePageState();
 }
 
-class _MainHomeScreenState extends State<MainHomeScreen> {
+class _MainHomePageState extends State<MainHomePage> {
   int depositAmount = 0;
   List<Map<String, dynamic>> transactions = [];
   String? userName;

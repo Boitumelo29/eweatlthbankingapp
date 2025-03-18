@@ -62,7 +62,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 ),
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => MainHomeScreen()));
+                      MaterialPageRoute(builder: (_) => MainHomePage()));
                 },
               ),
             )

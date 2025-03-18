@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:eweatlthbankingapp/common_widgets/screens/user_layout/user_layout_screen.dart';
 import 'package:eweatlthbankingapp/common_widgets/sized_box/sized_space.dart';
 import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.dart';
+import 'package:eweatlthbankingapp/core/routes/router.dart';
 import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/bloc/login_bloc.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/email.dart';
@@ -16,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@RoutePage()
 class LoginPage extends StatefulWidget {
   final VoidCallback? show;
 
@@ -60,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
 
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => MainHomeScreen()),
+            MaterialPageRoute(builder: (context) => MainHomePage()),
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -152,7 +155,15 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _listener(BuildContext context, LoginState state) {
-
-    // if(state.)
+    if (state.status == LoginStatus.success) {
+      context.router.push(const MainHomeRoute());
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Invalid email or password'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 }
