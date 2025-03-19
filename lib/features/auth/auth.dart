@@ -1,11 +1,15 @@
+import 'package:auto_route/annotations.dart';
 import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
+import 'package:eweatlthbankingapp/features/user/user_login/bloc/login_bloc.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/pages/login_page.dart';
 import 'package:eweatlthbankingapp/features/user/user_sign_up/page/sign_up_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthState extends StatelessWidget {
-  const AuthState({
+@RoutePage()
+class MainAuthPage extends StatelessWidget {
+  const MainAuthPage({
     super.key,
   });
 
@@ -50,8 +54,11 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     if (a) {
-      return LoginPage(
-        show: go,
+      return BlocProvider(
+        create: (context) => LoginBloc(),
+        child: LoginPage(
+          show: go,
+        ),
       );
     } else {
       return SignUpPage(show: go);

@@ -130,15 +130,16 @@ class _LoginPageState extends State<LoginPage> {
                     LongButton(
                       isLoading: isLoading,
                       onTap: () {
-                        emailFocus.unfocus();
-                        passwordFocus.unfocus();
-                        if (_formKey.currentState!.validate()) {
-                          context.read<LoginBloc>().add(
-                                LoginSubmitted(
-                                    email: email.text, password: password.text),
-                              );
-                          // _login();
-                        }
+                        context.router.push(const MainHomeRoute());
+                        // emailFocus.unfocus();
+                        // passwordFocus.unfocus();
+                        // if (_formKey.currentState!.validate()) {
+                        //   context.read<LoginBloc>().add(
+                        //         LoginSubmitted(
+                        //             email: email.text, password: password.text),
+                        //       );
+                        //   // _login();
+                        // }
                       },
                       title: Strings.login,
                     ),

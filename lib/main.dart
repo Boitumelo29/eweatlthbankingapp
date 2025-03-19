@@ -1,10 +1,13 @@
-import 'package:eweatlthbankingapp/features/auth/auth.dart';
+import 'package:eweatlthbankingapp/core/routes/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
+
+final appRouter = AppRouter();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -13,9 +16,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
-      builder: (context, child) => const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: AuthState(),
+      builder: (context, child) => MaterialApp.router(
+        routerDelegate: appRouter.delegate(),
+        routeInformationParser: appRouter.defaultRouteParser(),
       ),
     );
   }

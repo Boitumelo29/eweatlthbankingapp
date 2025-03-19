@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:equatable/equatable.dart';
 
 part 'login_event.dart';
 
