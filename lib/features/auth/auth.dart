@@ -1,4 +1,7 @@
 import 'package:auto_route/annotations.dart';
+import 'package:eweatlthbankingapp/features/auth/bloc/auth_bloc.dart';
+import 'package:eweatlthbankingapp/features/auth/data/auth_repo.dart';
+import 'package:eweatlthbankingapp/features/home_screen/bloc/home_bloc.dart';
 import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/bloc/login_bloc.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/pages/login_page.dart';
@@ -8,24 +11,34 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 @RoutePage()
-class MainAuthPage extends StatelessWidget {
-  const MainAuthPage({
+class MyMainAuthPage extends StatelessWidget {
+  const MyMainAuthPage({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: checkLoginStatus(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.hasData) {
-            bool isLoggedIn = snapshot.data as bool;
-            return isLoggedIn ? const HomePage() : const AuthPage();
+    return BlocProvider(
+      /// todo since we passed the auth repo in the beginning we can then access the user through the auth repo
+      create: (context) => AuthBloc(authRepository: AuthRepository()),
+      child: FutureBuilder(
+        future: checkLoginStatus(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasData) {
+              bool isLoggedIn = snapshot.data as bool;
+              return isLoggedIn
+                  ? BlocProvider(
+                      create: (context) => HomeBloc(authRepo: AuthRepository()),
+                      child: MainHomePage(),
+                    )
+                  : const AuthPage();
+            }
           }
-        }
-        return const Scaffold(body: Center(child: CircularProgressIndicator()));
-      },
+          return const Scaffold(
+              body: Center(child: CircularProgressIndicator()));
+        },
+      ),
     );
   }
 
@@ -65,4 +78,3 @@ class _AuthPageState extends State<AuthPage> {
     }
   }
 }
-

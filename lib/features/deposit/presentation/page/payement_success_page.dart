@@ -21,7 +21,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     );
 
     _opacityAnimation = Tween<double>(begin: 0, end: 1).animate(
@@ -32,7 +32,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
     );
 
     _positionAnimation = Tween<Offset>(
-      begin: Offset(0, 0.05),
+      begin: const Offset(0, 0.05),
       end: Offset.zero,
     ).animate(
       CurvedAnimation(
@@ -88,7 +88,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MainHomePage()),
+                              builder: (context) => const MainHomePage()),
                               (Route<dynamic> route) =>
                           false,
                         );

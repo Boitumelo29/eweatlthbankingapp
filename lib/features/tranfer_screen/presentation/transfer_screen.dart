@@ -55,7 +55,9 @@ class _TransferScreenState extends State<TransferScreen> {
           setState(() {
             currentBalance = deposits[accountId]?.reduce((a, b) => a + b) ?? 0;
           });
-        } catch (e) {}
+        } catch (e) {
+          rethrow;
+        }
       }
     }
   }
@@ -117,7 +119,6 @@ class _TransferScreenState extends State<TransferScreen> {
         MaterialPageRoute(builder: (context) => SuccessScreen()),
       );
     } catch (e) {
-      print(e);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );
@@ -133,7 +134,7 @@ class _TransferScreenState extends State<TransferScreen> {
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -147,14 +148,14 @@ class _TransferScreenState extends State<TransferScreen> {
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.green,
                       width: 1.0,
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.green,
                       width: 2.0,
                     ),
@@ -299,7 +300,7 @@ class _SuccessScreenState extends State<SuccessScreen>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     );
 
     _opacityAnimation = Tween<double>(begin: 0, end: 1).animate(
@@ -310,7 +311,7 @@ class _SuccessScreenState extends State<SuccessScreen>
     );
 
     _positionAnimation = Tween<Offset>(
-      begin: Offset(0, 0.05),
+      begin: const Offset(0, 0.05),
       end: Offset.zero,
     ).animate(
       CurvedAnimation(
@@ -362,7 +363,7 @@ class _SuccessScreenState extends State<SuccessScreen>
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MainHomePage()),
+                              builder: (context) => const MainHomePage()),
                           (Route<dynamic> route) => false,
                         );
                       },
@@ -424,7 +425,7 @@ class _FailScreenState extends State<FailScreen>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     );
 
     _opacityAnimation = Tween<double>(begin: 0, end: 1).animate(
@@ -435,7 +436,7 @@ class _FailScreenState extends State<FailScreen>
     );
 
     _positionAnimation = Tween<Offset>(
-      begin: Offset(0, 0.05),
+      begin: const Offset(0, 0.05),
       end: Offset.zero,
     ).animate(
       CurvedAnimation(

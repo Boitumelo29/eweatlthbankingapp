@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 
 class SignupConfirmPassword extends StatelessWidget {
   final TextEditingController passwordConfirm;
-  final FocusNode passwordConfirm_f;
+  final FocusNode passwordConfirmFocus;
   final TextEditingController password;
-  const SignupConfirmPassword({super.key, required this.passwordConfirm, required this.passwordConfirm_f, required this.password});
+  const SignupConfirmPassword({super.key, required this.passwordConfirm, required this.passwordConfirmFocus, required this.password});
 
   @override
   Widget build(BuildContext context) {
     return  LongTextFieldForm(
       isRed: false,
       controller: passwordConfirm,
-      focusNode: passwordConfirm_f,
+      focusNode: passwordConfirmFocus,
       hintText: Strings.confirmPassword,
       labelText: Strings.confirmPassword,
       obsureText: true,

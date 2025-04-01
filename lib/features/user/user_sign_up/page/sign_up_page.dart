@@ -29,25 +29,25 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
   final email = TextEditingController();
-  FocusNode email_f = FocusNode();
+  FocusNode emailFocus = FocusNode();
   final password = TextEditingController();
-  FocusNode password_f = FocusNode();
+  FocusNode passwordFocus = FocusNode();
   final passwordConfirm = TextEditingController();
-  FocusNode passwordConfirm_f = FocusNode();
+  FocusNode passwordConfirmFocus = FocusNode();
   final username = TextEditingController();
-  FocusNode username_f = FocusNode();
+  FocusNode usernameFocus = FocusNode();
   final lastname = TextEditingController();
-  FocusNode lastname_f = FocusNode();
+  FocusNode lastnameFocus = FocusNode();
   final cellphone = TextEditingController();
-  FocusNode cellphone_f = FocusNode();
+  FocusNode cellphoneFocus = FocusNode();
   final id = TextEditingController();
-  FocusNode id_f = FocusNode();
+  FocusNode idFocus = FocusNode();
   final sub = TextEditingController();
-  FocusNode sub_f = FocusNode();
+  FocusNode subFocus = FocusNode();
   final city = TextEditingController();
-  FocusNode city_f = FocusNode();
+  FocusNode cityFocus = FocusNode();
   final streetName = TextEditingController();
-  FocusNode streetName_f = FocusNode();
+  FocusNode streetNameFocus = FocusNode();
   final TextEditingController dobController =
       TextEditingController();
 
@@ -79,19 +79,19 @@ class _SignUpPageState extends State<SignUpPage> {
                 const EWealthText(),
                 const EWealthSubText(),
                 const LogoImage(),
-                SignupUsername(username: username, username_f: username_f),
+                SignupUsername(username: username, usernameFocus: usernameFocus),
                 const SizedSpace(
                   height: 10,
                 ),
-                SignupLastName(username: lastname, username_f: lastname_f),
+                SignupLastName(username: lastname, usernameFocus: lastnameFocus),
                 const SizedSpace(
                   height: 10,
                 ),
-                SignupCellPhone(username: cellphone, username_f: cellphone_f),
+                SignupCellPhone(username: cellphone, usernameFocus: cellphoneFocus),
                 const SizedSpace(
                   height: 10,
                 ),
-                SignupEmail(email: email, email_f: email_f),
+                SignupEmail(email: email, emailFocus: emailFocus),
                 const SizedSpace(
                   height: 10,
                 ),
@@ -115,28 +115,28 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 SignupSurb(
                   username: sub,
-                  username_f: sub_f,
+                  usernameFocus: subFocus,
                 ),
                 const SizedSpace(
                   height: 10,
                 ),
                 SignupCity(
                   username: city,
-                  username_f: city_f,
+                  usernameFocus: cityFocus,
                 ),
                 const SizedSpace(
                   height: 10,
                 ),
                 SignupStreetName(
                   username: streetName,
-                  username_f: streetName_f,
+                  usernameFocus: streetNameFocus,
                 ),
                 const SizedSpace(
                   height: 10,
                 ),
                 SignupID(
                   username: id,
-                  username_f: id_f,
+                  usernameFocus: idFocus,
                   onIDChanged: onIDChanged,
                 ),
                 const SizedSpace(
@@ -150,14 +150,14 @@ class _SignUpPageState extends State<SignUpPage> {
                       labelText: 'Date of Birth (DD/MM/YYYY)',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(color: Colors.grey, width: 0.7),
+                        borderSide: const BorderSide(color: Colors.grey, width: 0.7),
                       )),
                   readOnly: true,
                 ),
                 const SizedSpace(
                   height: 10,
                 ),
-                SignupPassword(password: password, password_f: password_f),
+                SignupPassword(password: password, passwordFocus: passwordFocus),
                 const SizedBox(
                   height: 10,
                 ),
@@ -216,10 +216,9 @@ class _SignUpPageState extends State<SignUpPage> {
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => OnboardingPage()),
+        MaterialPageRoute(builder: (context) => const OnboardingPage()),
       );
     } catch (e) {
-      print(e);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );

@@ -1,10 +1,13 @@
 import 'dart:convert';
 
+import 'package:auto_route/annotations.dart';
 import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.dart';
+import 'package:eweatlthbankingapp/features/auth/data/auth_repo.dart';
 import 'package:eweatlthbankingapp/features/deposit/presentation/page/payement_success_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@RoutePage()
 class DepositPage extends StatefulWidget {
   const DepositPage({super.key});
 
@@ -15,56 +18,59 @@ class DepositPage extends StatefulWidget {
 class _DepositPageState extends State<DepositPage> {
   @override
   void initState() {
+    ///move to data file or auth repo, then use auth repo to get the users email account.
     super.initState();
 
-    SharedPreferences.getInstance().then((prefs) {
-      final accountId = prefs.getString('accountId') ?? '';
-      if (accountId.isNotEmpty) {
-        fetchUserDetails(accountId);
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Account ID not found')),
-        );
-      }
-    });
+    // SharedPreferences.getInstance().then((prefs) {
+    //   final accountId = prefs.getString('accountId') ?? '';
+    //   if (accountId.isNotEmpty) {
+    //     fetchUserDetails(accountId);
+    //   } else {
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       const SnackBar(content: Text('Account ID not found')),
+    //     );
+    //   }
+    // });
   }
 
+  /// we are no longer going to do this, we are going to get the user through the auth
+  ///
   String? userName;
   String? accountNumber;
   bool isLoadingUser = true;
 
-  Future<void> fetchUserDetails(String accountId) async {
-    setState(() {
-      isLoadingUser = true;
-    });
+  // Future<void> fetchUserDetails(String accountId) async {
+  //   setState(() {
+  //     isLoadingUser = true;
+  //   });
+  //
+  //   try {
+  //     final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //     final String? userDataJson = prefs.getString('userData');
+  //
+  //     if (userDataJson != null) {
+  //       final userData = jsonDecode(userDataJson);
+  //       setState(() {
+  //         userName = '${userData['firstName']} ${userData['lastName']}';
+  //         accountNumber = userData['email'];
+  //       });
+  //     } else {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         const SnackBar(content: Text('User data not found')),
+  //       );
+  //     }
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Error: $e')),
+  //     );
+  //   } finally {
+  //     setState(() {
+  //       isLoadingUser = false;
+  //     });
+  //   }
+  // }
 
-    try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final String? userDataJson = prefs.getString('userData');
-      
-      if (userDataJson != null) {
-        final userData = jsonDecode(userDataJson);
-        setState(() {
-          userName = '${userData['firstName']} ${userData['lastName']}';
-          accountNumber = userData['email'];
-        });
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('User data not found')),
-        );
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
-    } finally {
-      setState(() {
-        isLoadingUser = false;
-      });
-    }
-  }
-
-  TextEditingController _amountController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
 
   void _onKeypadTap(String value) {
     setState(() {
@@ -206,14 +212,14 @@ class _DepositPageState extends State<DepositPage> {
       final String? depositsJson = prefs.getString('deposits');
       final Map<String, List<int>> deposits = depositsJson != null
           ? (jsonDecode(depositsJson) as Map<String, dynamic>).map(
-            (key, value) {
-          if (value is List<dynamic>) {
-            return MapEntry(key, List<int>.from(value));
-          } else {
-            return MapEntry(key, <int>[]); // Fallback to empty list
-          }
-        },
-      )
+              (key, value) {
+                if (value is List<dynamic>) {
+                  return MapEntry(key, List<int>.from(value));
+                } else {
+                  return MapEntry(key, <int>[]); // Fallback to empty list
+                }
+              },
+            )
           : {};
 
       final int depositAmount = int.parse(_amountController.text);
@@ -228,7 +234,7 @@ class _DepositPageState extends State<DepositPage> {
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => PaymentSuccessScreen()),
+        MaterialPageRoute(builder: (context) => const PaymentSuccessScreen()),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -291,4 +297,3 @@ class _DepositPageState extends State<DepositPage> {
     );
   }
 }
-
