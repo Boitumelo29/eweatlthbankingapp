@@ -18,6 +18,10 @@ class TransactionButtons extends StatelessWidget {
           _buildActionButton(Icons.send, 'Transfer', () {
             context.router.push(const TransferRoute());
           }),
+          ///here we scan to pay
+          _buildActionButton(Icons.document_scanner, 'Pay', () {
+            context.router.push(const DepositRoute());
+          }),
         ],
       ),
     );

@@ -5,6 +5,7 @@ class AppBarScreen extends StatelessWidget {
   final String title;
   final List<Widget> children;
   final List<Widget>? appBarChildren;
+  final Widget? drawer;
   final bool shouldHaveFloatingButton;
   final Function()? floatingActionButton;
   final String? tooltip;
@@ -22,6 +23,7 @@ class AppBarScreen extends StatelessWidget {
     this.floatingActionButton,
     this.tooltip,
     this.icon,
+    this.drawer,
   });
 
   @override
@@ -32,6 +34,7 @@ class AppBarScreen extends StatelessWidget {
         title: Text(title),
         actions: appBarChildren,
       ),
+      drawer: drawer ?? const SizedBox(),
       body: SingleChildScrollView(
         physics: shouldScroll
             ? const ScrollPhysics()

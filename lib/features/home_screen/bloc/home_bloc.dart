@@ -39,7 +39,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             );
 
             final amounts = deposits[accountId] ?? [];
-            final total = amounts.isNotEmpty
+            final deposit = amounts.isNotEmpty
                 ? amounts.reduce((a, b) => a + b)
                 : 0;
             final transactions = amounts
@@ -47,7 +47,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 .toList();
 
             emit(state.copyWith(
-              depositAmount: total,
+              depositAmount: deposit,
               transactions: transactions,
             ));
           } catch (e) {
