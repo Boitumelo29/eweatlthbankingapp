@@ -1,5 +1,5 @@
 import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
-import 'package:eweatlthbankingapp/features/tranfer_screen/presnation/transfer_screen.dart';
+import 'package:eweatlthbankingapp/features/tranfer_screen/presentation/transfer_screen.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingPage extends StatefulWidget {
@@ -62,7 +62,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 ),
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => MainHomeScreen()));
+                      MaterialPageRoute(builder: (_) => const MainHomePage()));
                 },
               ),
             )
@@ -90,10 +90,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   TextButton(
                     onPressed: () {
                       _pageController.nextPage(
-                          duration: Duration(milliseconds: 500),
+                          duration: const Duration(milliseconds: 500),
                           curve: Curves.easeInOut);
                     },
-                    child: Text('NEXT', style: TextStyle(color: Colors.white)),
+                    child: const Text('NEXT', style: TextStyle(color: Colors.white)),
                   ),
                 ],
               ),
@@ -104,14 +104,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
   Widget createPage(
       {required String title, required String content, String? image}) {
     return Container(
-      padding: EdgeInsets.all(24),
+      padding: const EdgeInsets.all(24),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(title,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-          SizedBox(height: 10),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 10),
           if (image != null)
             Padding(
               padding: const EdgeInsets.only(top: 20),
@@ -124,9 +124,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 ),
               ),
             ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Text(content,
-              textAlign: TextAlign.center, style: TextStyle(fontSize: 18)),
+              textAlign: TextAlign.center, style: const TextStyle(fontSize: 18)),
         ],
       ),
     );

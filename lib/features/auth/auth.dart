@@ -1,33 +1,48 @@
+import 'package:auto_route/annotations.dart';
+import 'package:eweatlthbankingapp/features/auth/bloc/auth_bloc.dart';
+import 'package:eweatlthbankingapp/features/auth/data/auth_repo.dart';
+import 'package:eweatlthbankingapp/features/home_screen/bloc/home_bloc.dart';
 import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
+import 'package:eweatlthbankingapp/features/user/user_login/bloc/login_bloc.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/pages/login_page.dart';
+import 'package:eweatlthbankingapp/features/user/user_sign_up/bloc/sign_up_bloc.dart';
 import 'package:eweatlthbankingapp/features/user/user_sign_up/page/sign_up_page.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AuthState extends StatelessWidget {
-  const AuthState({
-    super.key,
-  });
+@RoutePage()
+class MyMainAuthPage extends StatelessWidget {
+  const MyMainAuthPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: checkLoginStatus(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.hasData) {
-            bool isLoggedIn = snapshot.data as bool;
-            return isLoggedIn ? MainHomeScreen() : const AuthPage();
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthBloc>(
+          create: (context) => AuthBloc(authRepository: AuthRepository())
+            ..add(const CheckAuthStatus()),
+        ),
+        BlocProvider<HomeBloc>(
+          create: (context) =>
+              HomeBloc(authRepo: AuthRepository())..add(const LoadDeposit()),
+        ),
+      ],
+      child: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          if (state.status == AuthStatus.loading) {
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
           }
-        }
-        return const Scaffold(body: Center(child: CircularProgressIndicator()));
-      },
-    );
-  }
 
-  Future<bool> checkLoginStatus() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('isLoggedIn') ?? false;
+          if (state.status == AuthStatus.authenticated) {
+            return const MainHomePage();
+          } else {
+            return const AuthPage();
+          }
+        },
+      ),
+    );
   }
 }
 
@@ -50,12 +65,17 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     if (a) {
-      return LoginPage(
-        show: go,
+      return BlocProvider(
+        create: (context) => LoginBloc(authRepository: AuthRepository()),
+        child: LoginPage(
+          show: go,
+        ),
       );
     } else {
-      return SignUpPage(show: go);
+      return BlocProvider(
+        create: (context) => SignUpBloc(authRepository: AuthRepository()),
+        child: SignUpPage(show: go),
+      );
     }
   }
 }
-

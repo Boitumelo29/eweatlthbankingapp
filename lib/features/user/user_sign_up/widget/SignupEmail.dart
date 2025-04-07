@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 
 class SignupEmail extends StatelessWidget {
   final TextEditingController email;
-  final FocusNode email_f;
+  final FocusNode emailFocus;
 
-  const SignupEmail({super.key, required this.email, required this.email_f});
+  const SignupEmail({super.key, required this.email, required this.emailFocus});
 
   @override
   Widget build(BuildContext context) {
     return LongTextFieldForm(
       isRed: false,
       controller: email,
-      focusNode: email_f,
+      focusNode: emailFocus,
       hintText: Strings.email,
       labelText: Strings.email,
       obsureText: false,

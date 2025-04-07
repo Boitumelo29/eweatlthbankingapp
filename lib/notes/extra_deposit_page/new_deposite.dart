@@ -1,73 +1,73 @@
 import 'dart:convert';
 
 import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.dart';
-import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
-import 'package:eweatlthbankingapp/features/tranfer_screen/presnation/transfer_screen.dart';
-import 'package:eweatlthbankingapp/network/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class DepositPage extends StatefulWidget {
-  const DepositPage({super.key});
+
+class NewDepositPage extends StatefulWidget {
+  const NewDepositPage({super.key});
 
   @override
-  State<DepositPage> createState() => _DepositPageState();
+  State<NewDepositPage> createState() => _NewDepositPageState();
 }
 
-class _DepositPageState extends State<DepositPage> {
+class _NewDepositPageState extends State<NewDepositPage> {
   @override
   void initState() {
+    ///move to data file or auth repo, then use auth repo to get the users email account.
     super.initState();
 
-    SharedPreferences.getInstance().then((prefs) {
-      final accountId = prefs.getString('accountId') ?? '';
-      if (accountId.isNotEmpty) {
-        fetchUserDetails(accountId);
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Account ID not found')),
-        );
-      }
-    });
+    // SharedPreferences.getInstance().then((prefs) {
+    //   final accountId = prefs.getString('accountId') ?? '';
+    //   if (accountId.isNotEmpty) {
+    //     fetchUserDetails(accountId);
+    //   } else {
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       const SnackBar(content: Text('Account ID not found')),
+    //     );
+    //   }
+    // });
   }
 
-  final ApiService _apiService = ApiService();
+  /// we are no longer going to do this, we are going to get the user through the auth
+  ///
   String? userName;
   String? accountNumber;
   bool isLoadingUser = true;
 
-  Future<void> fetchUserDetails(String accountId) async {
-    setState(() {
-      isLoadingUser = true;
-    });
+  // Future<void> fetchUserDetails(String accountId) async {
+  //   setState(() {
+  //     isLoadingUser = true;
+  //   });
+  //
+  //   try {
+  //     final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //     final String? userDataJson = prefs.getString('userData');
+  //
+  //     if (userDataJson != null) {
+  //       final userData = jsonDecode(userDataJson);
+  //       setState(() {
+  //         userName = '${userData['firstName']} ${userData['lastName']}';
+  //         accountNumber = userData['email'];
+  //       });
+  //     } else {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         const SnackBar(content: Text('User data not found')),
+  //       );
+  //     }
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Error: $e')),
+  //     );
+  //   } finally {
+  //     setState(() {
+  //       isLoadingUser = false;
+  //     });
+  //   }
+  // }
 
-    try {
-      final response = await _apiService.fetchUser(accountId);
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        setState(() {
-          userName = '${data['firstName']} ${data['lastName']}';
-          accountNumber = data['accountNumber'].toString();
-        });
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text('Failed to fetch user details: ${response.body}')),
-        );
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
-    } finally {
-      setState(() {
-        isLoadingUser = false;
-      });
-    }
-  }
-
-  TextEditingController _amountController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
 
   void _onKeypadTap(String value) {
     setState(() {
@@ -209,14 +209,14 @@ class _DepositPageState extends State<DepositPage> {
       final String? depositsJson = prefs.getString('deposits');
       final Map<String, List<int>> deposits = depositsJson != null
           ? (jsonDecode(depositsJson) as Map<String, dynamic>).map(
-            (key, value) {
-          if (value is List<dynamic>) {
-            return MapEntry(key, List<int>.from(value));
-          } else {
-            return MapEntry(key, <int>[]); // Fallback to empty list
-          }
-        },
-      )
+              (key, value) {
+                if (value is List<dynamic>) {
+                  return MapEntry(key, List<int>.from(value));
+                } else {
+                  return MapEntry(key, <int>[]); // Fallback to empty list
+                }
+              },
+            )
           : {};
 
       final int depositAmount = int.parse(_amountController.text);
@@ -229,10 +229,10 @@ class _DepositPageState extends State<DepositPage> {
 
       await prefs.setString('deposits', jsonEncode(deposits));
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => PaymentSuccessScreen()),
-      );
+      // Navigator.pushReplacement(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => const PaymentSuccessScreen()),
+      // );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
@@ -291,110 +291,6 @@ class _DepositPageState extends State<DepositPage> {
         ),
         const Icon(Icons.check_circle, color: Colors.green),
       ],
-    );
-  }
-}
-
-class PaymentSuccessScreen extends StatefulWidget {
-  const PaymentSuccessScreen({super.key});
-
-  @override
-  State<PaymentSuccessScreen> createState() => _PaymentSuccessScreenState();
-}
-
-class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
-    with SingleTickerProviderStateMixin {
-  AnimationController? _controller;
-  Animation<double>? _opacityAnimation;
-  Animation<Offset>? _positionAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 1),
-    );
-
-    _opacityAnimation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(
-        parent: _controller!,
-        curve: Curves.easeIn,
-      ),
-    );
-
-    _positionAnimation = Tween<Offset>(
-      begin: Offset(0, 0.05),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: _controller!,
-        curve: Curves.easeOut,
-      ),
-    );
-
-    _controller!.forward();
-  }
-
-  @override
-  void dispose() {
-    _controller?.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          StarryBackground(),
-          FadeTransition(
-            opacity: _opacityAnimation!,
-            child: SlideTransition(
-              position: _positionAnimation!,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Spacer(),
-                  const Icon(Icons.check_circle_outline,
-                      size: 100, color: Colors.green),
-                  const SizedBox(height: 20),
-                  const Text(
-                    "Deposit successful!!",
-                    style: TextStyle(
-                        // color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    "Your account has been successfully topped up.",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  const Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: LongButton(
-                      ///we send them to the home screen insted over here
-                      onTap: () {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MainHomeScreen()),
-                          (Route<dynamic> route) =>
-                              false,
-                        );
-                      },
-                      title: "Done",
-                      isLoading: false,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 
 class SignupUsername extends StatelessWidget {
   final TextEditingController username;
-  final FocusNode username_f;
+  final FocusNode usernameFocus;
 
   const SignupUsername(
-      {super.key, required this.username, required this.username_f});
+      {super.key, required this.username, required this.usernameFocus});
 
   @override
   Widget build(BuildContext context) {
     return LongTextFieldForm(
       isRed: false,
       controller: username,
-      focusNode: username_f,
+      focusNode: usernameFocus,
       hintText: "First Name",
       labelText: "First Name",
       obsureText: false,
@@ -31,17 +31,17 @@ class SignupUsername extends StatelessWidget {
 
 class SignupLastName extends StatelessWidget {
   final TextEditingController username;
-  final FocusNode username_f;
+  final FocusNode usernameFocus;
 
   const SignupLastName(
-      {super.key, required this.username, required this.username_f});
+      {super.key, required this.username, required this.usernameFocus});
 
   @override
   Widget build(BuildContext context) {
     return LongTextFieldForm(
       isRed: false,
       controller: username,
-      focusNode: username_f,
+      focusNode: usernameFocus,
       hintText: "Last Name",
       labelText: "Last Name",
       obsureText: false,
@@ -58,17 +58,17 @@ class SignupLastName extends StatelessWidget {
 
 class SignupCellPhone extends StatelessWidget {
   final TextEditingController username;
-  final FocusNode username_f;
+  final FocusNode usernameFocus;
 
   const SignupCellPhone(
-      {super.key, required this.username, required this.username_f});
+      {super.key, required this.username, required this.usernameFocus});
 
   @override
   Widget build(BuildContext context) {
     return LongTextFieldForm(
       isRed: false,
       controller: username,
-      focusNode: username_f,
+      focusNode: usernameFocus,
       hintText: "Cellphone",
       labelText: "Cellphone",
       obsureText: false,
@@ -85,13 +85,13 @@ class SignupCellPhone extends StatelessWidget {
 
 class SignupID extends StatelessWidget {
   final TextEditingController username;
-  final FocusNode username_f;
+  final FocusNode usernameFocus;
   final Function(String) onIDChanged;
 
   const SignupID({
     super.key,
     required this.username,
-    required this.username_f,
+    required this.usernameFocus,
     required this.onIDChanged,
   });
 
@@ -100,7 +100,7 @@ class SignupID extends StatelessWidget {
     return LongTextFieldForm(
       isRed: false,
       controller: username,
-      focusNode: username_f,
+      focusNode: usernameFocus,
       hintText: "ID",
       labelText: "ID",
       obsureText: false,

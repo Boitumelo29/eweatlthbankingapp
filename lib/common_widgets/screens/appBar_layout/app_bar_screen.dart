@@ -4,22 +4,25 @@ class AppBarScreen extends StatelessWidget {
   final bool shouldScroll;
   final String title;
   final List<Widget> children;
+  final List<Widget>? appBarChildren;
   final bool shouldHaveFloatingButton;
   final Function()? floatingActionButton;
   final String? tooltip;
   final IconData? icon;
   final bool shouldBeCentered;
 
-  const AppBarScreen(
-      {super.key,
-      required this.shouldScroll,
-      required this.title,
-      required this.children,
-      this.floatingActionButton,
-      required this.shouldHaveFloatingButton,
-      this.tooltip,
-      this.icon,
-      required this.shouldBeCentered});
+  const AppBarScreen({
+    super.key,
+    required this.shouldScroll,
+    required this.title,
+    required this.children,
+    required this.shouldHaveFloatingButton,
+    required this.shouldBeCentered,
+    this.appBarChildren,
+    this.floatingActionButton,
+    this.tooltip,
+    this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +30,7 @@ class AppBarScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(title),
+        actions: appBarChildren,
       ),
       body: SingleChildScrollView(
         physics: shouldScroll
