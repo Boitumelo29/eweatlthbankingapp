@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:eweatlthbankingapp/features/deposit/presentation/page/deposit_page.dart';
 import 'package:eweatlthbankingapp/features/tranfer_screen/presentation/transfer_screen.dart';
 import 'package:flutter/material.dart';
@@ -91,7 +90,7 @@ class _HomePageState extends State<HomePages> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const TransferScreen()));
+                            builder: (context) => const TransferPage()));
                   }),
                 ],
               ),

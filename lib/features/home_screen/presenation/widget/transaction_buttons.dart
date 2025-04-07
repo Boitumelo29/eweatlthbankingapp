@@ -1,5 +1,5 @@
-import 'package:eweatlthbankingapp/features/deposit/presentation/page/deposit_page.dart';
-import 'package:eweatlthbankingapp/features/tranfer_screen/presentation/transfer_screen.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:eweatlthbankingapp/core/routes/router.dart';
 import 'package:flutter/material.dart';
 
 class TransactionButtons extends StatelessWidget {
@@ -7,22 +7,16 @@ class TransactionButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return   Padding(
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           _buildActionButton(Icons.add, 'Deposit', () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const DepositPage()));
+            context.router.push(const DepositRoute());
           }),
           _buildActionButton(Icons.send, 'Transfer', () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const TransferScreen()));
+            context.router.push(const TransferRoute());
           }),
         ],
       ),

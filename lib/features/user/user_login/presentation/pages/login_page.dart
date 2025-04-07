@@ -14,7 +14,6 @@ import 'package:eweatlthbankingapp/util/constants/strings/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 @RoutePage()
 class LoginPage extends StatefulWidget {
   final VoidCallback? show;
@@ -69,16 +68,13 @@ class _LoginPageState extends State<LoginPage> {
                       isLoading: isLoading,
                       onTap: () {
                         ///todo check if you want to push or push and replace over here
-                        context.router.push(const MainHomeRoute());
-                        // emailFocus.unfocus();
-                        // passwordFocus.unfocus();
-                        // if (_formKey.currentState!.validate()) {
-                        //   context.read<LoginBloc>().add(
-                        //         LoginSubmitted(
-                        //             email: email.text, password: password.text),
-                        //       );
-                        //   // _login();
-                        // }
+                        if (_formKey.currentState!.validate()) {
+                          context.read<LoginBloc>().add(
+                                LoginSubmitted(
+                                    email: email.text, password: password.text),
+                              );
+                          // _login();
+                        }
                       },
                       title: Strings.login,
                     ),
@@ -97,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
   void _listener(BuildContext context, LoginState state) {
     if (state.status == LoginStatus.success) {
       context.router.push(const MainHomeRoute());
-    } else {
+    } else if (state.status == LoginStatus.failure) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Invalid email or password'),

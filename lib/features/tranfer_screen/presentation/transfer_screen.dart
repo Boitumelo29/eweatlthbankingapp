@@ -1,22 +1,39 @@
 import 'dart:math';
-
+import 'package:auto_route/auto_route.dart';
 import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.dart';
 import 'package:eweatlthbankingapp/common_widgets/widgets/textfield/textfields.dart';
+import 'package:eweatlthbankingapp/core/routes/router.dart';
 import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
+import 'package:eweatlthbankingapp/features/tranfer_screen/bloc/transfer_bloc.dart';
 import 'package:eweatlthbankingapp/util/validation/validation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class TransferScreen extends StatefulWidget {
-  const TransferScreen({super.key});
+@RoutePage()
+class TransferPage extends StatelessWidget {
+  const TransferPage({super.key});
 
   @override
-  State<TransferScreen> createState() => _TransferScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider<TransferBloc>(
+      create: (context) => TransferBloc()..add(const LoadDeposit()),
+      // TransferBloc(authRepo: AuthRepository())..add(const LoadUser()),
+      child: const TransferView(),
+    );
+  }
 }
 
-class _TransferScreenState extends State<TransferScreen> {
+class TransferView extends StatefulWidget {
+  const TransferView({super.key});
+
+  @override
+  State<TransferView> createState() => _TransferViewState();
+}
+
+class _TransferViewState extends State<TransferView> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController accountNameController = TextEditingController();
   final TextEditingController accountNumberController = TextEditingController();
@@ -26,45 +43,12 @@ class _TransferScreenState extends State<TransferScreen> {
   final TextEditingController amountController = TextEditingController();
   List<String> banks = ['FNB', 'Standard Bank', 'ABSA', 'Nedbank'];
   String? selectedBank;
-  int currentBalance = 0;
 
   void initState() {
     super.initState();
-    _loadDepositAmount();
-  }
-
-  Future<void> _loadDepositAmount() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final accountId = prefs.getString('accountId');
-
-    if (accountId != null && accountId.isNotEmpty) {
-      final depositsJson = prefs.getString('deposits');
-      if (depositsJson != null) {
-        try {
-          final Map<String, List<int>> deposits =
-              (jsonDecode(depositsJson) as Map<String, dynamic>).map(
-            (key, value) {
-              if (value is List<dynamic>) {
-                return MapEntry(key, List<int>.from(value));
-              } else {
-                return MapEntry(key, <int>[]);
-              }
-            },
-          );
-
-          setState(() {
-            currentBalance = deposits[accountId]?.reduce((a, b) => a + b) ?? 0;
-          });
-        } catch (e) {
-          rethrow;
-        }
-      }
-    }
   }
 
   Future<void> _processTransfer() async {
-    if (!_formKey.currentState!.validate()) return;
-
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final accountId = prefs.getString('accountId');
 
@@ -127,159 +111,180 @@ class _TransferScreenState extends State<TransferScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Transfer'),
-      ),
-      body: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                "Current Balance: R$currentBalance",
-                style:
-                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 20),
-              DropdownButtonFormField<String>(
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: const BorderSide(
-                      color: Colors.green,
-                      width: 1.0,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: const BorderSide(
-                      color: Colors.green,
-                      width: 2.0,
-                    ),
-                  ),
-                  labelText: 'Bank',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: const BorderSide(
-                      color: Colors.green,
-                      width: 1.0,
-                    ),
-                  ),
-                ),
-                value: selectedBank,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    selectedBank = newValue!;
-                  });
-                },
-                items: banks.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                validator: (value) =>
-                    value == null ? 'Please select a bank' : null,
-              ),
-              const SizedBox(height: 20),
-              LongTextFieldForm(
-                controller: accountNameController,
-                hintText: "Account Name",
-                labelText: "Account Name",
-                showPrefixIcon: false,
-                onChanged: (value) {},
-                validator: (value) {
-                  return Validation.textValidation(value);
-                },
-                showSuffixIcon: false,
-                obsureText: false,
-                isRed: true,
-              ),
-              const SizedBox(height: 20),
-              LongTextFieldForm(
-                controller: accountNumberController,
-                hintText: 'Account Number',
-                labelText: 'Account Number',
-                showPrefixIcon: false,
-                onChanged: (value) {},
-                validator: (value) {
-                  return Validation.textValidation(value);
-                },
-                showSuffixIcon: false,
-                obsureText: false,
-                isRed: true,
-              ),
-              const SizedBox(height: 20),
-              LongTextFieldForm(
-                controller: beneficiaryReferenceController,
-                hintText: 'Beneficiary Reference',
-                labelText: 'Beneficiary Reference',
-                showPrefixIcon: false,
-                onChanged: (value) {},
-                validator: (value) {
-                  return Validation.textValidation(value);
-                },
-                showSuffixIcon: false,
-                obsureText: false,
-                isRed: true,
-              ),
-              const SizedBox(height: 20),
-              LongTextFieldForm(
-                controller: myReferenceController,
-                hintText: 'My Reference',
-                labelText: 'My Reference',
-                showPrefixIcon: false,
-                onChanged: (value) {},
-                validator: (value) {
-                  return Validation.textValidation(value);
-                },
-                showSuffixIcon: false,
-                obsureText: false,
-                isRed: true,
-              ),
-              const SizedBox(height: 20),
-              LongTextFieldForm(
-                controller: amountController,
-                hintText: 'Amount',
-                labelText: 'Amount',
-                showPrefixIcon: false,
-                onChanged: (value) {},
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter an amount';
-                  }
-                  try {
-                    int amount = int.parse(value);
-                    if (amount <= 0) {
-                      return 'Amount must be greater than 0';
-                    }
-                    if (amount > currentBalance) {
-                      return 'Amount exceeds current balance';
-                    }
-                  } catch (e) {
-                    return 'Please enter a valid number';
-                  }
-                  return null;
-                },
-                showSuffixIcon: false,
-                obsureText: false,
-                isRed: true,
-              ),
-              const SizedBox(height: 20),
-              LongButton(
-                onTap: () {
-                  _processTransfer();
-                },
-                title: "Transfer",
-                isLoading: false,
-              ),
-            ],
+    return BlocConsumer<TransferBloc, TransferState>(
+      listener: (context, state) {
+        state.processTransferFailureFailureOrUnit.fold(() {}, (eitherFailureOrUnit) {
+          eitherFailureOrUnit.fold(
+                (failure) {
+              context.router.push(const PaymentFailureRoute());
+            },
+                (_) {
+              context.router.push(const PaymentSuccessRoute());
+            },
+          );
+        });
+      },
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Transfer'),
           ),
-        ),
-      ),
+          body: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Current Balance: R${state.currentBalance}",
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 20),
+                  DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(
+                          color: Colors.green,
+                          width: 1.0,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(
+                          color: Colors.green,
+                          width: 2.0,
+                        ),
+                      ),
+                      labelText: 'Bank',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(
+                          color: Colors.green,
+                          width: 1.0,
+                        ),
+                      ),
+                    ),
+                    value: selectedBank,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedBank = newValue!;
+                      });
+                    },
+                    items: banks.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    validator: (value) =>
+                        value == null ? 'Please select a bank' : null,
+                  ),
+                  const SizedBox(height: 20),
+                  LongTextFieldForm(
+                    controller: accountNameController,
+                    hintText: "Account Name",
+                    labelText: "Account Name",
+                    showPrefixIcon: false,
+                    onChanged: (value) {},
+                    validator: (value) {
+                      return Validation.textValidation(value);
+                    },
+                    showSuffixIcon: false,
+                    obsureText: false,
+                    isRed: true,
+                  ),
+                  const SizedBox(height: 20),
+                  LongTextFieldForm(
+                    controller: accountNumberController,
+                    hintText: 'Account Number',
+                    labelText: 'Account Number',
+                    showPrefixIcon: false,
+                    onChanged: (value) {},
+                    validator: (value) {
+                      return Validation.textValidation(value);
+                    },
+                    showSuffixIcon: false,
+                    obsureText: false,
+                    isRed: true,
+                  ),
+                  const SizedBox(height: 20),
+                  LongTextFieldForm(
+                    controller: beneficiaryReferenceController,
+                    hintText: 'Beneficiary Reference',
+                    labelText: 'Beneficiary Reference',
+                    showPrefixIcon: false,
+                    onChanged: (value) {},
+                    validator: (value) {
+                      return Validation.textValidation(value);
+                    },
+                    showSuffixIcon: false,
+                    obsureText: false,
+                    isRed: true,
+                  ),
+                  const SizedBox(height: 20),
+                  LongTextFieldForm(
+                    controller: myReferenceController,
+                    hintText: 'My Reference',
+                    labelText: 'My Reference',
+                    showPrefixIcon: false,
+                    onChanged: (value) {},
+                    validator: (value) {
+                      return Validation.textValidation(value);
+                    },
+                    showSuffixIcon: false,
+                    obsureText: false,
+                    isRed: true,
+                  ),
+                  const SizedBox(height: 20),
+                  LongTextFieldForm(
+                    controller: amountController,
+                    hintText: 'Amount',
+                    labelText: 'Amount',
+                    showPrefixIcon: false,
+                    onChanged: (value) {},
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter an amount';
+                      }
+                      try {
+                        int amount = int.parse(value);
+                        if (amount <= 0) {
+                          return 'Amount must be greater than 0';
+                        }
+                        if (amount > state.currentBalance) {
+                          return 'Amount exceeds current balance';
+                        }
+                      } catch (e) {
+                        return 'Please enter a valid number';
+                      }
+                      return null;
+                    },
+                    showSuffixIcon: false,
+                    obsureText: false,
+                    isRed: true,
+                  ),
+                  const SizedBox(height: 20),
+                  LongButton(
+                    onTap: () {
+                      if (!_formKey.currentState!.validate()) return;
+                      context.read<TransferBloc>().add(ProcessTransfer(
+                          selectedBank: selectedBank.toString(),
+                          accountName: accountNameController.text,
+                          amount: amountController.text));
+                      // _processTransfer();
+                    },
+                    title: "Transfer",
+                    isLoading: false,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -485,11 +490,7 @@ class _FailScreenState extends State<FailScreen>
                     padding: const EdgeInsets.all(20.0),
                     child: LongErrorButton(
                       onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const TransferScreen()),
-                        );
+                        context.router.push(const TransferRoute());
                       },
                       title: "Try Again",
                       isLoading: false,
@@ -506,6 +507,8 @@ class _FailScreenState extends State<FailScreen>
 }
 
 class StarryFailBackground extends StatelessWidget {
+  const StarryFailBackground({super.key});
+
   @override
   Widget build(BuildContext context) {
     return CustomPaint(

@@ -1,16 +1,18 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.dart';
-import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
+import 'package:eweatlthbankingapp/core/routes/router.dart';
 import 'package:eweatlthbankingapp/features/tranfer_screen/presentation/transfer_screen.dart';
 import 'package:flutter/material.dart';
 
-class PaymentSuccessScreen extends StatefulWidget {
-  const PaymentSuccessScreen({super.key});
+@RoutePage()
+class PaymentSuccessPage extends StatefulWidget {
+  const PaymentSuccessPage({super.key});
 
   @override
-  State<PaymentSuccessScreen> createState() => _PaymentSuccessScreenState();
+  State<PaymentSuccessPage> createState() => _PaymentSuccessPageState();
 }
 
-class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
+class _PaymentSuccessPageState extends State<PaymentSuccessPage>
     with SingleTickerProviderStateMixin {
   AnimationController? _controller;
   Animation<double>? _opacityAnimation;
@@ -83,15 +85,8 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen>
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: LongButton(
-                      ///we send them to the home screen instead over here
                       onTap: () {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MainHomePage()),
-                              (Route<dynamic> route) =>
-                          false,
-                        );
+                        context.router.push( const MainHomeRoute());
                       },
                       title: "Done",
                       isLoading: false,

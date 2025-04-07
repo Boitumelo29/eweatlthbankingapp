@@ -2,13 +2,17 @@ part of 'home_bloc.dart';
 
 enum LogOutStatus { initial, loading, success, failure }
 
-sealed class HomeState {}
+@freezed
+class HomeState with _$HomeState {
+  const factory HomeState({
+    required int depositAmount,
+    required List<Map<String, dynamic>> transactions,
+    @Default(None()) Option<Either<Failure, Unit>> logoutFailureFailureOrUnit,
+  }) = _HomeState;
 
-final class HomeInitial extends HomeState {}
-
-// @freezed
-// class HomeState with _$HomeState {
-//   const factory HomeState({
-//     @Default(LogOutStatus.initial) LogOutStatus status,
-//   }) = _HomeState;
-// }
+  factory HomeState.initial() => HomeState(
+    depositAmount: 0,
+    transactions: [],
+    logoutFailureFailureOrUnit: none(),
+  );
+}
