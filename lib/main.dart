@@ -6,7 +6,6 @@ void main() {
   runApp(const MyApp());
 }
 
-
 final appRouter = AppRouter();
 
 class MyApp extends StatelessWidget {
@@ -17,6 +16,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (context, child) => MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         routerDelegate: appRouter.delegate(),
         routeInformationParser: appRouter.defaultRouteParser(),
       ),

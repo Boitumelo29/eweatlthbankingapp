@@ -1,18 +1,18 @@
-import 'package:auto_route/auto_route.dart';
+import 'dart:math';
+
+import 'package:auto_route/annotations.dart';
 import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.dart';
-import 'package:eweatlthbankingapp/core/routes/router.dart';
-import 'package:eweatlthbankingapp/features/tranfer_screen/presentation/transfer_screen.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
-class PaymentSuccessPage extends StatefulWidget {
-  const PaymentSuccessPage({super.key});
+class PaymentFailurePage extends StatefulWidget {
+  const PaymentFailurePage({super.key});
 
-  @override
-  State<PaymentSuccessPage> createState() => _PaymentSuccessPageState();
+@override
+State<PaymentFailurePage> createState() => _PaymentFailurePageState();
 }
 
-class _PaymentSuccessPageState extends State<PaymentSuccessPage>
+class _PaymentFailurePageState extends State<PaymentFailurePage>
     with SingleTickerProviderStateMixin {
   AnimationController? _controller;
   Animation<double>? _opacityAnimation;
@@ -57,7 +57,7 @@ class _PaymentSuccessPageState extends State<PaymentSuccessPage>
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          StarryBackground(),
+          StarryFailBackground(),
           FadeTransition(
             opacity: _opacityAnimation!,
             child: SlideTransition(
@@ -66,29 +66,26 @@ class _PaymentSuccessPageState extends State<PaymentSuccessPage>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const Spacer(),
-                  const Icon(Icons.check_circle_outline,
-                      size: 100, color: Colors.green),
+                  const Icon(Icons.cancel_outlined,
+                      size: 100, color: Colors.red),
                   const SizedBox(height: 20),
                   const Text(
-                    "Deposit successful!!",
-                    style: TextStyle(
-                      // color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold),
+                    "Fail!!",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
                   const Text(
-                    "Your account has been successfully topped up.",
+                    "Oops and error has occurred.",
                     style: TextStyle(fontSize: 16),
                   ),
                   const Spacer(),
                   Padding(
                     padding: const EdgeInsets.all(20.0),
-                    child: LongButton(
+                    child: LongErrorButton(
                       onTap: () {
-                        context.router.push( const MainHomeRoute());
+                        // context.router.push(const TransferRoute());
                       },
-                      title: "Done",
+                      title: "Try Again",
                       isLoading: false,
                     ),
                   ),
@@ -100,4 +97,34 @@ class _PaymentSuccessPageState extends State<PaymentSuccessPage>
       ),
     );
   }
+}
+
+class StarryFailBackground extends StatelessWidget {
+  const StarryFailBackground({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      painter: StarFailPainter(),
+      size: Size(MediaQuery.of(context).size.width,
+          MediaQuery.of(context).size.height),
+    );
+  }
+}
+
+class StarFailPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    var paint = Paint()..color = Colors.red;
+    var rng = Random();
+
+    for (int i = 0; i < 100; i++) {
+      var x = rng.nextDouble() * size.width;
+      var y = rng.nextDouble() * size.height;
+      canvas.drawCircle(Offset(x, y), rng.nextDouble() * 2, paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }

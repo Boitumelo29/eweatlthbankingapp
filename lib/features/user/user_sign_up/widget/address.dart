@@ -43,17 +43,17 @@ class SignupProvinceDropdown extends StatelessWidget {
 
 class SignupSurb extends StatelessWidget {
   final TextEditingController username;
-  final FocusNode username_f;
+  final FocusNode usernameFocus;
 
   const SignupSurb(
-      {super.key, required this.username, required this.username_f});
+      {super.key, required this.username, required this.usernameFocus});
 
   @override
   Widget build(BuildContext context) {
     return LongTextFieldForm(
       isRed: false,
       controller: username,
-      focusNode: username_f,
+      focusNode: usernameFocus,
       hintText: "Suburb",
       labelText: "Suburb",
       obsureText: false,
@@ -70,17 +70,17 @@ class SignupSurb extends StatelessWidget {
 
 class SignupCity extends StatelessWidget {
   final TextEditingController username;
-  final FocusNode username_f;
+  final FocusNode usernameFocus;
 
   const SignupCity(
-      {super.key, required this.username, required this.username_f});
+      {super.key, required this.username, required this.usernameFocus});
 
   @override
   Widget build(BuildContext context) {
     return LongTextFieldForm(
       isRed: false,
       controller: username,
-      focusNode: username_f,
+      focusNode: usernameFocus,
       hintText: "City",
       labelText: "City",
       obsureText: false,
@@ -97,17 +97,17 @@ class SignupCity extends StatelessWidget {
 
 class SignupStreetName extends StatelessWidget {
   final TextEditingController username;
-  final FocusNode username_f;
+  final FocusNode usernameFocus;
 
   const SignupStreetName(
-      {super.key, required this.username, required this.username_f});
+      {super.key, required this.username, required this.usernameFocus});
 
   @override
   Widget build(BuildContext context) {
     return LongTextFieldForm(
       isRed: false,
       controller: username,
-      focusNode: username_f,
+      focusNode: usernameFocus,
       hintText: "Street Name and Number",
       labelText: "Street Name and Number",
       obsureText: false,

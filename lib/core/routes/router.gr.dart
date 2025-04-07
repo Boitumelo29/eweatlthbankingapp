@@ -11,6 +11,22 @@
 part of 'router.dart';
 
 /// generated route for
+/// [DepositPage]
+class DepositRoute extends PageRouteInfo<void> {
+  const DepositRoute({List<PageRouteInfo>? children})
+    : super(DepositRoute.name, initialChildren: children);
+
+  static const String name = 'DepositRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const DepositPage();
+    },
+  );
+}
+
+/// generated route for
 /// [LoginPage]
 class LoginRoute extends PageRouteInfo<LoginRouteArgs> {
   LoginRoute({Key? key, VoidCallback? show, List<PageRouteInfo>? children})
@@ -47,22 +63,6 @@ class LoginRouteArgs {
 }
 
 /// generated route for
-/// [MainAuthPage]
-class MainAuthRoute extends PageRouteInfo<void> {
-  const MainAuthRoute({List<PageRouteInfo>? children})
-    : super(MainAuthRoute.name, initialChildren: children);
-
-  static const String name = 'MainAuthRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const MainAuthPage();
-    },
-  );
-}
-
-/// generated route for
 /// [MainHomePage]
 class MainHomeRoute extends PageRouteInfo<void> {
   const MainHomeRoute({List<PageRouteInfo>? children})
@@ -74,6 +74,70 @@ class MainHomeRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const MainHomePage();
+    },
+  );
+}
+
+/// generated route for
+/// [MyMainAuthPage]
+class MyMainAuthRoute extends PageRouteInfo<void> {
+  const MyMainAuthRoute({List<PageRouteInfo>? children})
+    : super(MyMainAuthRoute.name, initialChildren: children);
+
+  static const String name = 'MyMainAuthRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const MyMainAuthPage();
+    },
+  );
+}
+
+/// generated route for
+/// [PaymentFailurePage]
+class PaymentFailureRoute extends PageRouteInfo<void> {
+  const PaymentFailureRoute({List<PageRouteInfo>? children})
+    : super(PaymentFailureRoute.name, initialChildren: children);
+
+  static const String name = 'PaymentFailureRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PaymentFailurePage();
+    },
+  );
+}
+
+/// generated route for
+/// [PaymentSuccessPage]
+class PaymentSuccessRoute extends PageRouteInfo<void> {
+  const PaymentSuccessRoute({List<PageRouteInfo>? children})
+    : super(PaymentSuccessRoute.name, initialChildren: children);
+
+  static const String name = 'PaymentSuccessRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const PaymentSuccessPage();
+    },
+  );
+}
+
+/// generated route for
+/// [TransferPage]
+class TransferRoute extends PageRouteInfo<void> {
+  const TransferRoute({List<PageRouteInfo>? children})
+    : super(TransferRoute.name, initialChildren: children);
+
+  static const String name = 'TransferRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TransferPage();
     },
   );
 }

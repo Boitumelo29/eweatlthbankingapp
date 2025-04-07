@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:eweatlthbankingapp/common_widgets/screens/user_layout/user_layout_screen.dart';
 import 'package:eweatlthbankingapp/common_widgets/sized_box/sized_space.dart';
 import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.dart';
 import 'package:eweatlthbankingapp/core/routes/router.dart';
-import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/bloc/login_bloc.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/email.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/have_an_account.dart';
@@ -16,7 +13,6 @@ import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/
 import 'package:eweatlthbankingapp/util/constants/strings/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 @RoutePage()
 class LoginPage extends StatefulWidget {
@@ -36,65 +32,6 @@ class _LoginPageState extends State<LoginPage> {
   FocusNode passwordFocus = FocusNode();
   bool isLoading = false;
   bool isForgotPasswordLoading = false;
-
-  Future<void> _login() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-
-    setState(() {
-      isLoading = true;
-    });
-
-    try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final String? userDataJson = prefs.getString('userData');
-
-      if (userDataJson != null) {
-        final Map<String, dynamic> userData = jsonDecode(userDataJson);
-
-        if (userData['email'] == email.text &&
-            userData['password'] == password.text) {
-          await prefs.setBool('isLoggedIn', true);
-          await prefs.setString(
-              'accountId', userData['email']); // Using email as accountId
-          await prefs.setString('username', userData['firstName']);
-          await prefs.setString('surname', userData['lastName']);
-
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => MainHomePage()),
-          );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Invalid email or password'),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('No registered users found'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
-    } catch (e) {
-      print("Login error: $e");
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error: ${e.toString()}'),
-          backgroundColor: Colors.red,
-        ),
-      );
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,16 +67,14 @@ class _LoginPageState extends State<LoginPage> {
                     LongButton(
                       isLoading: isLoading,
                       onTap: () {
-                        context.router.push(const MainHomeRoute());
-                        // emailFocus.unfocus();
-                        // passwordFocus.unfocus();
-                        // if (_formKey.currentState!.validate()) {
-                        //   context.read<LoginBloc>().add(
-                        //         LoginSubmitted(
-                        //             email: email.text, password: password.text),
-                        //       );
-                        //   // _login();
-                        // }
+                        ///todo check if you want to push or push and replace over here
+                        if (_formKey.currentState!.validate()) {
+                          context.read<LoginBloc>().add(
+                                LoginSubmitted(
+                                    email: email.text, password: password.text),
+                              );
+                          // _login();
+                        }
                       },
                       title: Strings.login,
                     ),
@@ -158,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
   void _listener(BuildContext context, LoginState state) {
     if (state.status == LoginStatus.success) {
       context.router.push(const MainHomeRoute());
-    } else {
+    } else if (state.status == LoginStatus.failure) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Invalid email or password'),
