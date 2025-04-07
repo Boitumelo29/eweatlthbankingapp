@@ -6,8 +6,9 @@ enum AuthStatus { initial, authenticated, unauthenticated, failure, loading }
 
 @freezed
 class AuthState with _$AuthState {
-  // @Default(AuthStatus.initial) AuthStatus authStatus;
-  const factory AuthState.initial() = AuthInitial;
-  const factory AuthState.authenticated({required String email}) = AuthAuthenticated;
-  const factory AuthState.unauthenticated() = AuthUnauthenticated;
+  const factory AuthState({
+    @Default(AuthStatus.initial) AuthStatus status,
+    String? email,
+    String? error,
+  }) = _AuthState;
 }

@@ -11,18 +11,29 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
 
-  AuthBloc({required this.authRepository}) : super(const AuthState.initial()) {
+  AuthBloc({required this.authRepository}) : super(const AuthState()) {
+    // on<CheckAuthStatus>((event, emit) async {
+    //   emit(state.copyWith(status: AuthStatus.loading));
+    //
+    //   try {
+    //     final userEmail = await authRepository.getUserEmail();
+    //     emit(
+    //         state.copyWith(status: AuthStatus.authenticated, email: userEmail));
+    //   } catch (e) {
+    //     emit(state.copyWith(status: AuthStatus.failure, error: e.toString()));
+    //   }
+    // });
+
     on<CheckAuthStatus>((event, emit) async {
       emit(state.copyWith(status: AuthStatus.loading));
-
-      try {
-        final userEmail = authRepository.getUserEmail();
-        emit(
-            state.copyWith(status: AuthStatus.authenticated, email: userEmail));
-      } catch (e) {
-        emit(state.copyWith(status: AuthStatus.failure, error: e.toString()));
+      final isLoggedIn = await authRepository.isLoggedIn();
+      if (isLoggedIn) {
+        emit(state.copyWith(status: AuthStatus.authenticated));
+      } else {
+        emit(state.copyWith(status: AuthStatus.unauthenticated));
       }
     });
+
 
     on<LoginEvent>((event, emit) async {
       emit(state.copyWith(status: AuthStatus.loading));
@@ -51,21 +62,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           if (isLoggedIn) {
             String? email = await authRepository.getUserEmail();
             if (email != null) {
-              emit(AuthState.authenticated(email: email));
+              emit(state.copyWith(status: AuthStatus.authenticated));
             } else {
-              emit(const AuthState.unauthenticated());
+              emit(state.copyWith(status: AuthStatus.unauthenticated));
             }
           } else {
-            emit(const AuthState.unauthenticated());
+            emit(state.copyWith(status: AuthStatus.unauthenticated));
           }
         },
         login: (e) async {
           await authRepository.saveUserEmail(e.email);
-          emit(AuthState.authenticated(email: e.email));
+          emit(state.copyWith(status: AuthStatus.authenticated));
         },
         logout: (_) async {
           await authRepository.logout();
-          emit(const AuthState.unauthenticated());
+          emit(state.copyWith(status: AuthStatus.authenticated));
         },
       );
     });
