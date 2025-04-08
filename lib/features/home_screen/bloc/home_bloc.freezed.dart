@@ -418,6 +418,8 @@ abstract class LoadUser implements HomeEvent {
 /// @nodoc
 mixin _$HomeState {
   int get depositAmount => throw _privateConstructorUsedError;
+  String? get userName => throw _privateConstructorUsedError;
+  String? get accountNumber => throw _privateConstructorUsedError;
   List<Map<String, dynamic>> get transactions =>
       throw _privateConstructorUsedError;
   Option<Either<Failure, Unit>> get logoutFailureFailureOrUnit =>
@@ -437,6 +439,8 @@ abstract class $HomeStateCopyWith<$Res> {
   @useResult
   $Res call(
       {int depositAmount,
+      String? userName,
+      String? accountNumber,
       List<Map<String, dynamic>> transactions,
       Option<Either<Failure, Unit>> logoutFailureFailureOrUnit});
 }
@@ -457,6 +461,8 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   @override
   $Res call({
     Object? depositAmount = null,
+    Object? userName = freezed,
+    Object? accountNumber = freezed,
     Object? transactions = null,
     Object? logoutFailureFailureOrUnit = null,
   }) {
@@ -465,6 +471,14 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.depositAmount
           : depositAmount // ignore: cast_nullable_to_non_nullable
               as int,
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      accountNumber: freezed == accountNumber
+          ? _value.accountNumber
+          : accountNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
       transactions: null == transactions
           ? _value.transactions
           : transactions // ignore: cast_nullable_to_non_nullable
@@ -487,6 +501,8 @@ abstract class _$$HomeStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {int depositAmount,
+      String? userName,
+      String? accountNumber,
       List<Map<String, dynamic>> transactions,
       Option<Either<Failure, Unit>> logoutFailureFailureOrUnit});
 }
@@ -505,6 +521,8 @@ class __$$HomeStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? depositAmount = null,
+    Object? userName = freezed,
+    Object? accountNumber = freezed,
     Object? transactions = null,
     Object? logoutFailureFailureOrUnit = null,
   }) {
@@ -513,6 +531,14 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.depositAmount
           : depositAmount // ignore: cast_nullable_to_non_nullable
               as int,
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      accountNumber: freezed == accountNumber
+          ? _value.accountNumber
+          : accountNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
       transactions: null == transactions
           ? _value._transactions
           : transactions // ignore: cast_nullable_to_non_nullable
@@ -530,12 +556,18 @@ class __$$HomeStateImplCopyWithImpl<$Res>
 class _$HomeStateImpl implements _HomeState {
   const _$HomeStateImpl(
       {required this.depositAmount,
+      this.userName,
+      this.accountNumber,
       required final List<Map<String, dynamic>> transactions,
       this.logoutFailureFailureOrUnit = const None()})
       : _transactions = transactions;
 
   @override
   final int depositAmount;
+  @override
+  final String? userName;
+  @override
+  final String? accountNumber;
   final List<Map<String, dynamic>> _transactions;
   @override
   List<Map<String, dynamic>> get transactions {
@@ -550,7 +582,7 @@ class _$HomeStateImpl implements _HomeState {
 
   @override
   String toString() {
-    return 'HomeState(depositAmount: $depositAmount, transactions: $transactions, logoutFailureFailureOrUnit: $logoutFailureFailureOrUnit)';
+    return 'HomeState(depositAmount: $depositAmount, userName: $userName, accountNumber: $accountNumber, transactions: $transactions, logoutFailureFailureOrUnit: $logoutFailureFailureOrUnit)';
   }
 
   @override
@@ -560,6 +592,10 @@ class _$HomeStateImpl implements _HomeState {
             other is _$HomeStateImpl &&
             (identical(other.depositAmount, depositAmount) ||
                 other.depositAmount == depositAmount) &&
+            (identical(other.userName, userName) ||
+                other.userName == userName) &&
+            (identical(other.accountNumber, accountNumber) ||
+                other.accountNumber == accountNumber) &&
             const DeepCollectionEquality()
                 .equals(other._transactions, _transactions) &&
             (identical(other.logoutFailureFailureOrUnit,
@@ -572,6 +608,8 @@ class _$HomeStateImpl implements _HomeState {
   int get hashCode => Object.hash(
       runtimeType,
       depositAmount,
+      userName,
+      accountNumber,
       const DeepCollectionEquality().hash(_transactions),
       logoutFailureFailureOrUnit);
 
@@ -587,12 +625,18 @@ class _$HomeStateImpl implements _HomeState {
 abstract class _HomeState implements HomeState {
   const factory _HomeState(
           {required final int depositAmount,
+          final String? userName,
+          final String? accountNumber,
           required final List<Map<String, dynamic>> transactions,
           final Option<Either<Failure, Unit>> logoutFailureFailureOrUnit}) =
       _$HomeStateImpl;
 
   @override
   int get depositAmount;
+  @override
+  String? get userName;
+  @override
+  String? get accountNumber;
   @override
   List<Map<String, dynamic>> get transactions;
   @override

@@ -8,7 +8,6 @@ import 'package:eweatlthbankingapp/features/home_screen/presenation/widget/trans
 import 'package:eweatlthbankingapp/features/home_screen/presenation/widget/transactions_history_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 class MainHomeView extends StatefulWidget {
   const MainHomeView({super.key});
 
@@ -31,21 +30,32 @@ class _MainHomeViewState extends State<MainHomeView> {
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                const DrawerHeader(
-                  decoration: BoxDecoration(
+                DrawerHeader(
+                  decoration: const BoxDecoration(
                     color: Colors.green,
                   ),
-                  child: Text(
-                    'Username',
-                    style: TextStyle(color: Colors.white, fontSize: 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Center(
+                        child: Text("eWealth", style:
+                        TextStyle(color: Colors.white, fontSize: 30),),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        state.userName ?? "Loading",
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 20),
+                      ),
+                      Text(
+                        state.accountNumber ?? "**** ***** 1234",
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 20),
+                      )
+                    ],
                   ),
-                ),
-                ListTile(
-                  leading: const Icon(Icons.person),
-                  title: const Text('Profile'),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
                 ),
                 ListTile(
                   leading: const Icon(Icons.exit_to_app),
@@ -63,25 +73,26 @@ class _MainHomeViewState extends State<MainHomeView> {
             const TransactionsHistoryWidget(),
             state.transactions.isEmpty
                 ? Center(
-              child: Text(
-                "eWealth",
-                style: TextStyle(
-                  color: Colors.green[100],
-                  fontStyle: FontStyle.italic,
-                  fontSize: 60,
-                ),
-              ),
-            )
-            ///reverse list
+                    child: Text(
+                      "eWealth",
+                      style: TextStyle(
+                        color: Colors.green[100],
+                        fontStyle: FontStyle.italic,
+                        fontSize: 60,
+                      ),
+                    ),
+                  )
+
+                ///reverse list
                 : Column(
-              children: state.transactions.map((amount) {
-                return ListTile(
-                  leading: const Icon(Icons.account_balance_wallet),
-                  title: Text(amount['bank']),
-                  trailing: Text('R ${amount['amount']}'),
-                );
-              }).toList(),
-            )
+                    children: state.transactions.map((amount) {
+                      return ListTile(
+                        leading: const Icon(Icons.account_balance_wallet),
+                        title: Text(amount['bank']),
+                        trailing: Text('R ${amount['amount']}'),
+                      );
+                    }).toList(),
+                  )
           ],
         );
       },
@@ -91,7 +102,7 @@ class _MainHomeViewState extends State<MainHomeView> {
   void _listener(BuildContext context, HomeState state) {
     state.logoutFailureFailureOrUnit.fold(() {}, (eitherFailureOrUnit) {
       eitherFailureOrUnit.fold(
-            (failure) {
+        (failure) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Unable to logout'),
@@ -99,7 +110,7 @@ class _MainHomeViewState extends State<MainHomeView> {
             ),
           );
         },
-            (_) {
+        (_) {
           context.router.push(LoginRoute());
         },
       );

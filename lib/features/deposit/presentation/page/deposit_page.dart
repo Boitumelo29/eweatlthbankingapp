@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.dart';
 import 'package:eweatlthbankingapp/core/routes/router.dart';
@@ -7,7 +6,6 @@ import 'package:eweatlthbankingapp/features/deposit/bloc/deposit_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart'
     show BlocConsumer, BlocProvider, ReadContext;
-import 'package:shared_preferences/shared_preferences.dart';
 
 @RoutePage()
 class DepositPage extends StatelessWidget {
@@ -240,49 +238,5 @@ class _DepositViewState extends State<DepositView> {
         const Icon(Icons.check_circle, color: Colors.green),
       ],
     );
-  }
-
-  Future<void> _amountDeposit() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final accountId = prefs.getString('accountId');
-
-    if (accountId == null || accountId.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Account ID not found')),
-      );
-      return;
-    }
-
-    try {
-      final String? depositsJson = prefs.getString('deposits');
-      final Map<String, List<int>> deposits = depositsJson != null
-          ? (jsonDecode(depositsJson) as Map<String, dynamic>).map(
-              (key, value) {
-                if (value is List<dynamic>) {
-                  return MapEntry(key, List<int>.from(value));
-                } else {
-                  return MapEntry(key, <int>[]);
-                }
-              },
-            )
-          : {};
-
-      final int depositAmount = int.parse(_amountController.text);
-
-      if (!deposits.containsKey(accountId)) {
-        deposits[accountId] = [];
-      }
-
-      deposits[accountId]!.add(depositAmount);
-
-      await prefs.setString('deposits', jsonEncode(deposits));
-
-      context.router.push(const PaymentSuccessRoute());
-    } catch (e) {
-      print(e);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
-    }
   }
 }

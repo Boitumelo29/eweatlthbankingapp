@@ -9,8 +9,6 @@ import 'package:eweatlthbankingapp/util/validation/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
 
 @RoutePage()
 class TransferPage extends StatelessWidget {
@@ -44,70 +42,7 @@ class _TransferViewState extends State<TransferView> {
   List<String> banks = ['FNB', 'Standard Bank', 'ABSA', 'Nedbank'];
   String? selectedBank;
 
-  void initState() {
-    super.initState();
-  }
 
-  Future<void> _processTransfer() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final accountId = prefs.getString('accountId');
-
-    if (accountId == null || accountId.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Account ID not found')),
-      );
-      return;
-    }
-
-    try {
-      final String? depositsJson = prefs.getString('deposits');
-      final Map<String, List<int>> deposits = depositsJson != null
-          ? (jsonDecode(depositsJson) as Map<String, dynamic>).map(
-              (key, value) {
-                if (value is List<dynamic>) {
-                  return MapEntry(key, List<int>.from(value));
-                } else {
-                  return MapEntry(key, <int>[]);
-                }
-              },
-            )
-          : {};
-
-      final int transferAmount = int.parse(amountController.text);
-
-      if (!deposits.containsKey(accountId)) {
-        deposits[accountId] = [];
-      }
-
-      deposits[accountId]!.add(-transferAmount);
-      await prefs.setString('deposits', jsonEncode(deposits));
-
-      final String? transactionsJson = prefs.getString('transactions');
-      final List<Map<String, dynamic>> transactions = transactionsJson != null
-          ? List<Map<String, dynamic>>.from(jsonDecode(transactionsJson))
-          : [];
-
-      transactions.add({
-        'accountId': accountId,
-        'amount': -transferAmount,
-        'bank': selectedBank,
-        'accountName': accountNameController.text,
-        'date': DateTime.now().toIso8601String(),
-        'type': 'transfer'
-      });
-
-      await prefs.setString('transactions', jsonEncode(transactions));
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => SuccessScreen()),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

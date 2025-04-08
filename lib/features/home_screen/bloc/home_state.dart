@@ -6,6 +6,8 @@ enum LogOutStatus { initial, loading, success, failure }
 class HomeState with _$HomeState {
   const factory HomeState({
     required int depositAmount,
+    String? userName,
+    String? accountNumber,
     required List<Map<String, dynamic>> transactions,
     @Default(None()) Option<Either<Failure, Unit>> logoutFailureFailureOrUnit,
   }) = _HomeState;

@@ -95,6 +95,22 @@ class MyMainAuthRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [OnboardingPage]
+class OnboardingRoute extends PageRouteInfo<void> {
+  const OnboardingRoute({List<PageRouteInfo>? children})
+    : super(OnboardingRoute.name, initialChildren: children);
+
+  static const String name = 'OnboardingRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const OnboardingPage();
+    },
+  );
+}
+
+/// generated route for
 /// [PaymentFailurePage]
 class PaymentFailureRoute extends PageRouteInfo<void> {
   const PaymentFailureRoute({List<PageRouteInfo>? children})
@@ -124,6 +140,42 @@ class PaymentSuccessRoute extends PageRouteInfo<void> {
       return const PaymentSuccessPage();
     },
   );
+}
+
+/// generated route for
+/// [SignUpPage]
+class SignUpRoute extends PageRouteInfo<SignUpRouteArgs> {
+  SignUpRoute({Key? key, VoidCallback? show, List<PageRouteInfo>? children})
+    : super(
+        SignUpRoute.name,
+        args: SignUpRouteArgs(key: key, show: show),
+        initialChildren: children,
+      );
+
+  static const String name = 'SignUpRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<SignUpRouteArgs>(
+        orElse: () => const SignUpRouteArgs(),
+      );
+      return SignUpPage(key: args.key, show: args.show);
+    },
+  );
+}
+
+class SignUpRouteArgs {
+  const SignUpRouteArgs({this.key, this.show});
+
+  final Key? key;
+
+  final VoidCallback? show;
+
+  @override
+  String toString() {
+    return 'SignUpRouteArgs{key: $key, show: $show}';
+  }
 }
 
 /// generated route for

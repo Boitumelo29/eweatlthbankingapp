@@ -15,6 +15,7 @@ import 'package:eweatlthbankingapp/util/constants/strings/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+@RoutePage()
 class SignUpPage extends StatefulWidget {
   final VoidCallback? show;
 
@@ -65,9 +66,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpBloc, SignUpState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: _listener,
       builder: (context, state) {
         return UserLayoutScreen(
           children: [
@@ -76,11 +75,10 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: Column(
                   children: <Widget>[
                     const SizedSpace(
-                      height: 20,
+                      height: 10,
                     ),
                     const EWealthText(),
                     const EWealthSubText(),
-                    //  const LogoImage(),
                     const SizedSpace(
                       height: 20,
                     ),
@@ -125,20 +123,20 @@ class _SignUpPageState extends State<SignUpPage> {
                       username: sub,
                       usernameFocus: subFocus,
                     ),
-                    const SizedSpace(
-                      height: 10,
-                    ),
-                    SignupCity(
-                      username: city,
-                      usernameFocus: cityFocus,
-                    ),
-                    const SizedSpace(
-                      height: 10,
-                    ),
-                    SignupStreetName(
-                      username: streetName,
-                      usernameFocus: streetNameFocus,
-                    ),
+                    // const SizedSpace(
+                    //   height: 10,
+                    // ),
+                    // SignupCity(
+                    //   username: city,
+                    //   usernameFocus: cityFocus,
+                    // ),
+                    // const SizedSpace(
+                    //   height: 10,
+                    // ),
+                    // SignupStreetName(
+                    //   username: streetName,
+                    //   usernameFocus: streetNameFocus,
+                    // ),
                     const SizedSpace(
                       height: 10,
                     ),
@@ -175,8 +173,6 @@ class _SignUpPageState extends State<SignUpPage> {
                         isLoading: isLoading,
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            // _signUp(username.text);
-
                             context.read<SignUpBloc>().add(
                                 SignUpEvent.submitted(
                                     username: username.text,
@@ -187,9 +183,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                     selectedProvince:
                                         selectedProvince.toString(),
                                     sub: sub.text,
-                                    city: city.text,
+                                    city: "city",
                                     streetNum: "123",
-                                    streetName: streetName.text,
+                                    streetName: "streetName",
                                     idNum: id.text,
                                     dob: dobController.text));
                           }
@@ -209,7 +205,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void _listener(BuildContext context, SignUpState state) {
     if (state.status == SignupStatus.success) {
-      context.router.push(const MainHomeRoute());
+      context.router.push(const OnboardingRoute());
     } else if (state.status == SignupStatus.failure) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -219,7 +215,6 @@ class _SignUpPageState extends State<SignUpPage> {
       );
     }
   }
-
 
   // Future<void> _signUp(String text) async {
   //   if (!_formKey.currentState!.validate()) {

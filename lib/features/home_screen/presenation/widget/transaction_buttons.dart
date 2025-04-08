@@ -20,7 +20,7 @@ class TransactionButtons extends StatelessWidget {
           }),
           ///here we scan to pay
           _buildActionButton(Icons.document_scanner, 'Pay', () {
-            context.router.push(const DepositRoute());
+            // context.router.push(const DepositRoute());
           }),
         ],
       ),
