@@ -85,8 +85,8 @@ class BalanceCard extends StatelessWidget {
                 ),
                 const Align(
                     alignment: Alignment.topLeft,
-                    child: const Text(
-                      "Add something here",
+                    child: Text(
+                      "**** ***** 1234",
                     ))
               ],
             ),

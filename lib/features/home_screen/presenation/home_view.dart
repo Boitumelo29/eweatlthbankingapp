@@ -37,12 +37,12 @@ class _MainHomeViewState extends State<MainHomeView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(
-                        Icons.person,
-                        size: 40,
+                      const Center(
+                        child: Text("eWealth", style:
+                        TextStyle(color: Colors.white, fontSize: 30),),
                       ),
                       const SizedBox(
-                        height: 30,
+                        height: 10,
                       ),
                       Text(
                         state.userName ?? "Loading",
@@ -57,13 +57,6 @@ class _MainHomeViewState extends State<MainHomeView> {
                     ],
                   ),
                 ),
-                // ListTile(
-                //   leading: const Icon(Icons.person),
-                //   title: const Text('Profile'),
-                //   onTap: () {
-                //     Navigator.pop(context);
-                //   },
-                // ),
                 ListTile(
                   leading: const Icon(Icons.exit_to_app),
                   title: const Text('Logout'),
