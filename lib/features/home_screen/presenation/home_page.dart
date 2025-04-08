@@ -12,8 +12,9 @@ class MainHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<HomeBloc>(
-      create: (context) =>
-          HomeBloc(authRepo: AuthRepository())..add(const LoadDeposit()),
+      create: (context) => HomeBloc(authRepo: AuthRepository())
+        ..add(const LoadDeposit())
+        ..add(const LoadUser()),
       child: const MainHomeView(),
     );
   }

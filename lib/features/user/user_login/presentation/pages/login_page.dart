@@ -3,6 +3,7 @@ import 'package:eweatlthbankingapp/common_widgets/screens/user_layout/user_layou
 import 'package:eweatlthbankingapp/common_widgets/sized_box/sized_space.dart';
 import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.dart';
 import 'package:eweatlthbankingapp/core/routes/router.dart';
+import 'package:eweatlthbankingapp/features/auth/data/auth_repo.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/bloc/login_bloc.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/email.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/widget/have_an_account.dart';
@@ -15,16 +16,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatelessWidget {
   final VoidCallback? show;
-
   const LoginPage({super.key, this.show});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider<LoginBloc>(
+      create: (context) =>  LoginBloc(authRepository: AuthRepository()),
+      child: LoginView(show: show,),
+    );
+  }
 }
 
-class _LoginPageState extends State<LoginPage> {
+class LoginView extends StatefulWidget {
+  final VoidCallback? show;
+
+  const LoginView({super.key, this.show});
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController email = TextEditingController();
   FocusNode emailFocus = FocusNode();

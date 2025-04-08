@@ -1,7 +1,10 @@
+import 'package:auto_route/annotations.dart';
 import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
 import 'package:eweatlthbankingapp/features/tranfer_screen/presentation/transfer_screen.dart';
 import 'package:flutter/material.dart';
 
+
+@RoutePage()
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
 
