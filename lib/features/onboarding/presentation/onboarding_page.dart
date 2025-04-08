@@ -1,8 +1,7 @@
-import 'package:auto_route/annotations.dart';
-import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:eweatlthbankingapp/core/routes/router.dart';
 import 'package:eweatlthbankingapp/features/tranfer_screen/presentation/transfer_screen.dart';
 import 'package:flutter/material.dart';
-
 
 @RoutePage()
 class OnboardingPage extends StatefulWidget {
@@ -64,8 +63,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => const MainHomePage()));
+                  context.router.push(const MainHomeRoute());
                 },
               ),
             )
@@ -96,7 +94,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           duration: const Duration(milliseconds: 500),
                           curve: Curves.easeInOut);
                     },
-                    child: const Text('NEXT', style: TextStyle(color: Colors.white)),
+                    child: const Text('NEXT',
+                        style: TextStyle(color: Colors.white)),
                   ),
                 ],
               ),
@@ -113,7 +112,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(title,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+              style:
+                  const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           if (image != null)
             Padding(
@@ -129,7 +129,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
             ),
           const SizedBox(height: 10),
           Text(content,
-              textAlign: TextAlign.center, style: const TextStyle(fontSize: 18)),
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 18)),
         ],
       ),
     );
