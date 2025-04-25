@@ -35,11 +35,13 @@ class _MainHomeViewState extends State<MainHomeView> {
                     color: Colors.green,
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const Center(
-                        child: Text("eWealth", style:
-                        TextStyle(color: Colors.white, fontSize: 30),),
+                        child: Text(
+                          "eWealth",
+                          style: TextStyle(color: Colors.white, fontSize: 30),
+                        ),
                       ),
                       const SizedBox(
                         height: 10,
@@ -47,15 +49,25 @@ class _MainHomeViewState extends State<MainHomeView> {
                       Text(
                         state.userName ?? "Loading",
                         style:
-                            const TextStyle(color: Colors.black, fontSize: 20),
+                            const TextStyle(color: Colors.black, fontSize: 18),
                       ),
                       Text(
                         state.accountNumber ?? "**** ***** 1234",
                         style:
-                            const TextStyle(color: Colors.black, fontSize: 20),
+                            const TextStyle(color: Colors.black, fontSize: 16),
                       )
                     ],
                   ),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.person),
+                  title: const Text('Profile'),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: const Icon(Icons.settings_input_component_outlined),
+                  title: const Text('Settings'),
+                  onTap: () {},
                 ),
                 ListTile(
                   leading: const Icon(Icons.exit_to_app),

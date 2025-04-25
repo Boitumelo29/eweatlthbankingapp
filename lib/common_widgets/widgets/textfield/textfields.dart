@@ -42,6 +42,7 @@ class LongTextFieldForm extends StatefulWidget {
   final bool showPrefixIcon;
   final IconData? prefixIcon;
   final bool obsureText;
+  final String? prefixText;
   final String? Function(String?)? validator;
   final FocusNode? focusNode;
   final Function(String) onChanged;
@@ -56,6 +57,7 @@ class LongTextFieldForm extends StatefulWidget {
       required this.labelText,
       required this.showSuffixIcon,
       required this.showPrefixIcon,
+      this.prefixText,
       this.prefixIcon,
       required this.validator,
       required this.obsureText,
@@ -121,6 +123,7 @@ class _LongTextFieldFormState extends State<LongTextFieldForm> {
             : null,
         hintText: widget.hintText,
         labelText: widget.labelText,
+        prefixText: widget.prefixText,
         errorBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.green),
           borderRadius: BorderRadius.circular(20),
@@ -134,5 +137,4 @@ class _LongTextFieldFormState extends State<LongTextFieldForm> {
       textInputAction: TextInputAction.done,
     );
   }
-
 }

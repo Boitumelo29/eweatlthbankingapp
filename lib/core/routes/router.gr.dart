@@ -179,6 +179,22 @@ class SignUpRouteArgs {
 }
 
 /// generated route for
+/// [TransferFailurePage]
+class TransferFailureRoute extends PageRouteInfo<void> {
+  const TransferFailureRoute({List<PageRouteInfo>? children})
+    : super(TransferFailureRoute.name, initialChildren: children);
+
+  static const String name = 'TransferFailureRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TransferFailurePage();
+    },
+  );
+}
+
+/// generated route for
 /// [TransferPage]
 class TransferRoute extends PageRouteInfo<void> {
   const TransferRoute({List<PageRouteInfo>? children})
@@ -190,6 +206,22 @@ class TransferRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const TransferPage();
+    },
+  );
+}
+
+/// generated route for
+/// [TransferSuccessPage]
+class TransferSuccessRoute extends PageRouteInfo<void> {
+  const TransferSuccessRoute({List<PageRouteInfo>? children})
+    : super(TransferSuccessRoute.name, initialChildren: children);
+
+  static const String name = 'TransferSuccessRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TransferSuccessPage();
     },
   );
 }

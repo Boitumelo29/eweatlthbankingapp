@@ -26,7 +26,7 @@ class VoucherService {
       final response = await http.post(url);
 
       if (response.statusCode == 200) {
-        return response.body; // e.g. "Voucher R60 redeemed"
+        return response.body;
       } else {
         return 'Error: ${response.body}';
       }

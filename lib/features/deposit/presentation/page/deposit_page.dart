@@ -3,6 +3,7 @@ import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.da
 import 'package:eweatlthbankingapp/core/routes/router.dart';
 import 'package:eweatlthbankingapp/features/auth/data/auth_repo.dart';
 import 'package:eweatlthbankingapp/features/deposit/bloc/deposit_bloc.dart';
+import 'package:eweatlthbankingapp/notes/voucher_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart'
     show BlocConsumer, BlocProvider, ReadContext;
@@ -14,8 +15,9 @@ class DepositPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<DepositBloc>(
-      create: (context) =>
-          DepositBloc(authRepo: AuthRepository())..add(const LoadUser()),
+      create: (context) => DepositBloc(
+          authRepo: AuthRepository(), voucherService: VoucherService())
+        ..add(const LoadUser()),
       child: const DepositView(),
     );
   }
@@ -29,8 +31,6 @@ class DepositView extends StatefulWidget {
 }
 
 class _DepositViewState extends State<DepositView> {
-  /// we are no longer going to do this, we are going to get the user through the auth
-
   final TextEditingController _amountController = TextEditingController();
 
   void _onKeypadTap(String value) {
@@ -64,13 +64,28 @@ class _DepositViewState extends State<DepositView> {
     ];
     return BlocConsumer<DepositBloc, DepositState>(
       listener: (context, state) {
-        state.depositAmountFailureFailureOrUnit.fold(() {}, (eitherFailureOrUnit) {
+        state.depositAmountFailureFailureOrUnit.fold(() {},
+            (eitherFailureOrUnit) {
           eitherFailureOrUnit.fold(
-                (failure) {
-                  context.router.push(const PaymentFailureRoute());
+            (failure) {
+              print(failure);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Unable to process order"),
+                  backgroundColor: Colors.red,
+                ),
+              );
+              context.router.push(const PaymentFailureRoute());
             },
-                (_) {
-                  context.router.push(const PaymentSuccessRoute());
+            (_) {
+              print(state.redeemedVoucher);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Voucher successfully redeemed'),
+                  backgroundColor: Colors.green,
+                ),
+              );
+              context.router.push(const PaymentSuccessRoute());
             },
           );
         });
@@ -165,8 +180,8 @@ class _DepositViewState extends State<DepositView> {
                         return;
                       }
                       context.read<DepositBloc>().add(
-                          DepositEvent.depositAmount(
-                              amount: _amountController.text));
+                          DepositEvent.redeemVoucher(
+                              voucher: _amountController.text));
                     },
                     title: "Deposit",
                     isLoading: false),

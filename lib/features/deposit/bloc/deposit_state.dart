@@ -6,6 +6,7 @@ class DepositState with _$DepositState {
     required bool isLoadingUser,
     @Default(false) bool depositIsLoading,
     String? userName,
+    String? redeemedVoucher,
     String? accountNumber,
     String? errorMessage,
     @Default(None())
@@ -18,5 +19,6 @@ class DepositState with _$DepositState {
       accountNumber: null,
       errorMessage: null,
       depositIsLoading: false,
+      redeemedVoucher: null,
       depositAmountFailureFailureOrUnit: None());
 }
