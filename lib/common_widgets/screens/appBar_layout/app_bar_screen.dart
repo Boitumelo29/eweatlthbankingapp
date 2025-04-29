@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AppBarScreen extends StatelessWidget {
-  final bool shouldScroll;
   final String title;
   final List<Widget> children;
+  final bool shouldScroll;
   final List<Widget>? appBarChildren;
+  final bool shouldHaveDrawer;
   final Widget? drawer;
   final bool shouldHaveFloatingButton;
   final Function()? floatingActionButton;
@@ -14,11 +15,12 @@ class AppBarScreen extends StatelessWidget {
 
   const AppBarScreen({
     super.key,
-    required this.shouldScroll,
     required this.title,
     required this.children,
-    required this.shouldHaveFloatingButton,
-    required this.shouldBeCentered,
+    this.shouldScroll = false,
+    this.shouldHaveDrawer = false,
+    this.shouldHaveFloatingButton = false,
+    this.shouldBeCentered = false,
     this.appBarChildren,
     this.floatingActionButton,
     this.tooltip,
@@ -34,7 +36,7 @@ class AppBarScreen extends StatelessWidget {
         title: Text(title),
         actions: appBarChildren,
       ),
-      drawer: drawer ?? const SizedBox(),
+      drawer: shouldHaveDrawer ? drawer : null,
       body: SingleChildScrollView(
         physics: shouldScroll
             ? const ScrollPhysics()
@@ -43,16 +45,10 @@ class AppBarScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Center(
-              child: shouldBeCentered
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: children)
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: children),
-            ),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: children)),
           ),
         ),
       ),

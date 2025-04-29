@@ -96,6 +96,7 @@ class _MainHomeViewState extends State<MainHomeView> {
                   )
 
                 ///reverse list
+              /// here is where we can filter the list out!
                 : Column(
                     children: state.transactions.map((amount) {
                       return ListTile(

@@ -82,6 +82,8 @@ class TransferBloc extends Bloc<TransferEvent, TransferState> {
       final accountId = prefs.getString('accountId');
 
       if (accountId != null && accountId.isNotEmpty) {
+        ///Todo this is what I do,
+        ///I dont really document the transactions instead I document the deposit
         final depositsJson = prefs.getString('deposits');
         if (depositsJson != null) {
           try {

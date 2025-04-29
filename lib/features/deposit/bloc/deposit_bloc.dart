@@ -26,6 +26,7 @@ class DepositBloc extends Bloc<DepositEvent, DepositState> {
       emit(state.copyWith(depositIsLoading: true));
 
       final SharedPreferences prefs = await SharedPreferences.getInstance();
+      //we get the accountID which is the email
       final accountId = prefs.getString('accountId');
 
       if (accountId == null || accountId.isEmpty) {
@@ -52,8 +53,11 @@ class DepositBloc extends Bloc<DepositEvent, DepositState> {
           deposits[accountId] = [];
         }
 
+        ///here we are adding deposit to the account ID
+        ///we need to add that it is a deposit as well or not, we can always just filter it out in the bloc instead
         deposits[accountId]!.add(depositAmount);
 
+        ///here is where we make the call to set the deposit
         await prefs.setString('deposits', jsonEncode(deposits));
 
         emit(state.copyWith(

@@ -6,6 +6,7 @@ import 'package:eweatlthbankingapp/features/tranfer_screen/bloc/transfer_bloc.da
 import 'package:eweatlthbankingapp/util/validation/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:slide_to_act/slide_to_act.dart';
 
 @RoutePage()
 class TransferPage extends StatelessWidget {
@@ -37,6 +38,7 @@ class _TransferViewState extends State<TransferView> {
   final TextEditingController amountController = TextEditingController();
   List<String> banks = ['FNB', 'Standard Bank', 'ABSA', 'Nedbank'];
   String? selectedBank;
+  final GlobalKey<SlideActionState> key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -198,18 +200,50 @@ class _TransferViewState extends State<TransferView> {
                     isRed: true,
                   ),
                   const SizedBox(height: 20),
-                  LongButton(
-                    onTap: () {
-                      if (!_formKey.currentState!.validate()) return;
+
+                  SlideAction(
+                    key: key,
+
+                    ///here we are unable to use the form key to enable the button
+                    // enabled: _formKey.currentState == null,
+                    innerColor: Colors.white,
+                    outerColor: Colors.green,
+                    text: "Transfer",
+                    sliderButtonIcon:
+                        const Icon(Icons.keyboard_arrow_right_outlined),
+                    // submittedIcon: Icon(Icons.corr),
+                    onSubmit: () {
+                      print(_formKey.currentState == null);
+                      print(_formKey.currentState != null);
+
+                      if (_formKey.currentState != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Please complete form'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                        return;
+                      }
                       context.read<TransferBloc>().add(ProcessTransfer(
                           selectedBank: selectedBank.toString(),
                           accountName: accountNameController.text,
                           amount: amountController.text));
-                      // _processTransfer();
                     },
-                    title: "Transfer",
-                    isLoading: false,
-                  ),
+                  )
+
+                  // LongButton(
+                  //   onTap: () {
+                  //     if (!_formKey.currentState!.validate()) return;
+                  //     context.read<TransferBloc>().add(ProcessTransfer(
+                  //         selectedBank: selectedBank.toString(),
+                  //         accountName: accountNameController.text,
+                  //         amount: amountController.text));
+                  //     // _processTransfer();
+                  //   },
+                  //   title: "Transfer",
+                  //   isLoading: false,
+                  // ),
                 ],
               ),
             ),
