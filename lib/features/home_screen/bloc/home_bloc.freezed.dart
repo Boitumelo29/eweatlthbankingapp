@@ -420,7 +420,9 @@ mixin _$HomeState {
   int get depositAmount => throw _privateConstructorUsedError;
   String? get userName => throw _privateConstructorUsedError;
   String? get accountNumber => throw _privateConstructorUsedError;
-  List<Map<String, dynamic>> get transactions =>
+
+  ///todo tumi if I want to print the list in a reversed list I need to replace type dynamic with type: Iterable<Map<String, Object>>
+  Iterable<Map<String, Object>> get transactions =>
       throw _privateConstructorUsedError;
   Option<Either<Failure, Unit>> get logoutFailureFailureOrUnit =>
       throw _privateConstructorUsedError;
@@ -441,7 +443,7 @@ abstract class $HomeStateCopyWith<$Res> {
       {int depositAmount,
       String? userName,
       String? accountNumber,
-      List<Map<String, dynamic>> transactions,
+      Iterable<Map<String, Object>> transactions,
       Option<Either<Failure, Unit>> logoutFailureFailureOrUnit});
 }
 
@@ -482,7 +484,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
       transactions: null == transactions
           ? _value.transactions
           : transactions // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>,
+              as Iterable<Map<String, Object>>,
       logoutFailureFailureOrUnit: null == logoutFailureFailureOrUnit
           ? _value.logoutFailureFailureOrUnit
           : logoutFailureFailureOrUnit // ignore: cast_nullable_to_non_nullable
@@ -503,7 +505,7 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       {int depositAmount,
       String? userName,
       String? accountNumber,
-      List<Map<String, dynamic>> transactions,
+      Iterable<Map<String, Object>> transactions,
       Option<Either<Failure, Unit>> logoutFailureFailureOrUnit});
 }
 
@@ -540,9 +542,9 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           : accountNumber // ignore: cast_nullable_to_non_nullable
               as String?,
       transactions: null == transactions
-          ? _value._transactions
+          ? _value.transactions
           : transactions // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>,
+              as Iterable<Map<String, Object>>,
       logoutFailureFailureOrUnit: null == logoutFailureFailureOrUnit
           ? _value.logoutFailureFailureOrUnit
           : logoutFailureFailureOrUnit // ignore: cast_nullable_to_non_nullable
@@ -558,9 +560,8 @@ class _$HomeStateImpl implements _HomeState {
       {required this.depositAmount,
       this.userName,
       this.accountNumber,
-      required final List<Map<String, dynamic>> transactions,
-      this.logoutFailureFailureOrUnit = const None()})
-      : _transactions = transactions;
+      required this.transactions,
+      this.logoutFailureFailureOrUnit = const None()});
 
   @override
   final int depositAmount;
@@ -568,14 +569,10 @@ class _$HomeStateImpl implements _HomeState {
   final String? userName;
   @override
   final String? accountNumber;
-  final List<Map<String, dynamic>> _transactions;
-  @override
-  List<Map<String, dynamic>> get transactions {
-    if (_transactions is EqualUnmodifiableListView) return _transactions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_transactions);
-  }
 
+  ///todo tumi if I want to print the list in a reversed list I need to replace type dynamic with type: Iterable<Map<String, Object>>
+  @override
+  final Iterable<Map<String, Object>> transactions;
   @override
   @JsonKey()
   final Option<Either<Failure, Unit>> logoutFailureFailureOrUnit;
@@ -597,7 +594,7 @@ class _$HomeStateImpl implements _HomeState {
             (identical(other.accountNumber, accountNumber) ||
                 other.accountNumber == accountNumber) &&
             const DeepCollectionEquality()
-                .equals(other._transactions, _transactions) &&
+                .equals(other.transactions, transactions) &&
             (identical(other.logoutFailureFailureOrUnit,
                     logoutFailureFailureOrUnit) ||
                 other.logoutFailureFailureOrUnit ==
@@ -610,7 +607,7 @@ class _$HomeStateImpl implements _HomeState {
       depositAmount,
       userName,
       accountNumber,
-      const DeepCollectionEquality().hash(_transactions),
+      const DeepCollectionEquality().hash(transactions),
       logoutFailureFailureOrUnit);
 
   /// Create a copy of HomeState
@@ -627,7 +624,7 @@ abstract class _HomeState implements HomeState {
           {required final int depositAmount,
           final String? userName,
           final String? accountNumber,
-          required final List<Map<String, dynamic>> transactions,
+          required final Iterable<Map<String, Object>> transactions,
           final Option<Either<Failure, Unit>> logoutFailureFailureOrUnit}) =
       _$HomeStateImpl;
 
@@ -637,8 +634,10 @@ abstract class _HomeState implements HomeState {
   String? get userName;
   @override
   String? get accountNumber;
+
+  ///todo tumi if I want to print the list in a reversed list I need to replace type dynamic with type: Iterable<Map<String, Object>>
   @override
-  List<Map<String, dynamic>> get transactions;
+  Iterable<Map<String, Object>> get transactions;
   @override
   Option<Either<Failure, Unit>> get logoutFailureFailureOrUnit;
 

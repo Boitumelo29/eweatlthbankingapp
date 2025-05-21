@@ -11,6 +11,54 @@
 part of 'router.dart';
 
 /// generated route for
+/// [AddBeneficiaryScreen]
+class AddBeneficiaryRoute extends PageRouteInfo<void> {
+  const AddBeneficiaryRoute({List<PageRouteInfo>? children})
+    : super(AddBeneficiaryRoute.name, initialChildren: children);
+
+  static const String name = 'AddBeneficiaryRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AddBeneficiaryScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [BeneficiaryListPage]
+class BeneficiaryListRoute extends PageRouteInfo<void> {
+  const BeneficiaryListRoute({List<PageRouteInfo>? children})
+    : super(BeneficiaryListRoute.name, initialChildren: children);
+
+  static const String name = 'BeneficiaryListRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return  BeneficiaryListPage();
+    },
+  );
+}
+
+/// generated route for
+/// [BeneficiaryPage]
+class BeneficiaryRoute extends PageRouteInfo<void> {
+  const BeneficiaryRoute({List<PageRouteInfo>? children})
+    : super(BeneficiaryRoute.name, initialChildren: children);
+
+  static const String name = 'BeneficiaryRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const BeneficiaryPage();
+    },
+  );
+}
+
+/// generated route for
 /// [DepositPage]
 class DepositRoute extends PageRouteInfo<void> {
   const DepositRoute({List<PageRouteInfo>? children})

@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.dart';
 import 'package:eweatlthbankingapp/core/routes/router.dart';
 import 'package:eweatlthbankingapp/features/auth/data/auth_repo.dart';
 import 'package:eweatlthbankingapp/features/deposit/bloc/deposit_bloc.dart';

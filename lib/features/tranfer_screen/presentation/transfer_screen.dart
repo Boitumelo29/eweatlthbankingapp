@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.dart';
 import 'package:eweatlthbankingapp/common_widgets/widgets/textfield/textfields.dart';
 import 'package:eweatlthbankingapp/core/routes/router.dart';
 import 'package:eweatlthbankingapp/features/tranfer_screen/bloc/transfer_bloc.dart';
@@ -15,7 +14,9 @@ class TransferPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<TransferBloc>(
-      create: (context) => TransferBloc()..add(const LoadDeposit()),
+      create: (context) =>
+      TransferBloc()
+        ..add(const LoadDeposit()),
       child: const TransferView(),
     );
   }
@@ -33,7 +34,7 @@ class _TransferViewState extends State<TransferView> {
   final TextEditingController accountNameController = TextEditingController();
   final TextEditingController accountNumberController = TextEditingController();
   final TextEditingController beneficiaryReferenceController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController myReferenceController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
   List<String> banks = ['FNB', 'Standard Bank', 'ABSA', 'Nedbank'];
@@ -42,19 +43,20 @@ class _TransferViewState extends State<TransferView> {
 
   @override
   Widget build(BuildContext context) {
+    ///todo refactor code
     return BlocConsumer<TransferBloc, TransferState>(
       listener: (context, state) {
         state.processTransferFailureFailureOrUnit.fold(() {},
-            (eitherFailureOrUnit) {
-          eitherFailureOrUnit.fold(
-            (failure) {
-              context.router.push(const TransferFailureRoute());
-            },
-            (_) {
-              context.router.push(const TransferSuccessRoute());
-            },
-          );
-        });
+                (eitherFailureOrUnit) {
+              eitherFailureOrUnit.fold(
+                    (failure) {
+                  context.router.push(const TransferFailureRoute());
+                },
+                    (_) {
+                  context.router.push(const TransferSuccessRoute());
+                },
+              );
+            });
       },
       builder: (context, state) {
         return Scaffold(
@@ -112,7 +114,7 @@ class _TransferViewState extends State<TransferView> {
                       );
                     }).toList(),
                     validator: (value) =>
-                        value == null ? 'Please select a bank' : null,
+                    value == null ? 'Please select a bank' : null,
                   ),
                   const SizedBox(height: 20),
                   LongTextFieldForm(
@@ -210,24 +212,26 @@ class _TransferViewState extends State<TransferView> {
                     outerColor: Colors.green,
                     text: "Transfer",
                     sliderButtonIcon:
-                        const Icon(Icons.keyboard_arrow_right_outlined),
+                    const Icon(Icons.keyboard_arrow_right_outlined),
                     // submittedIcon: Icon(Icons.corr),
                     onSubmit: () {
-                      print(_formKey.currentState == null);
-                      print(_formKey.currentState != null);
-
-                      if (_formKey.currentState != null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Please complete form'),
-                            backgroundColor: Colors.red,
-                          ),
-                        );
-                        return;
-                      }
+                      ///todo tumi review this
+                      // print(_formKey.currentState == null);
+                      // print(_formKey.currentState != null);
+                      //
+                      // if (_formKey.currentState != null) {
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //     const SnackBar(
+                      //       content: Text('Please complete form'),
+                      //       backgroundColor: Colors.red,
+                      //     ),
+                      //   );
+                      //   return;
+                      // }
                       context.read<TransferBloc>().add(ProcessTransfer(
                           selectedBank: selectedBank.toString(),
                           accountName: accountNameController.text,
+                          accountNumber: accountNumberController.text,
                           amount: amountController.text));
                     },
                   )

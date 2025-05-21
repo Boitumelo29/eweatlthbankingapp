@@ -63,6 +63,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 onPressed: () {
+                  ///todo Tumi we need to push and replace over here not push
                   context.router.push(const MainHomeRoute());
                 },
               ),

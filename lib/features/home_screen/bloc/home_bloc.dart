@@ -25,7 +25,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       if (accountId != null && accountId.isNotEmpty) {
         final depositsJson = prefs.getString('deposits');
         final transactionsJson = prefs.getString("transactions");
-        //print(transactionsJson);
 
         if (depositsJson != null) {
           try {
@@ -35,7 +34,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               (key, value) {
                 if (value is List<dynamic>) {
                   ///this here is printing all of the values of
-                  // print("This is the key: $key, This is the value: $value");
                   return MapEntry(key, List<int>.from(value));
                 } else {
                   return MapEntry(key, <int>[]);
@@ -44,54 +42,54 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             );
 
             if (transactionsJson != null) {
-              print(transactionsJson);
-              // print(accountId);
-              // print(transactionsJson[accountId]);
+              final List<dynamic> allTransactions =
+                  jsonDecode(transactionsJson);
 
-              // final Map<String, dynamic> transact =
-              //     (jsonDecode(transactionsJson) as Map<String, dynamic>).map(
-              //   ///the key in this case is the ID, value is the values[] type list
-              //   (key, value) {
-              //     print("Key: $key");
-              //     print("Value: $value");
-              //     if (value is List<dynamic>) {
-              //       ///this here is printing all of the values of
-              //       print("This is the key: $key, This is the value: $value");
-              //       return MapEntry(key, List<String>.from(value));
-              //     } else {
-              //       return MapEntry(key, <String>[]);
-              //     }
-              //   },
-              // );
+              final List<Map<String, Object>> userTransactions = allTransactions
+                  .where((transaction) => transaction['accountId'] == accountId)
+                  .map((transaction) => {
+                        'bank': transaction['bank'] as String,
+                        'accountName': transaction['accountName'] as String,
+                        //'accountNumber': transaction['accountNumber'] as String,
+                        'amount': transaction['amount'] as int,
+                        'date': transaction['date'] as String,
+                        'type': transaction['type'] as String
+                      })
+                  .toList();
+
+              print("all: $allTransactions");
+              print("my user: $userTransactions");
+
+              ///amount is just getting the values
+              final amounts = deposits[accountId] ?? [];
+              final deposit =
+                  amounts.isNotEmpty ? amounts.reduce((a, b) => a + b) : 0;
+
+              final transactions = amounts.map((amount) {
+                if (amount.isNegative) {
+                  final userTransaction = userTransactions.firstWhere(
+                    (t) => t['amount'] == amount,
+                    orElse: () =>
+                        {'bank': 'Transaction', 'accountName': 'Transfer'},
+                  );
+                  return <String, Object>{
+                    "transaction": userTransaction['accountName'] as String,
+                    "amount": amount,
+                  };
+                } else {
+                  return <String, Object>{
+                    "transaction": "Deposit",
+                    "amount": amount,
+                  };
+                }
+              }).toList();
+
+              ///here we are printing the latest transaction
+              emit(state.copyWith(
+                depositAmount: deposit,
+                transactions: transactions.reversed,
+              ));
             }
-
-            ///amount is just getting the values
-            final amounts = deposits[accountId] ?? [];
-
-
-            /// todo tumi
-            ///here we were trying to get the bank
-            // print(amounts[""]);
-            final deposit =
-                amounts.isNotEmpty ? amounts.reduce((a, b) => a + b) : 0;
-
-            final transactions = amounts.map((amount) {
-              if (amount.isNegative) {
-                //now we need to get the bank account here
-                return {"bank": "Transaction", "amount": amount};
-              } else {
-                return {"bank": "Deposit", "amount": amount};
-              }
-            }).toList();
-
-
-            print(transactions);
-            ///here we are printing the latest transaction
-            print(transactions.reversed);
-            emit(state.copyWith(
-              depositAmount: deposit,
-              transactions: transactions,
-            ));
           } catch (e) {
             // handle error
           }

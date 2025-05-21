@@ -20,8 +20,8 @@ mixin _$TransferEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() loadDeposit,
-    required TResult Function(
-            String selectedBank, String accountName, String amount)
+    required TResult Function(String selectedBank, String accountName,
+            String accountNumber, String amount)
         processTransfer,
   }) =>
       throw _privateConstructorUsedError;
@@ -29,7 +29,8 @@ mixin _$TransferEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? loadDeposit,
-    TResult? Function(String selectedBank, String accountName, String amount)?
+    TResult? Function(String selectedBank, String accountName,
+            String accountNumber, String amount)?
         processTransfer,
   }) =>
       throw _privateConstructorUsedError;
@@ -37,7 +38,8 @@ mixin _$TransferEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? loadDeposit,
-    TResult Function(String selectedBank, String accountName, String amount)?
+    TResult Function(String selectedBank, String accountName,
+            String accountNumber, String amount)?
         processTransfer,
     required TResult orElse(),
   }) =>
@@ -130,8 +132,8 @@ class _$StartedImpl implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() loadDeposit,
-    required TResult Function(
-            String selectedBank, String accountName, String amount)
+    required TResult Function(String selectedBank, String accountName,
+            String accountNumber, String amount)
         processTransfer,
   }) {
     return started();
@@ -142,7 +144,8 @@ class _$StartedImpl implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? loadDeposit,
-    TResult? Function(String selectedBank, String accountName, String amount)?
+    TResult? Function(String selectedBank, String accountName,
+            String accountNumber, String amount)?
         processTransfer,
   }) {
     return started?.call();
@@ -153,7 +156,8 @@ class _$StartedImpl implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? loadDeposit,
-    TResult Function(String selectedBank, String accountName, String amount)?
+    TResult Function(String selectedBank, String accountName,
+            String accountNumber, String amount)?
         processTransfer,
     required TResult orElse(),
   }) {
@@ -245,8 +249,8 @@ class _$LoadDepositImpl implements LoadDeposit {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() loadDeposit,
-    required TResult Function(
-            String selectedBank, String accountName, String amount)
+    required TResult Function(String selectedBank, String accountName,
+            String accountNumber, String amount)
         processTransfer,
   }) {
     return loadDeposit();
@@ -257,7 +261,8 @@ class _$LoadDepositImpl implements LoadDeposit {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? loadDeposit,
-    TResult? Function(String selectedBank, String accountName, String amount)?
+    TResult? Function(String selectedBank, String accountName,
+            String accountNumber, String amount)?
         processTransfer,
   }) {
     return loadDeposit?.call();
@@ -268,7 +273,8 @@ class _$LoadDepositImpl implements LoadDeposit {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? loadDeposit,
-    TResult Function(String selectedBank, String accountName, String amount)?
+    TResult Function(String selectedBank, String accountName,
+            String accountNumber, String amount)?
         processTransfer,
     required TResult orElse(),
   }) {
@@ -323,7 +329,11 @@ abstract class _$$ProcessTransferImplCopyWith<$Res> {
           $Res Function(_$ProcessTransferImpl) then) =
       __$$ProcessTransferImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String selectedBank, String accountName, String amount});
+  $Res call(
+      {String selectedBank,
+      String accountName,
+      String accountNumber,
+      String amount});
 }
 
 /// @nodoc
@@ -341,6 +351,7 @@ class __$$ProcessTransferImplCopyWithImpl<$Res>
   $Res call({
     Object? selectedBank = null,
     Object? accountName = null,
+    Object? accountNumber = null,
     Object? amount = null,
   }) {
     return _then(_$ProcessTransferImpl(
@@ -351,6 +362,10 @@ class __$$ProcessTransferImplCopyWithImpl<$Res>
       accountName: null == accountName
           ? _value.accountName
           : accountName // ignore: cast_nullable_to_non_nullable
+              as String,
+      accountNumber: null == accountNumber
+          ? _value.accountNumber
+          : accountNumber // ignore: cast_nullable_to_non_nullable
               as String,
       amount: null == amount
           ? _value.amount
@@ -366,6 +381,7 @@ class _$ProcessTransferImpl implements ProcessTransfer {
   const _$ProcessTransferImpl(
       {required this.selectedBank,
       required this.accountName,
+      required this.accountNumber,
       required this.amount});
 
   @override
@@ -373,11 +389,13 @@ class _$ProcessTransferImpl implements ProcessTransfer {
   @override
   final String accountName;
   @override
+  final String accountNumber;
+  @override
   final String amount;
 
   @override
   String toString() {
-    return 'TransferEvent.processTransfer(selectedBank: $selectedBank, accountName: $accountName, amount: $amount)';
+    return 'TransferEvent.processTransfer(selectedBank: $selectedBank, accountName: $accountName, accountNumber: $accountNumber, amount: $amount)';
   }
 
   @override
@@ -389,12 +407,14 @@ class _$ProcessTransferImpl implements ProcessTransfer {
                 other.selectedBank == selectedBank) &&
             (identical(other.accountName, accountName) ||
                 other.accountName == accountName) &&
+            (identical(other.accountNumber, accountNumber) ||
+                other.accountNumber == accountNumber) &&
             (identical(other.amount, amount) || other.amount == amount));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, selectedBank, accountName, amount);
+  int get hashCode => Object.hash(
+      runtimeType, selectedBank, accountName, accountNumber, amount);
 
   /// Create a copy of TransferEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -410,11 +430,11 @@ class _$ProcessTransferImpl implements ProcessTransfer {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() loadDeposit,
-    required TResult Function(
-            String selectedBank, String accountName, String amount)
+    required TResult Function(String selectedBank, String accountName,
+            String accountNumber, String amount)
         processTransfer,
   }) {
-    return processTransfer(selectedBank, accountName, amount);
+    return processTransfer(selectedBank, accountName, accountNumber, amount);
   }
 
   @override
@@ -422,10 +442,12 @@ class _$ProcessTransferImpl implements ProcessTransfer {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? loadDeposit,
-    TResult? Function(String selectedBank, String accountName, String amount)?
+    TResult? Function(String selectedBank, String accountName,
+            String accountNumber, String amount)?
         processTransfer,
   }) {
-    return processTransfer?.call(selectedBank, accountName, amount);
+    return processTransfer?.call(
+        selectedBank, accountName, accountNumber, amount);
   }
 
   @override
@@ -433,12 +455,13 @@ class _$ProcessTransferImpl implements ProcessTransfer {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? loadDeposit,
-    TResult Function(String selectedBank, String accountName, String amount)?
+    TResult Function(String selectedBank, String accountName,
+            String accountNumber, String amount)?
         processTransfer,
     required TResult orElse(),
   }) {
     if (processTransfer != null) {
-      return processTransfer(selectedBank, accountName, amount);
+      return processTransfer(selectedBank, accountName, accountNumber, amount);
     }
     return orElse();
   }
@@ -482,10 +505,12 @@ abstract class ProcessTransfer implements TransferEvent {
   const factory ProcessTransfer(
       {required final String selectedBank,
       required final String accountName,
+      required final String accountNumber,
       required final String amount}) = _$ProcessTransferImpl;
 
   String get selectedBank;
   String get accountName;
+  String get accountNumber;
   String get amount;
 
   /// Create a copy of TransferEvent

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:eweatlthbankingapp/clean_arch_example/chuck_joke/data/model/chuck_joke_model.dart';
-import 'package:eweatlthbankingapp/clean_arch_example/chuck_joke/data/repo/chuck_joke_repository_impl.dart';
 import 'package:http/http.dart' as http;
 
 ///here is the abstract class I skipped

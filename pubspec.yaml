@@ -48,6 +48,7 @@ dependencies:
   dartz: ^0.10.1
   flutter_flip_card: ^0.0.6
   slide_to_act: ^2.0.2
+  expansion_tile_card: ^3.0.0
 
 
 dev_dependencies:

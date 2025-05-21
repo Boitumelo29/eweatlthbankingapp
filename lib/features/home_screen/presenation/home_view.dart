@@ -94,14 +94,19 @@ class _MainHomeViewState extends State<MainHomeView> {
                       ),
                     ),
                   )
-
-                ///reverse list
-              /// here is where we can filter the list out!
                 : Column(
                     children: state.transactions.map((amount) {
                       return ListTile(
-                        leading: const Icon(Icons.account_balance_wallet),
-                        title: Text(amount['bank']),
+                        leading: amount['transaction'] == "Deposit"
+                            ? const Icon(
+                                Icons.add,
+                                color: Colors.green,
+                              )
+                            : const Icon(
+                                Icons.remove,
+                                color: Colors.red,
+                              ),
+                        title: Text(amount['transaction'].toString()),
                         trailing: Text('R ${amount['amount']}'),
                       );
                     }).toList(),

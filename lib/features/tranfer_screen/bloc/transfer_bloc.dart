@@ -62,6 +62,7 @@ class TransferBloc extends Bloc<TransferEvent, TransferState> {
           'amount': -transferAmount,
           'bank': event.selectedBank,
           'accountName': event.accountName,
+          'accountNumber': event.accountNumber,
           'date': DateTime.now().toIso8601String(),
           'type': 'transfer'
         });

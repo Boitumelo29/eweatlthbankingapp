@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:eweatlthbankingapp/common_widgets/screens/appBar_layout/app_bar_screen.dart';
 import 'package:eweatlthbankingapp/core/routes/router.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +14,20 @@ class _BeneficiaryListViewState extends State<BeneficiaryListView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Deposit"),
+        title: const Text("Pay Beneficiary"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                ///now we need to create the screen to add the user
+                ///
+                context.router.push(const AddBeneficiaryRoute());
+              },
+              icon: const Icon(
+                Icons.add,
+                size: 30,
+                color: Colors.black,
+              ))
+        ],
       ),
       body: Padding(
         padding:
@@ -42,3 +54,4 @@ class _BeneficiaryListViewState extends State<BeneficiaryListView> {
     );
   }
 }
+

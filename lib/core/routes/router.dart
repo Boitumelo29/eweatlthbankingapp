@@ -4,6 +4,8 @@ import 'package:eweatlthbankingapp/features/deposit/presentation/page/deposit_pa
 import 'package:eweatlthbankingapp/features/deposit/presentation/page/payement_success_page.dart';
 import 'package:eweatlthbankingapp/features/deposit/presentation/payment_failure_page.dart';
 import 'package:eweatlthbankingapp/features/onboarding/presentation/onboarding_page.dart';
+import 'package:eweatlthbankingapp/features/pay_beneficiary/presentation/page/beneficiary_list/beneficiary_list.dart';
+import 'package:eweatlthbankingapp/features/pay_beneficiary/presentation/page/beneficiary_page/beneficiary_page.dart';
 import 'package:eweatlthbankingapp/features/tranfer_screen/presentation/transfer_screen.dart';
 import 'package:eweatlthbankingapp/features/tranfer_screen/presentation/transfer_screen_success.dart';
 import 'package:eweatlthbankingapp/features/tranfer_screen/transfer_screen_fail.dart';
@@ -11,6 +13,8 @@ import 'package:eweatlthbankingapp/features/user/user_login/presentation/pages/l
 import 'package:eweatlthbankingapp/features/user/user_sign_up/page/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
+
+import '../../features/pay_beneficiary/presentation/page/add_beneficiary_screen/add_beneficiary_screen.dart';
 
 part 'router.gr.dart';
 
@@ -32,5 +36,8 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: OnboardingRoute.page),
         AutoRoute(page: TransferSuccessRoute.page),
         AutoRoute(page: TransferFailureRoute.page),
+        AutoRoute(page: BeneficiaryRoute.page),
+        AutoRoute(page: BeneficiaryListRoute.page),
+        AutoRoute(page: AddBeneficiaryRoute.page),
       ];
 }
