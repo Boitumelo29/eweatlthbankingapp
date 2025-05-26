@@ -22,7 +22,7 @@ class LongRectangleButton extends StatelessWidget {
           height: 60,
           decoration: BoxDecoration(
             color: shouldHaveColor ? color : Colors.green,
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(20),
           ),
           child: Center(
             child: Text(title),

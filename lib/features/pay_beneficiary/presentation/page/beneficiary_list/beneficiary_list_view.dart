@@ -44,6 +44,7 @@ class _BeneficiaryListViewState extends State<BeneficiaryListView> {
                         leading: const Icon(Icons.person),
                         title: Text("User number $index"),
                         onTap: () {
+                          print("do we even geet here");
                           context.router.push(const BeneficiaryRoute());
                         },
                       );

@@ -37,7 +37,7 @@ class BeneficiaryListRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return  BeneficiaryListPage();
+      return const BeneficiaryListPage();
     },
   );
 }
