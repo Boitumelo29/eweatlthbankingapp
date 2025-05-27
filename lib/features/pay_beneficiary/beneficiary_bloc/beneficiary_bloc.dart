@@ -18,9 +18,7 @@ class BeneficiaryBloc extends Bloc<BeneficiaryEvent, BeneficiaryState> {
     ///here is where we get all the users and emit them
     on<BeneficiaryEvent>((event, emit) async {});
     on<GetAllUsers>((event, emit) async {
-      print("do we even get here");
       final useResult = await beneficiaryRepository.getAllBeneficiaries();
-      print("Our user list: $useResult");
       emit(state.copyWith(usersList: useResult));
     });
   }

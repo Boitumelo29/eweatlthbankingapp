@@ -11,7 +11,7 @@
 part of 'router.dart';
 
 /// generated route for
-/// [AddBeneficiaryScreen]
+/// [AddBeneficiaryPage]
 class AddBeneficiaryRoute extends PageRouteInfo<void> {
   const AddBeneficiaryRoute({List<PageRouteInfo>? children})
     : super(AddBeneficiaryRoute.name, initialChildren: children);
@@ -21,7 +21,7 @@ class AddBeneficiaryRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const AddBeneficiaryScreen();
+      return const AddBeneficiaryPage();
     },
   );
 }
