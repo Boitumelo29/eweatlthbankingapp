@@ -44,18 +44,39 @@ class BeneficiaryListRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [BeneficiaryPage]
-class BeneficiaryRoute extends PageRouteInfo<void> {
-  const BeneficiaryRoute({List<PageRouteInfo>? children})
-    : super(BeneficiaryRoute.name, initialChildren: children);
+class BeneficiaryRoute extends PageRouteInfo<BeneficiaryRouteArgs> {
+  BeneficiaryRoute({
+    Key? key,
+    required int index,
+    List<PageRouteInfo>? children,
+  }) : super(
+         BeneficiaryRoute.name,
+         args: BeneficiaryRouteArgs(key: key, index: index),
+         initialChildren: children,
+       );
 
   static const String name = 'BeneficiaryRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const BeneficiaryPage();
+      final args = data.argsAs<BeneficiaryRouteArgs>();
+      return BeneficiaryPage(key: args.key, index: args.index);
     },
   );
+}
+
+class BeneficiaryRouteArgs {
+  const BeneficiaryRouteArgs({this.key, required this.index});
+
+  final Key? key;
+
+  final int index;
+
+  @override
+  String toString() {
+    return 'BeneficiaryRouteArgs{key: $key, index: $index}';
+  }
 }
 
 /// generated route for

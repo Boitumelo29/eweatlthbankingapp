@@ -21,6 +21,7 @@ class BeneficiaryExpansionTile extends StatelessWidget {
         key: card,
         expandedColor: Colors.white,
         baseColor: Colors.white,
+        contentPadding: const EdgeInsets.only(left: 20),
         leading: const Icon(
           Icons.person,
           color: Colors.green,

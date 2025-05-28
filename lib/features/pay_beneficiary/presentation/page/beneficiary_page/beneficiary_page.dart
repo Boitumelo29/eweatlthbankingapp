@@ -7,10 +7,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 class BeneficiaryPage extends StatelessWidget {
-  const BeneficiaryPage({super.key});
+  final int index;
+
+  const BeneficiaryPage({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
-    return const BeneficiaryView();
+    return BlocProvider(
+      create: (context) =>
+          BeneficiaryBloc(beneficiaryRepository: BeneficiaryRepositoryImpl())
+            ..add(const LoadAmount())
+            ..add(const GetAllUsers()),
+      child: BeneficiaryView(
+        index: index,
+      ),
+    );
   }
 }

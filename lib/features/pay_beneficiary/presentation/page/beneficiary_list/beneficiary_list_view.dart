@@ -39,6 +39,18 @@ class _BeneficiaryListViewState extends State<BeneficiaryListView> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  if (state.usersList.isEmpty) ...[
+                    Center(
+                      child: Text(
+                        "No Beneficiary",
+                        style: TextStyle(
+                          color: Colors.green[100],
+                          fontStyle: FontStyle.italic,
+                          fontSize: 40,
+                        ),
+                      ),
+                    )
+                  ],
                   Expanded(
                     child: ListView.builder(
                         itemCount: state.usersList.length,
@@ -79,8 +91,7 @@ class _BeneficiaryListViewState extends State<BeneficiaryListView> {
                                         '${state.usersList[index].accountName} deleted'),
                                     action: SnackBarAction(
                                       label: 'UNDO',
-                                      onPressed: () {
-                                      },
+                                      onPressed: () {},
                                     ),
                                   ),
                                 );
@@ -106,7 +117,8 @@ class _BeneficiaryListViewState extends State<BeneficiaryListView> {
                               subtitle:
                                   Text(state.usersList[index].accountNumber),
                               onTap: () {
-                                context.router.push(const BeneficiaryRoute());
+                                context.router
+                                    .push(BeneficiaryRoute(index: index));
                               },
                             ),
                           );
@@ -128,7 +140,6 @@ class _BeneficiaryListViewState extends State<BeneficiaryListView> {
     } else if (state.usersList[index].bank == "Nedbank") {
       return Colors.blue;
     }
-
     return Colors.grey;
   }
 }
