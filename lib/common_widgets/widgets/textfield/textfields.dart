@@ -55,13 +55,13 @@ class LongTextFieldForm extends StatefulWidget {
       required this.onChanged,
       required this.hintText,
       required this.labelText,
-      required this.showSuffixIcon,
-      required this.showPrefixIcon,
+      this.showSuffixIcon = false,
+      this.showPrefixIcon = false,
       this.prefixText,
       this.prefixIcon,
       required this.validator,
-      required this.obsureText,
-      required this.isRed});
+      this.obsureText = false,
+      this.isRed = false});
 
   @override
   State<LongTextFieldForm> createState() => _LongTextFieldFormState();

@@ -14,7 +14,7 @@ class LongRectangleTextField extends StatefulWidget {
       this.controller,
       required this.hintText,
       required this.labelText,
-      required this.showPrefixIcon,
+      this.showPrefixIcon = false,
       this.prefixIcon,
       this.validator,
       required this.onChanged});
