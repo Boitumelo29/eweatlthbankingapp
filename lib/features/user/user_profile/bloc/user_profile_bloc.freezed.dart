@@ -289,49 +289,18 @@ abstract class LoadUser implements UserProfileEvent {
 
 /// @nodoc
 mixin _$UserProfileState {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(String? userName, String? accountNumber,
-            Option<Either<Failure, Unit>> updateProfileFailureFailureOrUnit)
-        $default, {
-    required TResult Function() initial,
-  }) =>
+  String get userName => throw _privateConstructorUsedError;
+  String get accountNumber => throw _privateConstructorUsedError;
+  String get cellNumber => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  bool get updateIsLoading => throw _privateConstructorUsedError;
+  Option<Either<Failure, Unit>> get updateProfileFailureFailureOrUnit =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? userName, String? accountNumber,
-            Option<Either<Failure, Unit>> updateProfileFailureFailureOrUnit)?
-        $default, {
-    TResult? Function()? initial,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? userName, String? accountNumber,
-            Option<Either<Failure, Unit>> updateProfileFailureFailureOrUnit)?
-        $default, {
-    TResult Function()? initial,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_UserProfileState value) $default, {
-    required TResult Function(_Initial value) initial,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_UserProfileState value)? $default, {
-    TResult? Function(_Initial value)? initial,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_UserProfileState value)? $default, {
-    TResult Function(_Initial value)? initial,
-    required TResult orElse(),
-  }) =>
+
+  /// Create a copy of UserProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $UserProfileStateCopyWith<UserProfileState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -340,6 +309,14 @@ abstract class $UserProfileStateCopyWith<$Res> {
   factory $UserProfileStateCopyWith(
           UserProfileState value, $Res Function(UserProfileState) then) =
       _$UserProfileStateCopyWithImpl<$Res, UserProfileState>;
+  @useResult
+  $Res call(
+      {String userName,
+      String accountNumber,
+      String cellNumber,
+      String id,
+      bool updateIsLoading,
+      Option<Either<Failure, Unit>> updateProfileFailureFailureOrUnit});
 }
 
 /// @nodoc
@@ -354,17 +331,60 @@ class _$UserProfileStateCopyWithImpl<$Res, $Val extends UserProfileState>
 
   /// Create a copy of UserProfileState
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? userName = null,
+    Object? accountNumber = null,
+    Object? cellNumber = null,
+    Object? id = null,
+    Object? updateIsLoading = null,
+    Object? updateProfileFailureFailureOrUnit = null,
+  }) {
+    return _then(_value.copyWith(
+      userName: null == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String,
+      accountNumber: null == accountNumber
+          ? _value.accountNumber
+          : accountNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      cellNumber: null == cellNumber
+          ? _value.cellNumber
+          : cellNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      updateIsLoading: null == updateIsLoading
+          ? _value.updateIsLoading
+          : updateIsLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      updateProfileFailureFailureOrUnit: null ==
+              updateProfileFailureFailureOrUnit
+          ? _value.updateProfileFailureFailureOrUnit
+          : updateProfileFailureFailureOrUnit // ignore: cast_nullable_to_non_nullable
+              as Option<Either<Failure, Unit>>,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$UserProfileStateImplCopyWith<$Res> {
+abstract class _$$UserProfileStateImplCopyWith<$Res>
+    implements $UserProfileStateCopyWith<$Res> {
   factory _$$UserProfileStateImplCopyWith(_$UserProfileStateImpl value,
           $Res Function(_$UserProfileStateImpl) then) =
       __$$UserProfileStateImplCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call(
-      {String? userName,
-      String? accountNumber,
+      {String userName,
+      String accountNumber,
+      String cellNumber,
+      String id,
+      bool updateIsLoading,
       Option<Either<Failure, Unit>> updateProfileFailureFailureOrUnit});
 }
 
@@ -381,19 +401,34 @@ class __$$UserProfileStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userName = freezed,
-    Object? accountNumber = freezed,
+    Object? userName = null,
+    Object? accountNumber = null,
+    Object? cellNumber = null,
+    Object? id = null,
+    Object? updateIsLoading = null,
     Object? updateProfileFailureFailureOrUnit = null,
   }) {
     return _then(_$UserProfileStateImpl(
-      userName: freezed == userName
+      userName: null == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      accountNumber: freezed == accountNumber
+              as String,
+      accountNumber: null == accountNumber
           ? _value.accountNumber
           : accountNumber // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      cellNumber: null == cellNumber
+          ? _value.cellNumber
+          : cellNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      updateIsLoading: null == updateIsLoading
+          ? _value.updateIsLoading
+          : updateIsLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       updateProfileFailureFailureOrUnit: null ==
               updateProfileFailureFailureOrUnit
           ? _value.updateProfileFailureFailureOrUnit
@@ -407,21 +442,35 @@ class __$$UserProfileStateImplCopyWithImpl<$Res>
 
 class _$UserProfileStateImpl implements _UserProfileState {
   const _$UserProfileStateImpl(
-      {this.userName,
-      this.accountNumber,
+      {this.userName = "",
+      this.accountNumber = "",
+      this.cellNumber = "",
+      this.id = "",
+      this.updateIsLoading = false,
       this.updateProfileFailureFailureOrUnit = const None()});
 
   @override
-  final String? userName;
+  @JsonKey()
+  final String userName;
   @override
-  final String? accountNumber;
+  @JsonKey()
+  final String accountNumber;
+  @override
+  @JsonKey()
+  final String cellNumber;
+  @override
+  @JsonKey()
+  final String id;
+  @override
+  @JsonKey()
+  final bool updateIsLoading;
   @override
   @JsonKey()
   final Option<Either<Failure, Unit>> updateProfileFailureFailureOrUnit;
 
   @override
   String toString() {
-    return 'UserProfileState(userName: $userName, accountNumber: $accountNumber, updateProfileFailureFailureOrUnit: $updateProfileFailureFailureOrUnit)';
+    return 'UserProfileState(userName: $userName, accountNumber: $accountNumber, cellNumber: $cellNumber, id: $id, updateIsLoading: $updateIsLoading, updateProfileFailureFailureOrUnit: $updateProfileFailureFailureOrUnit)';
   }
 
   @override
@@ -433,6 +482,11 @@ class _$UserProfileStateImpl implements _UserProfileState {
                 other.userName == userName) &&
             (identical(other.accountNumber, accountNumber) ||
                 other.accountNumber == accountNumber) &&
+            (identical(other.cellNumber, cellNumber) ||
+                other.cellNumber == cellNumber) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.updateIsLoading, updateIsLoading) ||
+                other.updateIsLoading == updateIsLoading) &&
             (identical(other.updateProfileFailureFailureOrUnit,
                     updateProfileFailureFailureOrUnit) ||
                 other.updateProfileFailureFailureOrUnit ==
@@ -440,8 +494,8 @@ class _$UserProfileStateImpl implements _UserProfileState {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, userName, accountNumber, updateProfileFailureFailureOrUnit);
+  int get hashCode => Object.hash(runtimeType, userName, accountNumber,
+      cellNumber, id, updateIsLoading, updateProfileFailureFailureOrUnit);
 
   /// Create a copy of UserProfileState
   /// with the given fields replaced by the non-null parameter values.
@@ -451,203 +505,35 @@ class _$UserProfileStateImpl implements _UserProfileState {
   _$$UserProfileStateImplCopyWith<_$UserProfileStateImpl> get copyWith =>
       __$$UserProfileStateImplCopyWithImpl<_$UserProfileStateImpl>(
           this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(String? userName, String? accountNumber,
-            Option<Either<Failure, Unit>> updateProfileFailureFailureOrUnit)
-        $default, {
-    required TResult Function() initial,
-  }) {
-    return $default(userName, accountNumber, updateProfileFailureFailureOrUnit);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? userName, String? accountNumber,
-            Option<Either<Failure, Unit>> updateProfileFailureFailureOrUnit)?
-        $default, {
-    TResult? Function()? initial,
-  }) {
-    return $default?.call(
-        userName, accountNumber, updateProfileFailureFailureOrUnit);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? userName, String? accountNumber,
-            Option<Either<Failure, Unit>> updateProfileFailureFailureOrUnit)?
-        $default, {
-    TResult Function()? initial,
-    required TResult orElse(),
-  }) {
-    if ($default != null) {
-      return $default(
-          userName, accountNumber, updateProfileFailureFailureOrUnit);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_UserProfileState value) $default, {
-    required TResult Function(_Initial value) initial,
-  }) {
-    return $default(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_UserProfileState value)? $default, {
-    TResult? Function(_Initial value)? initial,
-  }) {
-    return $default?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_UserProfileState value)? $default, {
-    TResult Function(_Initial value)? initial,
-    required TResult orElse(),
-  }) {
-    if ($default != null) {
-      return $default(this);
-    }
-    return orElse();
-  }
 }
 
 abstract class _UserProfileState implements UserProfileState {
   const factory _UserProfileState(
-      {final String? userName,
-      final String? accountNumber,
+      {final String userName,
+      final String accountNumber,
+      final String cellNumber,
+      final String id,
+      final bool updateIsLoading,
       final Option<Either<Failure, Unit>>
           updateProfileFailureFailureOrUnit}) = _$UserProfileStateImpl;
 
-  String? get userName;
-  String? get accountNumber;
+  @override
+  String get userName;
+  @override
+  String get accountNumber;
+  @override
+  String get cellNumber;
+  @override
+  String get id;
+  @override
+  bool get updateIsLoading;
+  @override
   Option<Either<Failure, Unit>> get updateProfileFailureFailureOrUnit;
 
   /// Create a copy of UserProfileState
   /// with the given fields replaced by the non-null parameter values.
+  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserProfileStateImplCopyWith<_$UserProfileStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
-  factory _$$InitialImplCopyWith(
-          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
-      __$$InitialImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$InitialImplCopyWithImpl<$Res>
-    extends _$UserProfileStateCopyWithImpl<$Res, _$InitialImpl>
-    implements _$$InitialImplCopyWith<$Res> {
-  __$$InitialImplCopyWithImpl(
-      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of UserProfileState
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$InitialImpl implements _Initial {
-  const _$InitialImpl();
-
-  @override
-  String toString() {
-    return 'UserProfileState.initial()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(String? userName, String? accountNumber,
-            Option<Either<Failure, Unit>> updateProfileFailureFailureOrUnit)
-        $default, {
-    required TResult Function() initial,
-  }) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String? userName, String? accountNumber,
-            Option<Either<Failure, Unit>> updateProfileFailureFailureOrUnit)?
-        $default, {
-    TResult? Function()? initial,
-  }) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String? userName, String? accountNumber,
-            Option<Either<Failure, Unit>> updateProfileFailureFailureOrUnit)?
-        $default, {
-    TResult Function()? initial,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_UserProfileState value) $default, {
-    required TResult Function(_Initial value) initial,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_UserProfileState value)? $default, {
-    TResult? Function(_Initial value)? initial,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_UserProfileState value)? $default, {
-    TResult Function(_Initial value)? initial,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Initial implements UserProfileState {
-  const factory _Initial() = _$InitialImpl;
 }

@@ -12,7 +12,8 @@ class UserProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UserProfileBloc(authRepo: AuthRepository()),
+      create: (context) =>
+          UserProfileBloc(authRepo: AuthRepository())..add(const LoadUser()),
       child: const UserProfileView(),
     );
   }

@@ -14,7 +14,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   final AuthRepository authRepo;
 
   UserProfileBloc({required this.authRepo})
-      : super( UserProfileState.initial()) {
+      : super(UserProfileState.initial()) {
     on<UserProfileEvent>((event, emit) {
       // TODO: implement event handler
     });
@@ -23,8 +23,11 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
 
       if (userData != null) {
         emit(state.copyWith(
-          userName: userData['userName'],
-          accountNumber: userData['accountNumber'],
+          userName: userData['userName'] ?? "unknown user",
+          accountNumber: userData['accountNumber'] ?? "unknown account",
+            cellNumber: userData["cellNumber"] ?? "unknownCellNumber",
+            id: userData["idNumber"] ?? "unknownID"
+
         ));
       } else {
         emit(state.copyWith(
