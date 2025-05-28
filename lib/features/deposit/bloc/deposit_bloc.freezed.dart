@@ -21,6 +21,7 @@ mixin _$DepositEvent {
     required TResult Function() started,
     required TResult Function(String amount) depositAmount,
     required TResult Function() loadUser,
+    required TResult Function(String voucher) redeemVoucher,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$DepositEvent {
     TResult? Function()? started,
     TResult? Function(String amount)? depositAmount,
     TResult? Function()? loadUser,
+    TResult? Function(String voucher)? redeemVoucher,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$DepositEvent {
     TResult Function()? started,
     TResult Function(String amount)? depositAmount,
     TResult Function()? loadUser,
+    TResult Function(String voucher)? redeemVoucher,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +46,7 @@ mixin _$DepositEvent {
     required TResult Function(_Started value) started,
     required TResult Function(DepositAmount value) depositAmount,
     required TResult Function(LoadUser value) loadUser,
+    required TResult Function(RedeemVoucher value) redeemVoucher,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +54,7 @@ mixin _$DepositEvent {
     TResult? Function(_Started value)? started,
     TResult? Function(DepositAmount value)? depositAmount,
     TResult? Function(LoadUser value)? loadUser,
+    TResult? Function(RedeemVoucher value)? redeemVoucher,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +62,7 @@ mixin _$DepositEvent {
     TResult Function(_Started value)? started,
     TResult Function(DepositAmount value)? depositAmount,
     TResult Function(LoadUser value)? loadUser,
+    TResult Function(RedeemVoucher value)? redeemVoucher,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -127,6 +133,7 @@ class _$StartedImpl implements _Started {
     required TResult Function() started,
     required TResult Function(String amount) depositAmount,
     required TResult Function() loadUser,
+    required TResult Function(String voucher) redeemVoucher,
   }) {
     return started();
   }
@@ -137,6 +144,7 @@ class _$StartedImpl implements _Started {
     TResult? Function()? started,
     TResult? Function(String amount)? depositAmount,
     TResult? Function()? loadUser,
+    TResult? Function(String voucher)? redeemVoucher,
   }) {
     return started?.call();
   }
@@ -147,6 +155,7 @@ class _$StartedImpl implements _Started {
     TResult Function()? started,
     TResult Function(String amount)? depositAmount,
     TResult Function()? loadUser,
+    TResult Function(String voucher)? redeemVoucher,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -161,6 +170,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(_Started value) started,
     required TResult Function(DepositAmount value) depositAmount,
     required TResult Function(LoadUser value) loadUser,
+    required TResult Function(RedeemVoucher value) redeemVoucher,
   }) {
     return started(this);
   }
@@ -171,6 +181,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(_Started value)? started,
     TResult? Function(DepositAmount value)? depositAmount,
     TResult? Function(LoadUser value)? loadUser,
+    TResult? Function(RedeemVoucher value)? redeemVoucher,
   }) {
     return started?.call(this);
   }
@@ -181,6 +192,7 @@ class _$StartedImpl implements _Started {
     TResult Function(_Started value)? started,
     TResult Function(DepositAmount value)? depositAmount,
     TResult Function(LoadUser value)? loadUser,
+    TResult Function(RedeemVoucher value)? redeemVoucher,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -265,6 +277,7 @@ class _$DepositAmountImpl implements DepositAmount {
     required TResult Function() started,
     required TResult Function(String amount) depositAmount,
     required TResult Function() loadUser,
+    required TResult Function(String voucher) redeemVoucher,
   }) {
     return depositAmount(amount);
   }
@@ -275,6 +288,7 @@ class _$DepositAmountImpl implements DepositAmount {
     TResult? Function()? started,
     TResult? Function(String amount)? depositAmount,
     TResult? Function()? loadUser,
+    TResult? Function(String voucher)? redeemVoucher,
   }) {
     return depositAmount?.call(amount);
   }
@@ -285,6 +299,7 @@ class _$DepositAmountImpl implements DepositAmount {
     TResult Function()? started,
     TResult Function(String amount)? depositAmount,
     TResult Function()? loadUser,
+    TResult Function(String voucher)? redeemVoucher,
     required TResult orElse(),
   }) {
     if (depositAmount != null) {
@@ -299,6 +314,7 @@ class _$DepositAmountImpl implements DepositAmount {
     required TResult Function(_Started value) started,
     required TResult Function(DepositAmount value) depositAmount,
     required TResult Function(LoadUser value) loadUser,
+    required TResult Function(RedeemVoucher value) redeemVoucher,
   }) {
     return depositAmount(this);
   }
@@ -309,6 +325,7 @@ class _$DepositAmountImpl implements DepositAmount {
     TResult? Function(_Started value)? started,
     TResult? Function(DepositAmount value)? depositAmount,
     TResult? Function(LoadUser value)? loadUser,
+    TResult? Function(RedeemVoucher value)? redeemVoucher,
   }) {
     return depositAmount?.call(this);
   }
@@ -319,6 +336,7 @@ class _$DepositAmountImpl implements DepositAmount {
     TResult Function(_Started value)? started,
     TResult Function(DepositAmount value)? depositAmount,
     TResult Function(LoadUser value)? loadUser,
+    TResult Function(RedeemVoucher value)? redeemVoucher,
     required TResult orElse(),
   }) {
     if (depositAmount != null) {
@@ -385,6 +403,7 @@ class _$LoadUserImpl implements LoadUser {
     required TResult Function() started,
     required TResult Function(String amount) depositAmount,
     required TResult Function() loadUser,
+    required TResult Function(String voucher) redeemVoucher,
   }) {
     return loadUser();
   }
@@ -395,6 +414,7 @@ class _$LoadUserImpl implements LoadUser {
     TResult? Function()? started,
     TResult? Function(String amount)? depositAmount,
     TResult? Function()? loadUser,
+    TResult? Function(String voucher)? redeemVoucher,
   }) {
     return loadUser?.call();
   }
@@ -405,6 +425,7 @@ class _$LoadUserImpl implements LoadUser {
     TResult Function()? started,
     TResult Function(String amount)? depositAmount,
     TResult Function()? loadUser,
+    TResult Function(String voucher)? redeemVoucher,
     required TResult orElse(),
   }) {
     if (loadUser != null) {
@@ -419,6 +440,7 @@ class _$LoadUserImpl implements LoadUser {
     required TResult Function(_Started value) started,
     required TResult Function(DepositAmount value) depositAmount,
     required TResult Function(LoadUser value) loadUser,
+    required TResult Function(RedeemVoucher value) redeemVoucher,
   }) {
     return loadUser(this);
   }
@@ -429,6 +451,7 @@ class _$LoadUserImpl implements LoadUser {
     TResult? Function(_Started value)? started,
     TResult? Function(DepositAmount value)? depositAmount,
     TResult? Function(LoadUser value)? loadUser,
+    TResult? Function(RedeemVoucher value)? redeemVoucher,
   }) {
     return loadUser?.call(this);
   }
@@ -439,6 +462,7 @@ class _$LoadUserImpl implements LoadUser {
     TResult Function(_Started value)? started,
     TResult Function(DepositAmount value)? depositAmount,
     TResult Function(LoadUser value)? loadUser,
+    TResult Function(RedeemVoucher value)? redeemVoucher,
     required TResult orElse(),
   }) {
     if (loadUser != null) {
@@ -453,10 +477,164 @@ abstract class LoadUser implements DepositEvent {
 }
 
 /// @nodoc
+abstract class _$$RedeemVoucherImplCopyWith<$Res> {
+  factory _$$RedeemVoucherImplCopyWith(
+          _$RedeemVoucherImpl value, $Res Function(_$RedeemVoucherImpl) then) =
+      __$$RedeemVoucherImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String voucher});
+}
+
+/// @nodoc
+class __$$RedeemVoucherImplCopyWithImpl<$Res>
+    extends _$DepositEventCopyWithImpl<$Res, _$RedeemVoucherImpl>
+    implements _$$RedeemVoucherImplCopyWith<$Res> {
+  __$$RedeemVoucherImplCopyWithImpl(
+      _$RedeemVoucherImpl _value, $Res Function(_$RedeemVoucherImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DepositEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? voucher = null,
+  }) {
+    return _then(_$RedeemVoucherImpl(
+      voucher: null == voucher
+          ? _value.voucher
+          : voucher // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RedeemVoucherImpl implements RedeemVoucher {
+  const _$RedeemVoucherImpl({required this.voucher});
+
+  @override
+  final String voucher;
+
+  @override
+  String toString() {
+    return 'DepositEvent.redeemVoucher(voucher: $voucher)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RedeemVoucherImpl &&
+            (identical(other.voucher, voucher) || other.voucher == voucher));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, voucher);
+
+  /// Create a copy of DepositEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RedeemVoucherImplCopyWith<_$RedeemVoucherImpl> get copyWith =>
+      __$$RedeemVoucherImplCopyWithImpl<_$RedeemVoucherImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(String amount) depositAmount,
+    required TResult Function() loadUser,
+    required TResult Function(String voucher) redeemVoucher,
+  }) {
+    return redeemVoucher(voucher);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(String amount)? depositAmount,
+    TResult? Function()? loadUser,
+    TResult? Function(String voucher)? redeemVoucher,
+  }) {
+    return redeemVoucher?.call(voucher);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(String amount)? depositAmount,
+    TResult Function()? loadUser,
+    TResult Function(String voucher)? redeemVoucher,
+    required TResult orElse(),
+  }) {
+    if (redeemVoucher != null) {
+      return redeemVoucher(voucher);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(DepositAmount value) depositAmount,
+    required TResult Function(LoadUser value) loadUser,
+    required TResult Function(RedeemVoucher value) redeemVoucher,
+  }) {
+    return redeemVoucher(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(DepositAmount value)? depositAmount,
+    TResult? Function(LoadUser value)? loadUser,
+    TResult? Function(RedeemVoucher value)? redeemVoucher,
+  }) {
+    return redeemVoucher?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(DepositAmount value)? depositAmount,
+    TResult Function(LoadUser value)? loadUser,
+    TResult Function(RedeemVoucher value)? redeemVoucher,
+    required TResult orElse(),
+  }) {
+    if (redeemVoucher != null) {
+      return redeemVoucher(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RedeemVoucher implements DepositEvent {
+  const factory RedeemVoucher({required final String voucher}) =
+      _$RedeemVoucherImpl;
+
+  String get voucher;
+
+  /// Create a copy of DepositEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RedeemVoucherImplCopyWith<_$RedeemVoucherImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$DepositState {
   bool get isLoadingUser => throw _privateConstructorUsedError;
   bool get depositIsLoading => throw _privateConstructorUsedError;
   String? get userName => throw _privateConstructorUsedError;
+  String? get redeemedVoucher => throw _privateConstructorUsedError;
   String? get accountNumber => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
   Option<Either<Failure, Unit>> get depositAmountFailureFailureOrUnit =>
@@ -479,6 +657,7 @@ abstract class $DepositStateCopyWith<$Res> {
       {bool isLoadingUser,
       bool depositIsLoading,
       String? userName,
+      String? redeemedVoucher,
       String? accountNumber,
       String? errorMessage,
       Option<Either<Failure, Unit>> depositAmountFailureFailureOrUnit});
@@ -502,6 +681,7 @@ class _$DepositStateCopyWithImpl<$Res, $Val extends DepositState>
     Object? isLoadingUser = null,
     Object? depositIsLoading = null,
     Object? userName = freezed,
+    Object? redeemedVoucher = freezed,
     Object? accountNumber = freezed,
     Object? errorMessage = freezed,
     Object? depositAmountFailureFailureOrUnit = null,
@@ -518,6 +698,10 @@ class _$DepositStateCopyWithImpl<$Res, $Val extends DepositState>
       userName: freezed == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      redeemedVoucher: freezed == redeemedVoucher
+          ? _value.redeemedVoucher
+          : redeemedVoucher // ignore: cast_nullable_to_non_nullable
               as String?,
       accountNumber: freezed == accountNumber
           ? _value.accountNumber
@@ -548,6 +732,7 @@ abstract class _$$DepositStateImplCopyWith<$Res>
       {bool isLoadingUser,
       bool depositIsLoading,
       String? userName,
+      String? redeemedVoucher,
       String? accountNumber,
       String? errorMessage,
       Option<Either<Failure, Unit>> depositAmountFailureFailureOrUnit});
@@ -569,6 +754,7 @@ class __$$DepositStateImplCopyWithImpl<$Res>
     Object? isLoadingUser = null,
     Object? depositIsLoading = null,
     Object? userName = freezed,
+    Object? redeemedVoucher = freezed,
     Object? accountNumber = freezed,
     Object? errorMessage = freezed,
     Object? depositAmountFailureFailureOrUnit = null,
@@ -585,6 +771,10 @@ class __$$DepositStateImplCopyWithImpl<$Res>
       userName: freezed == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      redeemedVoucher: freezed == redeemedVoucher
+          ? _value.redeemedVoucher
+          : redeemedVoucher // ignore: cast_nullable_to_non_nullable
               as String?,
       accountNumber: freezed == accountNumber
           ? _value.accountNumber
@@ -610,6 +800,7 @@ class _$DepositStateImpl implements _DepositState {
       {required this.isLoadingUser,
       this.depositIsLoading = false,
       this.userName,
+      this.redeemedVoucher,
       this.accountNumber,
       this.errorMessage,
       this.depositAmountFailureFailureOrUnit = const None()});
@@ -622,6 +813,8 @@ class _$DepositStateImpl implements _DepositState {
   @override
   final String? userName;
   @override
+  final String? redeemedVoucher;
+  @override
   final String? accountNumber;
   @override
   final String? errorMessage;
@@ -631,7 +824,7 @@ class _$DepositStateImpl implements _DepositState {
 
   @override
   String toString() {
-    return 'DepositState(isLoadingUser: $isLoadingUser, depositIsLoading: $depositIsLoading, userName: $userName, accountNumber: $accountNumber, errorMessage: $errorMessage, depositAmountFailureFailureOrUnit: $depositAmountFailureFailureOrUnit)';
+    return 'DepositState(isLoadingUser: $isLoadingUser, depositIsLoading: $depositIsLoading, userName: $userName, redeemedVoucher: $redeemedVoucher, accountNumber: $accountNumber, errorMessage: $errorMessage, depositAmountFailureFailureOrUnit: $depositAmountFailureFailureOrUnit)';
   }
 
   @override
@@ -645,6 +838,8 @@ class _$DepositStateImpl implements _DepositState {
                 other.depositIsLoading == depositIsLoading) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
+            (identical(other.redeemedVoucher, redeemedVoucher) ||
+                other.redeemedVoucher == redeemedVoucher) &&
             (identical(other.accountNumber, accountNumber) ||
                 other.accountNumber == accountNumber) &&
             (identical(other.errorMessage, errorMessage) ||
@@ -656,8 +851,15 @@ class _$DepositStateImpl implements _DepositState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoadingUser, depositIsLoading,
-      userName, accountNumber, errorMessage, depositAmountFailureFailureOrUnit);
+  int get hashCode => Object.hash(
+      runtimeType,
+      isLoadingUser,
+      depositIsLoading,
+      userName,
+      redeemedVoucher,
+      accountNumber,
+      errorMessage,
+      depositAmountFailureFailureOrUnit);
 
   /// Create a copy of DepositState
   /// with the given fields replaced by the non-null parameter values.
@@ -673,6 +875,7 @@ abstract class _DepositState implements DepositState {
       {required final bool isLoadingUser,
       final bool depositIsLoading,
       final String? userName,
+      final String? redeemedVoucher,
       final String? accountNumber,
       final String? errorMessage,
       final Option<Either<Failure, Unit>>
@@ -684,6 +887,8 @@ abstract class _DepositState implements DepositState {
   bool get depositIsLoading;
   @override
   String? get userName;
+  @override
+  String? get redeemedVoucher;
   @override
   String? get accountNumber;
   @override

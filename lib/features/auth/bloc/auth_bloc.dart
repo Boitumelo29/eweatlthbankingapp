@@ -12,36 +12,46 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
 
   AuthBloc({required this.authRepository}) : super(const AuthState()) {
-    // on<CheckAuthStatus>((event, emit) async {
-    //   emit(state.copyWith(status: AuthStatus.loading));
-    //
-    //   try {
-    //     final userEmail = await authRepository.getUserEmail();
-    //     emit(
-    //         state.copyWith(status: AuthStatus.authenticated, email: userEmail));
-    //   } catch (e) {
-    //     emit(state.copyWith(status: AuthStatus.failure, error: e.toString()));
-    //   }
-    // });
-
     on<CheckAuthStatus>((event, emit) async {
       emit(state.copyWith(status: AuthStatus.loading));
-      final isLoggedIn = await authRepository.isLoggedIn();
-      if (isLoggedIn) {
-        emit(state.copyWith(status: AuthStatus.authenticated));
-      } else {
-        emit(state.copyWith(status: AuthStatus.unauthenticated));
+      try {
+        final isLoggedIn = await authRepository.isLoggedIn();
+        if (isLoggedIn) {
+          final email = await authRepository.getUserEmail();
+          emit(state.copyWith(
+            status: AuthStatus.authenticated,
+            email: email,
+          ));
+        } else {
+          emit(state.copyWith(status: AuthStatus.unauthenticated));
+        }
+      } catch (e) {
+        emit(state.copyWith(
+          status: AuthStatus.failure,
+          error: e.toString(),
+        ));
       }
     });
-
 
     on<LoginEvent>((event, emit) async {
       emit(state.copyWith(status: AuthStatus.loading));
 
       try {
-        authRepository.loginUser(event.email, event.password);
+        final success =
+            await authRepository.loginUser(event.email, event.password);
+        if (success) {
+          emit(state.copyWith(status: AuthStatus.authenticated));
+        } else {
+          emit(state.copyWith(
+            status: AuthStatus.failure,
+            error: 'Invalid email or password',
+          ));
+        }
       } catch (e) {
-        print(e);
+        emit(state.copyWith(
+          status: AuthStatus.failure,
+          error: e.toString(),
+        ));
       }
     });
     on<LogoutEvent>((event, emit) async {
@@ -77,6 +87,37 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         logout: (_) async {
           await authRepository.logout();
           emit(state.copyWith(status: AuthStatus.authenticated));
+        },
+        signUp: (e) async {
+          try {
+            final result = await authRepository.signup(
+              username: e.username,
+              lastname: e.lastname,
+              password: e.password,
+              email: e.email,
+              cellphone: e.cellphone,
+              selectedProvince: e.selectedProvince,
+              sub: e.sub,
+              city: e.city,
+              streetNum: e.streetNum,
+              streetName: e.streetName,
+              idNum: e.idNum,
+              dob: e.dob,
+            );
+
+            result.fold(
+              (failure) => emit(state.copyWith(
+                status: AuthStatus.failure,
+                error: failure.message,
+              )),
+              (_) => emit(state.copyWith(status: AuthStatus.authenticated)),
+            );
+          } catch (e) {
+            emit(state.copyWith(
+              status: AuthStatus.failure,
+              error: e.toString(),
+            ));
+          }
         },
       );
     });

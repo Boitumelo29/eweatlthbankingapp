@@ -8,7 +8,8 @@ class HomeState with _$HomeState {
     required int depositAmount,
     String? userName,
     String? accountNumber,
-    required List<Map<String, dynamic>> transactions,
+    ///todo tumi if I want to print the list in a reversed list I need to replace type dynamic with type: Iterable<Map<String, Object>>
+    required Iterable<Map<String, Object>> transactions,
     @Default(None()) Option<Either<Failure, Unit>> logoutFailureFailureOrUnit,
   }) = _HomeState;
 

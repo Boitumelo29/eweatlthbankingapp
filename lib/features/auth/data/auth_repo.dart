@@ -13,22 +13,6 @@ class AuthRepository {
     await prefs.setBool(_isLoggedInKey, true);
   }
 
-  ///todo we need to figure out how to load the userData
-  // Future<void> loadUserData(String username, String accountNumber) async {
-  //   try {
-  //     final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //     final String? userDataJson = prefs.getString('userData');
-  //
-  //     if (userDataJson != null) {
-  //       final userData = jsonDecode(userDataJson);
-  //       username = '${userData['firstName']} ${userData['lastName']}';
-  //       accountNumber = userData['email'];
-  //     }
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
-
   Future<Map<String, String>?> loadUserData() async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -150,10 +134,11 @@ class AuthRepository {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
 
       final accountId = email;
-      await prefs.setBool('isLoggedIn', true);
+      await prefs.setBool(_isLoggedInKey, true);
       await prefs.setString('accountId', accountId);
       await prefs.setString('username', username);
       await prefs.setString('surname', lastname);
+      await prefs.setString(_userEmailKey, email);
 
       final userData = {
         'firstName': username,

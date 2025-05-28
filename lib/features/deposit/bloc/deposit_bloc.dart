@@ -4,27 +4,32 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:eweatlthbankingapp/core/failure/failures.dart';
 import 'package:eweatlthbankingapp/features/auth/data/auth_repo.dart';
+import 'package:eweatlthbankingapp/notes/voucher_screen.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'deposit_event.dart';
+
 part 'deposit_state.dart';
+
 part 'deposit_bloc.freezed.dart';
 
 class DepositBloc extends Bloc<DepositEvent, DepositState> {
-
   final AuthRepository authRepo;
+  final VoucherService voucherService;
 
-  DepositBloc({required this.authRepo}) : super(DepositState.initial()) {
-    on<DepositAmount>((event, emit) async{
-
+  DepositBloc({
+    required this.authRepo,
+    required this.voucherService,
+  }) : super(DepositState.initial()) {
+    on<DepositAmount>((event, emit) async {
       emit(state.copyWith(depositIsLoading: true));
 
       final SharedPreferences prefs = await SharedPreferences.getInstance();
+      //we get the accountID which is the email
       final accountId = prefs.getString('accountId');
 
       if (accountId == null || accountId.isEmpty) {
-
         return;
       }
 
@@ -32,14 +37,14 @@ class DepositBloc extends Bloc<DepositEvent, DepositState> {
         final String? depositsJson = prefs.getString('deposits');
         final Map<String, List<int>> deposits = depositsJson != null
             ? (jsonDecode(depositsJson) as Map<String, dynamic>).map(
-              (key, value) {
-            if (value is List<dynamic>) {
-              return MapEntry(key, List<int>.from(value));
-            } else {
-              return MapEntry(key, <int>[]);
-            }
-          },
-        )
+                (key, value) {
+                  if (value is List<dynamic>) {
+                    return MapEntry(key, List<int>.from(value));
+                  } else {
+                    return MapEntry(key, <int>[]);
+                  }
+                },
+              )
             : {};
 
         final int depositAmount = int.parse(event.amount);
@@ -48,17 +53,23 @@ class DepositBloc extends Bloc<DepositEvent, DepositState> {
           deposits[accountId] = [];
         }
 
+        ///here we are adding deposit to the account ID
+        ///we need to add that it is a deposit as well or not, we can always just filter it out in the bloc instead
         deposits[accountId]!.add(depositAmount);
 
+        ///here is where we make the call to set the deposit
         await prefs.setString('deposits', jsonEncode(deposits));
 
-
-        emit(state.copyWith(depositIsLoading: false, depositAmountFailureFailureOrUnit: some(right(unit))));
+        emit(state.copyWith(
+            depositIsLoading: false,
+            depositAmountFailureFailureOrUnit: some(right(unit))));
       } catch (e) {
-        emit(state.copyWith(depositIsLoading: false, depositAmountFailureFailureOrUnit: some(left(const Failure(message: "error")))));
+        emit(state.copyWith(
+            depositIsLoading: false,
+            depositAmountFailureFailureOrUnit:
+                some(left(const Failure(message: "error")))));
 
         print(e);
-
       }
     });
 
@@ -85,5 +96,13 @@ class DepositBloc extends Bloc<DepositEvent, DepositState> {
       }
     });
 
+    on<RedeemVoucher>((event, emit) async {
+      final amount = await VoucherService.redeemVoucher(event.voucher);
+
+      add(DepositEvent.depositAmount(amount: amount));
+      print(amount);
+
+      emit(state.copyWith(accountNumber: amount));
+    });
   }
 }

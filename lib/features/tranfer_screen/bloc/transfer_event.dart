@@ -9,5 +9,6 @@ class TransferEvent with _$TransferEvent {
   const factory TransferEvent.processTransfer(
       {required String selectedBank,
       required String accountName,
+      required String accountNumber,
       required String amount}) = ProcessTransfer;
 }

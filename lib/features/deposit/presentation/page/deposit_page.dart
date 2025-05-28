@@ -1,11 +1,12 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_button.dart';
 import 'package:eweatlthbankingapp/core/routes/router.dart';
 import 'package:eweatlthbankingapp/features/auth/data/auth_repo.dart';
 import 'package:eweatlthbankingapp/features/deposit/bloc/deposit_bloc.dart';
+import 'package:eweatlthbankingapp/notes/voucher_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart'
     show BlocConsumer, BlocProvider, ReadContext;
+import 'package:slide_to_act/slide_to_act.dart';
 
 @RoutePage()
 class DepositPage extends StatelessWidget {
@@ -14,8 +15,9 @@ class DepositPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<DepositBloc>(
-      create: (context) =>
-          DepositBloc(authRepo: AuthRepository())..add(const LoadUser()),
+      create: (context) => DepositBloc(
+          authRepo: AuthRepository(), voucherService: VoucherService())
+        ..add(const LoadUser()),
       child: const DepositView(),
     );
   }
@@ -29,9 +31,8 @@ class DepositView extends StatefulWidget {
 }
 
 class _DepositViewState extends State<DepositView> {
-  /// we are no longer going to do this, we are going to get the user through the auth
-
   final TextEditingController _amountController = TextEditingController();
+  final GlobalKey<SlideActionState> key = GlobalKey();
 
   void _onKeypadTap(String value) {
     setState(() {
@@ -46,31 +47,45 @@ class _DepositViewState extends State<DepositView> {
     });
   }
 
+  List<String> keys = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "",
+    "0",
+    "Del"
+  ];
+
   @override
   Widget build(BuildContext context) {
-    List<String> keys = [
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
-      "",
-      "0",
-      "Del"
-    ];
     return BlocConsumer<DepositBloc, DepositState>(
       listener: (context, state) {
-        state.depositAmountFailureFailureOrUnit.fold(() {}, (eitherFailureOrUnit) {
+        state.depositAmountFailureFailureOrUnit.fold(() {},
+            (eitherFailureOrUnit) {
           eitherFailureOrUnit.fold(
-                (failure) {
-                  context.router.push(const PaymentFailureRoute());
+            (failure) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Unable to process order"),
+                  backgroundColor: Colors.red,
+                ),
+              );
+              context.router.push(const PaymentFailureRoute());
             },
-                (_) {
-                  context.router.push(const PaymentSuccessRoute());
+            (_) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Voucher successfully redeemed'),
+                  backgroundColor: Colors.green,
+                ),
+              );
+              context.router.push(const PaymentSuccessRoute());
             },
           );
         });
@@ -103,7 +118,7 @@ class _DepositViewState extends State<DepositView> {
                     labelText: 'Amount',
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(
+                        borderSide:  BorderSide(
                           color: Colors.green,
                           width: 0.7,
                         )),
@@ -140,7 +155,7 @@ class _DepositViewState extends State<DepositView> {
                         child: Container(
                           margin: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: Colors.grey[100],
+                            color: Colors.green[100],
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Center(
@@ -153,23 +168,43 @@ class _DepositViewState extends State<DepositView> {
                     },
                   ),
                 ),
-                LongButton(
-                    onTap: () {
-                      if (_amountController.text.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Please enter an amount to deposit'),
-                            backgroundColor: Colors.red,
-                          ),
-                        );
-                        return;
-                      }
-                      context.read<DepositBloc>().add(
-                          DepositEvent.depositAmount(
-                              amount: _amountController.text));
-                    },
-                    title: "Deposit",
-                    isLoading: false),
+                SlideAction(
+                  key: key,
+                  sliderButtonIcon: const Icon(Icons.chevron_right),
+                  text: "Deposit",
+                  innerColor: Colors.white,
+                  outerColor: Colors.green,
+                  onSubmit: () {
+                    if (_amountController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Please enter an amount to deposit'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                      return;
+                    }
+                    context.read<DepositBloc>().add(DepositEvent.redeemVoucher(
+                        voucher: _amountController.text));
+                  },
+                )
+                // LongButton(
+                //     onTap: () {
+                //       if (_amountController.text.isEmpty) {
+                //         ScaffoldMessenger.of(context).showSnackBar(
+                //           const SnackBar(
+                //             content: Text('Please enter an amount to deposit'),
+                //             backgroundColor: Colors.red,
+                //           ),
+                //         );
+                //         return;
+                //       }
+                //       context.read<DepositBloc>().add(
+                //           DepositEvent.redeemVoucher(
+                //               voucher: _amountController.text));
+                //     },
+                //     title: "Deposit",
+                //     isLoading: false),
               ],
             ),
           ),

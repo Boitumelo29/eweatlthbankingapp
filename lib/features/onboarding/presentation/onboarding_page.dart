@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:eweatlthbankingapp/common_widgets/background/starry_background.dart';
 import 'package:eweatlthbankingapp/core/routes/router.dart';
-import 'package:eweatlthbankingapp/features/tranfer_screen/presentation/transfer_screen.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -63,6 +63,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 onPressed: () {
+                  ///todo Tumi we need to push and replace over here not push
                   context.router.push(const MainHomeRoute());
                 },
               ),

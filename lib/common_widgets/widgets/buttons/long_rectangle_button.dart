@@ -3,9 +3,15 @@ import 'package:flutter/material.dart';
 class LongRectangleButton extends StatelessWidget {
   final VoidCallback onTap;
   final String title;
+  final bool shouldHaveColor;
+  final Color? color;
 
   const LongRectangleButton(
-      {super.key, required this.onTap, required this.title});
+      {super.key,
+      required this.onTap,
+      required this.title,
+      this.shouldHaveColor = false,
+      this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +21,8 @@ class LongRectangleButton extends StatelessWidget {
           width: 380,
           height: 60,
           decoration: BoxDecoration(
-            color: Colors.green,
-            borderRadius: BorderRadius.circular(5),
+            color: shouldHaveColor ? color : Colors.green,
+            borderRadius: BorderRadius.circular(20),
           ),
           child: Center(
             child: Text(title),

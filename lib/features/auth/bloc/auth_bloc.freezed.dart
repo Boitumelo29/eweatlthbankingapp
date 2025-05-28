@@ -20,6 +20,20 @@ mixin _$AuthEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() checkAuthStatus,
     required TResult Function(String email, String password) login,
+    required TResult Function(
+            String username,
+            String lastname,
+            String password,
+            String email,
+            String cellphone,
+            String selectedProvince,
+            String sub,
+            String city,
+            String streetNum,
+            String streetName,
+            String idNum,
+            String dob)
+        signUp,
     required TResult Function() logout,
   }) =>
       throw _privateConstructorUsedError;
@@ -27,6 +41,20 @@ mixin _$AuthEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? checkAuthStatus,
     TResult? Function(String email, String password)? login,
+    TResult? Function(
+            String username,
+            String lastname,
+            String password,
+            String email,
+            String cellphone,
+            String selectedProvince,
+            String sub,
+            String city,
+            String streetNum,
+            String streetName,
+            String idNum,
+            String dob)?
+        signUp,
     TResult? Function()? logout,
   }) =>
       throw _privateConstructorUsedError;
@@ -34,6 +62,20 @@ mixin _$AuthEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? checkAuthStatus,
     TResult Function(String email, String password)? login,
+    TResult Function(
+            String username,
+            String lastname,
+            String password,
+            String email,
+            String cellphone,
+            String selectedProvince,
+            String sub,
+            String city,
+            String streetNum,
+            String streetName,
+            String idNum,
+            String dob)?
+        signUp,
     TResult Function()? logout,
     required TResult orElse(),
   }) =>
@@ -42,6 +84,7 @@ mixin _$AuthEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(CheckAuthStatus value) checkAuthStatus,
     required TResult Function(LoginEvent value) login,
+    required TResult Function(SignUpEvent value) signUp,
     required TResult Function(LogoutEvent value) logout,
   }) =>
       throw _privateConstructorUsedError;
@@ -49,6 +92,7 @@ mixin _$AuthEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(CheckAuthStatus value)? checkAuthStatus,
     TResult? Function(LoginEvent value)? login,
+    TResult? Function(SignUpEvent value)? signUp,
     TResult? Function(LogoutEvent value)? logout,
   }) =>
       throw _privateConstructorUsedError;
@@ -56,6 +100,7 @@ mixin _$AuthEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CheckAuthStatus value)? checkAuthStatus,
     TResult Function(LoginEvent value)? login,
+    TResult Function(SignUpEvent value)? signUp,
     TResult Function(LogoutEvent value)? logout,
     required TResult orElse(),
   }) =>
@@ -125,6 +170,20 @@ class _$CheckAuthStatusImpl implements CheckAuthStatus {
   TResult when<TResult extends Object?>({
     required TResult Function() checkAuthStatus,
     required TResult Function(String email, String password) login,
+    required TResult Function(
+            String username,
+            String lastname,
+            String password,
+            String email,
+            String cellphone,
+            String selectedProvince,
+            String sub,
+            String city,
+            String streetNum,
+            String streetName,
+            String idNum,
+            String dob)
+        signUp,
     required TResult Function() logout,
   }) {
     return checkAuthStatus();
@@ -135,6 +194,20 @@ class _$CheckAuthStatusImpl implements CheckAuthStatus {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? checkAuthStatus,
     TResult? Function(String email, String password)? login,
+    TResult? Function(
+            String username,
+            String lastname,
+            String password,
+            String email,
+            String cellphone,
+            String selectedProvince,
+            String sub,
+            String city,
+            String streetNum,
+            String streetName,
+            String idNum,
+            String dob)?
+        signUp,
     TResult? Function()? logout,
   }) {
     return checkAuthStatus?.call();
@@ -145,6 +218,20 @@ class _$CheckAuthStatusImpl implements CheckAuthStatus {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? checkAuthStatus,
     TResult Function(String email, String password)? login,
+    TResult Function(
+            String username,
+            String lastname,
+            String password,
+            String email,
+            String cellphone,
+            String selectedProvince,
+            String sub,
+            String city,
+            String streetNum,
+            String streetName,
+            String idNum,
+            String dob)?
+        signUp,
     TResult Function()? logout,
     required TResult orElse(),
   }) {
@@ -159,6 +246,7 @@ class _$CheckAuthStatusImpl implements CheckAuthStatus {
   TResult map<TResult extends Object?>({
     required TResult Function(CheckAuthStatus value) checkAuthStatus,
     required TResult Function(LoginEvent value) login,
+    required TResult Function(SignUpEvent value) signUp,
     required TResult Function(LogoutEvent value) logout,
   }) {
     return checkAuthStatus(this);
@@ -169,6 +257,7 @@ class _$CheckAuthStatusImpl implements CheckAuthStatus {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(CheckAuthStatus value)? checkAuthStatus,
     TResult? Function(LoginEvent value)? login,
+    TResult? Function(SignUpEvent value)? signUp,
     TResult? Function(LogoutEvent value)? logout,
   }) {
     return checkAuthStatus?.call(this);
@@ -179,6 +268,7 @@ class _$CheckAuthStatusImpl implements CheckAuthStatus {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CheckAuthStatus value)? checkAuthStatus,
     TResult Function(LoginEvent value)? login,
+    TResult Function(SignUpEvent value)? signUp,
     TResult Function(LogoutEvent value)? logout,
     required TResult orElse(),
   }) {
@@ -272,6 +362,20 @@ class _$LoginEventImpl implements LoginEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() checkAuthStatus,
     required TResult Function(String email, String password) login,
+    required TResult Function(
+            String username,
+            String lastname,
+            String password,
+            String email,
+            String cellphone,
+            String selectedProvince,
+            String sub,
+            String city,
+            String streetNum,
+            String streetName,
+            String idNum,
+            String dob)
+        signUp,
     required TResult Function() logout,
   }) {
     return login(email, password);
@@ -282,6 +386,20 @@ class _$LoginEventImpl implements LoginEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? checkAuthStatus,
     TResult? Function(String email, String password)? login,
+    TResult? Function(
+            String username,
+            String lastname,
+            String password,
+            String email,
+            String cellphone,
+            String selectedProvince,
+            String sub,
+            String city,
+            String streetNum,
+            String streetName,
+            String idNum,
+            String dob)?
+        signUp,
     TResult? Function()? logout,
   }) {
     return login?.call(email, password);
@@ -292,6 +410,20 @@ class _$LoginEventImpl implements LoginEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? checkAuthStatus,
     TResult Function(String email, String password)? login,
+    TResult Function(
+            String username,
+            String lastname,
+            String password,
+            String email,
+            String cellphone,
+            String selectedProvince,
+            String sub,
+            String city,
+            String streetNum,
+            String streetName,
+            String idNum,
+            String dob)?
+        signUp,
     TResult Function()? logout,
     required TResult orElse(),
   }) {
@@ -306,6 +438,7 @@ class _$LoginEventImpl implements LoginEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(CheckAuthStatus value) checkAuthStatus,
     required TResult Function(LoginEvent value) login,
+    required TResult Function(SignUpEvent value) signUp,
     required TResult Function(LogoutEvent value) logout,
   }) {
     return login(this);
@@ -316,6 +449,7 @@ class _$LoginEventImpl implements LoginEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(CheckAuthStatus value)? checkAuthStatus,
     TResult? Function(LoginEvent value)? login,
+    TResult? Function(SignUpEvent value)? signUp,
     TResult? Function(LogoutEvent value)? logout,
   }) {
     return login?.call(this);
@@ -326,6 +460,7 @@ class _$LoginEventImpl implements LoginEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CheckAuthStatus value)? checkAuthStatus,
     TResult Function(LoginEvent value)? login,
+    TResult Function(SignUpEvent value)? signUp,
     TResult Function(LogoutEvent value)? logout,
     required TResult orElse(),
   }) {
@@ -348,6 +483,355 @@ abstract class LoginEvent implements AuthEvent {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoginEventImplCopyWith<_$LoginEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SignUpEventImplCopyWith<$Res> {
+  factory _$$SignUpEventImplCopyWith(
+          _$SignUpEventImpl value, $Res Function(_$SignUpEventImpl) then) =
+      __$$SignUpEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {String username,
+      String lastname,
+      String password,
+      String email,
+      String cellphone,
+      String selectedProvince,
+      String sub,
+      String city,
+      String streetNum,
+      String streetName,
+      String idNum,
+      String dob});
+}
+
+/// @nodoc
+class __$$SignUpEventImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$SignUpEventImpl>
+    implements _$$SignUpEventImplCopyWith<$Res> {
+  __$$SignUpEventImplCopyWithImpl(
+      _$SignUpEventImpl _value, $Res Function(_$SignUpEventImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? username = null,
+    Object? lastname = null,
+    Object? password = null,
+    Object? email = null,
+    Object? cellphone = null,
+    Object? selectedProvince = null,
+    Object? sub = null,
+    Object? city = null,
+    Object? streetNum = null,
+    Object? streetName = null,
+    Object? idNum = null,
+    Object? dob = null,
+  }) {
+    return _then(_$SignUpEventImpl(
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastname: null == lastname
+          ? _value.lastname
+          : lastname // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      cellphone: null == cellphone
+          ? _value.cellphone
+          : cellphone // ignore: cast_nullable_to_non_nullable
+              as String,
+      selectedProvince: null == selectedProvince
+          ? _value.selectedProvince
+          : selectedProvince // ignore: cast_nullable_to_non_nullable
+              as String,
+      sub: null == sub
+          ? _value.sub
+          : sub // ignore: cast_nullable_to_non_nullable
+              as String,
+      city: null == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String,
+      streetNum: null == streetNum
+          ? _value.streetNum
+          : streetNum // ignore: cast_nullable_to_non_nullable
+              as String,
+      streetName: null == streetName
+          ? _value.streetName
+          : streetName // ignore: cast_nullable_to_non_nullable
+              as String,
+      idNum: null == idNum
+          ? _value.idNum
+          : idNum // ignore: cast_nullable_to_non_nullable
+              as String,
+      dob: null == dob
+          ? _value.dob
+          : dob // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SignUpEventImpl implements SignUpEvent {
+  const _$SignUpEventImpl(
+      {required this.username,
+      required this.lastname,
+      required this.password,
+      required this.email,
+      required this.cellphone,
+      required this.selectedProvince,
+      required this.sub,
+      required this.city,
+      required this.streetNum,
+      required this.streetName,
+      required this.idNum,
+      required this.dob});
+
+  @override
+  final String username;
+  @override
+  final String lastname;
+  @override
+  final String password;
+  @override
+  final String email;
+  @override
+  final String cellphone;
+  @override
+  final String selectedProvince;
+  @override
+  final String sub;
+  @override
+  final String city;
+  @override
+  final String streetNum;
+  @override
+  final String streetName;
+  @override
+  final String idNum;
+  @override
+  final String dob;
+
+  @override
+  String toString() {
+    return 'AuthEvent.signUp(username: $username, lastname: $lastname, password: $password, email: $email, cellphone: $cellphone, selectedProvince: $selectedProvince, sub: $sub, city: $city, streetNum: $streetNum, streetName: $streetName, idNum: $idNum, dob: $dob)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignUpEventImpl &&
+            (identical(other.username, username) ||
+                other.username == username) &&
+            (identical(other.lastname, lastname) ||
+                other.lastname == lastname) &&
+            (identical(other.password, password) ||
+                other.password == password) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.cellphone, cellphone) ||
+                other.cellphone == cellphone) &&
+            (identical(other.selectedProvince, selectedProvince) ||
+                other.selectedProvince == selectedProvince) &&
+            (identical(other.sub, sub) || other.sub == sub) &&
+            (identical(other.city, city) || other.city == city) &&
+            (identical(other.streetNum, streetNum) ||
+                other.streetNum == streetNum) &&
+            (identical(other.streetName, streetName) ||
+                other.streetName == streetName) &&
+            (identical(other.idNum, idNum) || other.idNum == idNum) &&
+            (identical(other.dob, dob) || other.dob == dob));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      username,
+      lastname,
+      password,
+      email,
+      cellphone,
+      selectedProvince,
+      sub,
+      city,
+      streetNum,
+      streetName,
+      idNum,
+      dob);
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SignUpEventImplCopyWith<_$SignUpEventImpl> get copyWith =>
+      __$$SignUpEventImplCopyWithImpl<_$SignUpEventImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() checkAuthStatus,
+    required TResult Function(String email, String password) login,
+    required TResult Function(
+            String username,
+            String lastname,
+            String password,
+            String email,
+            String cellphone,
+            String selectedProvince,
+            String sub,
+            String city,
+            String streetNum,
+            String streetName,
+            String idNum,
+            String dob)
+        signUp,
+    required TResult Function() logout,
+  }) {
+    return signUp(username, lastname, password, email, cellphone,
+        selectedProvince, sub, city, streetNum, streetName, idNum, dob);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? checkAuthStatus,
+    TResult? Function(String email, String password)? login,
+    TResult? Function(
+            String username,
+            String lastname,
+            String password,
+            String email,
+            String cellphone,
+            String selectedProvince,
+            String sub,
+            String city,
+            String streetNum,
+            String streetName,
+            String idNum,
+            String dob)?
+        signUp,
+    TResult? Function()? logout,
+  }) {
+    return signUp?.call(username, lastname, password, email, cellphone,
+        selectedProvince, sub, city, streetNum, streetName, idNum, dob);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? checkAuthStatus,
+    TResult Function(String email, String password)? login,
+    TResult Function(
+            String username,
+            String lastname,
+            String password,
+            String email,
+            String cellphone,
+            String selectedProvince,
+            String sub,
+            String city,
+            String streetNum,
+            String streetName,
+            String idNum,
+            String dob)?
+        signUp,
+    TResult Function()? logout,
+    required TResult orElse(),
+  }) {
+    if (signUp != null) {
+      return signUp(username, lastname, password, email, cellphone,
+          selectedProvince, sub, city, streetNum, streetName, idNum, dob);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CheckAuthStatus value) checkAuthStatus,
+    required TResult Function(LoginEvent value) login,
+    required TResult Function(SignUpEvent value) signUp,
+    required TResult Function(LogoutEvent value) logout,
+  }) {
+    return signUp(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CheckAuthStatus value)? checkAuthStatus,
+    TResult? Function(LoginEvent value)? login,
+    TResult? Function(SignUpEvent value)? signUp,
+    TResult? Function(LogoutEvent value)? logout,
+  }) {
+    return signUp?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CheckAuthStatus value)? checkAuthStatus,
+    TResult Function(LoginEvent value)? login,
+    TResult Function(SignUpEvent value)? signUp,
+    TResult Function(LogoutEvent value)? logout,
+    required TResult orElse(),
+  }) {
+    if (signUp != null) {
+      return signUp(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignUpEvent implements AuthEvent {
+  const factory SignUpEvent(
+      {required final String username,
+      required final String lastname,
+      required final String password,
+      required final String email,
+      required final String cellphone,
+      required final String selectedProvince,
+      required final String sub,
+      required final String city,
+      required final String streetNum,
+      required final String streetName,
+      required final String idNum,
+      required final String dob}) = _$SignUpEventImpl;
+
+  String get username;
+  String get lastname;
+  String get password;
+  String get email;
+  String get cellphone;
+  String get selectedProvince;
+  String get sub;
+  String get city;
+  String get streetNum;
+  String get streetName;
+  String get idNum;
+  String get dob;
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SignUpEventImplCopyWith<_$SignUpEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -394,6 +878,20 @@ class _$LogoutEventImpl implements LogoutEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() checkAuthStatus,
     required TResult Function(String email, String password) login,
+    required TResult Function(
+            String username,
+            String lastname,
+            String password,
+            String email,
+            String cellphone,
+            String selectedProvince,
+            String sub,
+            String city,
+            String streetNum,
+            String streetName,
+            String idNum,
+            String dob)
+        signUp,
     required TResult Function() logout,
   }) {
     return logout();
@@ -404,6 +902,20 @@ class _$LogoutEventImpl implements LogoutEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? checkAuthStatus,
     TResult? Function(String email, String password)? login,
+    TResult? Function(
+            String username,
+            String lastname,
+            String password,
+            String email,
+            String cellphone,
+            String selectedProvince,
+            String sub,
+            String city,
+            String streetNum,
+            String streetName,
+            String idNum,
+            String dob)?
+        signUp,
     TResult? Function()? logout,
   }) {
     return logout?.call();
@@ -414,6 +926,20 @@ class _$LogoutEventImpl implements LogoutEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? checkAuthStatus,
     TResult Function(String email, String password)? login,
+    TResult Function(
+            String username,
+            String lastname,
+            String password,
+            String email,
+            String cellphone,
+            String selectedProvince,
+            String sub,
+            String city,
+            String streetNum,
+            String streetName,
+            String idNum,
+            String dob)?
+        signUp,
     TResult Function()? logout,
     required TResult orElse(),
   }) {
@@ -428,6 +954,7 @@ class _$LogoutEventImpl implements LogoutEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(CheckAuthStatus value) checkAuthStatus,
     required TResult Function(LoginEvent value) login,
+    required TResult Function(SignUpEvent value) signUp,
     required TResult Function(LogoutEvent value) logout,
   }) {
     return logout(this);
@@ -438,6 +965,7 @@ class _$LogoutEventImpl implements LogoutEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(CheckAuthStatus value)? checkAuthStatus,
     TResult? Function(LoginEvent value)? login,
+    TResult? Function(SignUpEvent value)? signUp,
     TResult? Function(LogoutEvent value)? logout,
   }) {
     return logout?.call(this);
@@ -448,6 +976,7 @@ class _$LogoutEventImpl implements LogoutEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CheckAuthStatus value)? checkAuthStatus,
     TResult Function(LoginEvent value)? login,
+    TResult Function(SignUpEvent value)? signUp,
     TResult Function(LogoutEvent value)? logout,
     required TResult orElse(),
   }) {
