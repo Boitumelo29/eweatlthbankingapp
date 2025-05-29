@@ -9,7 +9,7 @@ class SignUpEvent with _$SignUpEvent {
     required String lastname,
     required String password,
     required String email,
-    required String cellphone,
+    required String cellNumber,
     required String selectedProvince,
     required String sub,
     required String city,

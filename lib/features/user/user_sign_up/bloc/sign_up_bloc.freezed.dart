@@ -24,7 +24,7 @@ mixin _$SignUpEvent {
             String lastname,
             String password,
             String email,
-            String cellphone,
+            String cellNumber,
             String selectedProvince,
             String sub,
             String city,
@@ -43,7 +43,7 @@ mixin _$SignUpEvent {
             String lastname,
             String password,
             String email,
-            String cellphone,
+            String cellNumber,
             String selectedProvince,
             String sub,
             String city,
@@ -62,7 +62,7 @@ mixin _$SignUpEvent {
             String lastname,
             String password,
             String email,
-            String cellphone,
+            String cellNumber,
             String selectedProvince,
             String sub,
             String city,
@@ -163,7 +163,7 @@ class _$StartedImpl implements _Started {
             String lastname,
             String password,
             String email,
-            String cellphone,
+            String cellNumber,
             String selectedProvince,
             String sub,
             String city,
@@ -185,7 +185,7 @@ class _$StartedImpl implements _Started {
             String lastname,
             String password,
             String email,
-            String cellphone,
+            String cellNumber,
             String selectedProvince,
             String sub,
             String city,
@@ -207,7 +207,7 @@ class _$StartedImpl implements _Started {
             String lastname,
             String password,
             String email,
-            String cellphone,
+            String cellNumber,
             String selectedProvince,
             String sub,
             String city,
@@ -271,7 +271,7 @@ abstract class _$$SignUpSubmittedImplCopyWith<$Res> {
       String lastname,
       String password,
       String email,
-      String cellphone,
+      String cellNumber,
       String selectedProvince,
       String sub,
       String city,
@@ -298,7 +298,7 @@ class __$$SignUpSubmittedImplCopyWithImpl<$Res>
     Object? lastname = null,
     Object? password = null,
     Object? email = null,
-    Object? cellphone = null,
+    Object? cellNumber = null,
     Object? selectedProvince = null,
     Object? sub = null,
     Object? city = null,
@@ -324,9 +324,9 @@ class __$$SignUpSubmittedImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      cellphone: null == cellphone
-          ? _value.cellphone
-          : cellphone // ignore: cast_nullable_to_non_nullable
+      cellNumber: null == cellNumber
+          ? _value.cellNumber
+          : cellNumber // ignore: cast_nullable_to_non_nullable
               as String,
       selectedProvince: null == selectedProvince
           ? _value.selectedProvince
@@ -368,7 +368,7 @@ class _$SignUpSubmittedImpl implements SignUpSubmitted {
       required this.lastname,
       required this.password,
       required this.email,
-      required this.cellphone,
+      required this.cellNumber,
       required this.selectedProvince,
       required this.sub,
       required this.city,
@@ -386,7 +386,7 @@ class _$SignUpSubmittedImpl implements SignUpSubmitted {
   @override
   final String email;
   @override
-  final String cellphone;
+  final String cellNumber;
   @override
   final String selectedProvince;
   @override
@@ -404,7 +404,7 @@ class _$SignUpSubmittedImpl implements SignUpSubmitted {
 
   @override
   String toString() {
-    return 'SignUpEvent.submitted(username: $username, lastname: $lastname, password: $password, email: $email, cellphone: $cellphone, selectedProvince: $selectedProvince, sub: $sub, city: $city, streetNum: $streetNum, streetName: $streetName, idNum: $idNum, dob: $dob)';
+    return 'SignUpEvent.submitted(username: $username, lastname: $lastname, password: $password, email: $email, cellNumber: $cellNumber, selectedProvince: $selectedProvince, sub: $sub, city: $city, streetNum: $streetNum, streetName: $streetName, idNum: $idNum, dob: $dob)';
   }
 
   @override
@@ -419,8 +419,8 @@ class _$SignUpSubmittedImpl implements SignUpSubmitted {
             (identical(other.password, password) ||
                 other.password == password) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.cellphone, cellphone) ||
-                other.cellphone == cellphone) &&
+            (identical(other.cellNumber, cellNumber) ||
+                other.cellNumber == cellNumber) &&
             (identical(other.selectedProvince, selectedProvince) ||
                 other.selectedProvince == selectedProvince) &&
             (identical(other.sub, sub) || other.sub == sub) &&
@@ -440,7 +440,7 @@ class _$SignUpSubmittedImpl implements SignUpSubmitted {
       lastname,
       password,
       email,
-      cellphone,
+      cellNumber,
       selectedProvince,
       sub,
       city,
@@ -467,7 +467,7 @@ class _$SignUpSubmittedImpl implements SignUpSubmitted {
             String lastname,
             String password,
             String email,
-            String cellphone,
+            String cellNumber,
             String selectedProvince,
             String sub,
             String city,
@@ -477,7 +477,7 @@ class _$SignUpSubmittedImpl implements SignUpSubmitted {
             String dob)
         submitted,
   }) {
-    return submitted(username, lastname, password, email, cellphone,
+    return submitted(username, lastname, password, email, cellNumber,
         selectedProvince, sub, city, streetNum, streetName, idNum, dob);
   }
 
@@ -490,7 +490,7 @@ class _$SignUpSubmittedImpl implements SignUpSubmitted {
             String lastname,
             String password,
             String email,
-            String cellphone,
+            String cellNumber,
             String selectedProvince,
             String sub,
             String city,
@@ -500,7 +500,7 @@ class _$SignUpSubmittedImpl implements SignUpSubmitted {
             String dob)?
         submitted,
   }) {
-    return submitted?.call(username, lastname, password, email, cellphone,
+    return submitted?.call(username, lastname, password, email, cellNumber,
         selectedProvince, sub, city, streetNum, streetName, idNum, dob);
   }
 
@@ -513,7 +513,7 @@ class _$SignUpSubmittedImpl implements SignUpSubmitted {
             String lastname,
             String password,
             String email,
-            String cellphone,
+            String cellNumber,
             String selectedProvince,
             String sub,
             String city,
@@ -525,7 +525,7 @@ class _$SignUpSubmittedImpl implements SignUpSubmitted {
     required TResult orElse(),
   }) {
     if (submitted != null) {
-      return submitted(username, lastname, password, email, cellphone,
+      return submitted(username, lastname, password, email, cellNumber,
           selectedProvince, sub, city, streetNum, streetName, idNum, dob);
     }
     return orElse();
@@ -569,7 +569,7 @@ abstract class SignUpSubmitted implements SignUpEvent {
       required final String lastname,
       required final String password,
       required final String email,
-      required final String cellphone,
+      required final String cellNumber,
       required final String selectedProvince,
       required final String sub,
       required final String city,
@@ -582,7 +582,7 @@ abstract class SignUpSubmitted implements SignUpEvent {
   String get lastname;
   String get password;
   String get email;
-  String get cellphone;
+  String get cellNumber;
   String get selectedProvince;
   String get sub;
   String get city;

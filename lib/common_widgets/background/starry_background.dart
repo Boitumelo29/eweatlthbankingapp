@@ -188,7 +188,7 @@ class _FailScreenState extends State<FailScreen>
                   ),
                   const SizedBox(height: 10),
                   const Text(
-                    "Oops and error has occurred.",
+                    "Oops an error has occurred.",
                     style: TextStyle(fontSize: 16),
                   ),
                   const Spacer(),

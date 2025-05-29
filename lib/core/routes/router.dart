@@ -11,6 +11,7 @@ import 'package:eweatlthbankingapp/features/tranfer_screen/presentation/transfer
 import 'package:eweatlthbankingapp/features/tranfer_screen/presentation/transfer_screen_success.dart';
 import 'package:eweatlthbankingapp/features/tranfer_screen/transfer_screen_fail.dart';
 import 'package:eweatlthbankingapp/features/user/user_login/presentation/pages/login_page.dart';
+import 'package:eweatlthbankingapp/features/user/user_profile/presentation/page/user_profile_page.dart';
 import 'package:eweatlthbankingapp/features/user/user_sign_up/page/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
@@ -39,5 +40,6 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: BeneficiaryRoute.page),
         AutoRoute(page: BeneficiaryListRoute.page),
         AutoRoute(page: AddBeneficiaryRoute.page),
+        AutoRoute(page: UserProfileRoute.page),
       ];
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:eweatlthbankingapp/common_widgets/screens/appBar_layout/app_bar_screen.dart';
 import 'package:eweatlthbankingapp/core/routes/router.dart';
 import 'package:eweatlthbankingapp/features/home_screen/bloc/home_bloc.dart';
 import 'package:eweatlthbankingapp/features/home_screen/presenation/widget/balance_card.dart';
@@ -21,11 +20,10 @@ class _MainHomeViewState extends State<MainHomeView> {
     return BlocConsumer<HomeBloc, HomeState>(
       listener: _listener,
       builder: (context, state) {
-        return AppBarScreen(
-          title: "Home",
-          shouldScroll: true,
-          shouldHaveFloatingButton: false,
-          shouldBeCentered: true,
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text("Home"),
+          ),
           drawer: Drawer(
             child: ListView(
               padding: EdgeInsets.zero,
@@ -62,7 +60,9 @@ class _MainHomeViewState extends State<MainHomeView> {
                 ListTile(
                   leading: const Icon(Icons.person),
                   title: const Text('Profile'),
-                  onTap: () {},
+                  onTap: () {
+                    context.router.push(const UserProfileRoute());
+                  },
                 ),
                 ListTile(
                   leading: const Icon(Icons.settings_input_component_outlined),
@@ -79,39 +79,41 @@ class _MainHomeViewState extends State<MainHomeView> {
               ],
             ),
           ),
-          children: [
-            BalanceCard(deposit: "${state.depositAmount}"),
-            const TransactionButtons(),
-            const TransactionsHistoryWidget(),
-            state.transactions.isEmpty
-                ? Center(
-                    child: Text(
-                      "eWealth",
-                      style: TextStyle(
-                        color: Colors.green[100],
-                        fontStyle: FontStyle.italic,
-                        fontSize: 60,
+          body: Column(
+            children: [
+              BalanceCard(deposit: "${state.depositAmount}"),
+              const TransactionButtons(),
+              const TransactionsHistoryWidget(),
+              state.transactions.isEmpty
+                  ? Center(
+                      child: Text(
+                        "eWealth",
+                        style: TextStyle(
+                          color: Colors.green[100],
+                          fontStyle: FontStyle.italic,
+                          fontSize: 60,
+                        ),
                       ),
-                    ),
-                  )
-                : Column(
-                    children: state.transactions.map((amount) {
-                      return ListTile(
-                        leading: amount['transaction'] == "Deposit"
-                            ? const Icon(
-                                Icons.add,
-                                color: Colors.green,
-                              )
-                            : const Icon(
-                                Icons.remove,
-                                color: Colors.red,
-                              ),
-                        title: Text(amount['transaction'].toString()),
-                        trailing: Text('R ${amount['amount']}'),
-                      );
-                    }).toList(),
-                  )
-          ],
+                    )
+                  : Column(
+                      children: state.transactions.map((amount) {
+                        return ListTile(
+                          leading: amount['transaction'] == "Deposit"
+                              ? const Icon(
+                                  Icons.add,
+                                  color: Colors.green,
+                                )
+                              : const Icon(
+                                  Icons.remove,
+                                  color: Colors.red,
+                                ),
+                          title: Text(amount['transaction'].toString()),
+                          trailing: Text('R ${amount['amount']}'),
+                        );
+                      }).toList(),
+                    )
+            ],
+          ),
         );
       },
     );

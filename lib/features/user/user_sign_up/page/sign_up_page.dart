@@ -179,7 +179,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     lastname: lastname.text,
                                     password: password.text,
                                     email: email.text,
-                                    cellphone: cellphone.text,
+                                    cellNumber: cellphone.text,
                                     selectedProvince:
                                         selectedProvince.toString(),
                                     sub: sub.text,

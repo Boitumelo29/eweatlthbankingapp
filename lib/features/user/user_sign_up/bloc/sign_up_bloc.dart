@@ -20,7 +20,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
             lastname: event.lastname,
             password: event.password,
             email: event.email,
-            cellphone: event.cellphone,
+            cellNumber: event.cellNumber,
             selectedProvince: event.selectedProvince,
             sub: event.sub,
             city: event.city,

@@ -76,7 +76,7 @@ class _PaymentFailurePageState extends State<PaymentFailurePage>
                   ),
                   const SizedBox(height: 10),
                   const Text(
-                    "Oops and error has occurred.",
+                    "Oops an error has occurred.",
                     style: TextStyle(fontSize: 16),
                   ),
                   const Spacer(),

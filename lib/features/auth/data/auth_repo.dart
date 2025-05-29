@@ -23,10 +23,14 @@ class AuthRepository {
 
         final username = '${userData['firstName']} ${userData['lastName']}';
         final accountNumber = userData['email'];
+        final cellphone = userData['cellNumber'];
+        final id = userData['idNumber'];
 
         return {
           'userName': username,
           'accountNumber': accountNumber,
+          'cellNumber': cellphone,
+          'idNumber': id
         };
       }
 
@@ -50,6 +54,7 @@ class AuthRepository {
       await prefs.remove('accountId');
       await prefs.remove('username');
       await prefs.remove('surname');
+      await prefs.remove('cellNumber');
 
       return right(unit);
     } catch (e) {
@@ -121,7 +126,7 @@ class AuthRepository {
     required String lastname,
     required String password,
     required String email,
-    required String cellphone,
+    required String cellNumber,
     required String selectedProvince,
     required String sub,
     required String city,
@@ -138,12 +143,14 @@ class AuthRepository {
       await prefs.setString('accountId', accountId);
       await prefs.setString('username', username);
       await prefs.setString('surname', lastname);
+      await prefs.setString('cellNumber', cellNumber);
+      await prefs.setString('idNumber', cellNumber);
       await prefs.setString(_userEmailKey, email);
 
       final userData = {
         'firstName': username,
         'lastName': lastname,
-        'cellNumber': cellphone,
+        'cellNumber':cellNumber,
         'email': email,
         'province': selectedProvince,
         'suburb': sub,
