@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:eweatlthbankingapp/core/routes/router.dart';
 import 'package:eweatlthbankingapp/features/pay_beneficiary/beneficiary_bloc/beneficiary_bloc.dart';
 import 'package:eweatlthbankingapp/features/pay_beneficiary/presentation/widget/expanstion_tile.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
@@ -51,7 +53,16 @@ class _BeneficiaryViewState extends State<BeneficiaryView> {
   Widget build(BuildContext context) {
     return BlocConsumer<BeneficiaryBloc, BeneficiaryState>(
       listener: (context, state) {
-        // TODO: implement listener
+        state.transferAmountFailureFailureOrUnit.fold(() {},
+            (eitherFailureOrUnit) {
+          eitherFailureOrUnit.fold((failure) {
+            ///todo this is the correct way to push to the failure page
+            //context.router.pushAndPopUntil(route, predicate: predicate)
+            context.router.push(const TransferFailureRoute());
+          }, (_) {
+            context.router.push(const TransferSuccessRoute());
+          });
+        });
       },
       builder: (context, state) {
         if (state.usersList.isEmpty) {
@@ -162,15 +173,12 @@ class _BeneficiaryViewState extends State<BeneficiaryView> {
                   innerColor: Colors.white,
                   outerColor: Colors.green,
                   onSubmit: () {
-                    if (_amountController.text.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Please enter a valid amount'),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                      return;
-                    }
+                    context.read<BeneficiaryBloc>().add(AmountTransferred(
+                        selectedBank: state.usersList[widget.index].bank,
+                        accountName: state.usersList[widget.index].accountName,
+                        accountNumber:
+                            state.usersList[widget.index].accountNumber,
+                        amount: _amountController.text));
                   },
                 )
               ],
