@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:eweatlthbankingapp/features/auth/auth.dart';
 import 'package:eweatlthbankingapp/features/deposit/presentation/page/deposit_page.dart';
 import 'package:eweatlthbankingapp/features/deposit/presentation/page/payement_success_page.dart';
-import 'package:eweatlthbankingapp/features/deposit/presentation/payment_failure_page.dart';
+import 'package:eweatlthbankingapp/features/deposit/presentation/page/payment_failure_page.dart';
 import 'package:eweatlthbankingapp/features/onboarding/presentation/onboarding_page.dart';
 import 'package:eweatlthbankingapp/features/pay_beneficiary/presentation/page/add_beneficiary_screen/add_beneficiary_view.dart';
 import 'package:eweatlthbankingapp/features/pay_beneficiary/presentation/page/beneficiary_list/beneficiary_list.dart';
