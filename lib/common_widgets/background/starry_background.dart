@@ -93,6 +93,8 @@ class _SuccessScreenState extends State<SuccessScreen>
 }
 
 class StarryBackground extends StatelessWidget {
+  const StarryBackground({super.key});
+
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
