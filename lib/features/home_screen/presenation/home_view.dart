@@ -79,40 +79,43 @@ class _MainHomeViewState extends State<MainHomeView> {
               ],
             ),
           ),
-          body: Column(
-            children: [
-              BalanceCard(deposit: "${state.depositAmount}"),
-              const TransactionButtons(),
-              const TransactionsHistoryWidget(),
-              state.transactions.isEmpty
-                  ? Center(
-                      child: Text(
-                        "eWealth",
-                        style: TextStyle(
-                          color: Colors.green[100],
-                          fontStyle: FontStyle.italic,
-                          fontSize: 60,
+          body: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Column(
+              children: [
+                BalanceCard(deposit: "${state.depositAmount}"),
+                const TransactionButtons(),
+                const TransactionsHistoryWidget(),
+                state.transactions.isEmpty
+                    ? Center(
+                        child: Text(
+                          "eWealth",
+                          style: TextStyle(
+                            color: Colors.green[100],
+                            fontStyle: FontStyle.italic,
+                            fontSize: 60,
+                          ),
                         ),
-                      ),
-                    )
-                  : Column(
-                      children: state.transactions.map((amount) {
-                        return ListTile(
-                          leading: amount['transaction'] == "Deposit"
-                              ? const Icon(
-                                  Icons.add,
-                                  color: Colors.green,
-                                )
-                              : const Icon(
-                                  Icons.remove,
-                                  color: Colors.red,
-                                ),
-                          title: Text(amount['transaction'].toString()),
-                          trailing: Text('R ${amount['amount']}'),
-                        );
-                      }).toList(),
-                    )
-            ],
+                      )
+                    : Column(
+                        children: state.transactions.map((amount) {
+                          return ListTile(
+                            leading: amount['transaction'] == "Deposit"
+                                ? const Icon(
+                                    Icons.add,
+                                    color: Colors.green,
+                                  )
+                                : const Icon(
+                                    Icons.remove,
+                                    color: Colors.red,
+                                  ),
+                            title: Text(amount['transaction'].toString()),
+                            trailing: Text('R ${amount['amount']}'),
+                          );
+                        }).toList(),
+                      )
+              ],
+            ),
           ),
         );
       },
