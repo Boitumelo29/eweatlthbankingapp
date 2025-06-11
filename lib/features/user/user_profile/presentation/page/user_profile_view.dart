@@ -33,6 +33,7 @@ class UserProfileView extends StatelessWidget {
                       fontSize: 20,
                       fontWeight: FontWeight.w500),
                 ),
+
                 LongTextFieldForm(
                   onChanged: (value) {},
                   labelText: 'Name',
@@ -59,9 +60,7 @@ class UserProfileView extends StatelessWidget {
                 ),
 
                 GestureDetector(
-                    onTap: () {
-
-                    },
+                    onTap: () {},
                     child: Container(
                       height: 50,
                       width: 410,
@@ -70,7 +69,30 @@ class UserProfileView extends StatelessWidget {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20)),
                       ),
-                      child: Center(child: Text("Validate ID:  ${state.id}")),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 12.0, left: 15.0, right: 10.0),
+                        child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      "Validate ID:  ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    Text(state.id),
+                                  ],
+                                ),
+                                const Icon(Icons.chevron_right),
+                              ],
+                            )),
+                      ),
                     )),
 
                 ///if it has been modified then we need to update the code
