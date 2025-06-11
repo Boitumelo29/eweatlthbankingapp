@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:eweatlthbankingapp/core/failure/failures.dart';
 import 'package:eweatlthbankingapp/features/auth/data/auth_repo.dart';
-import 'package:eweatlthbankingapp/notes/voucher_screen.dart';
+import 'package:eweatlthbankingapp/features/deposit/domain/repo/voucher_service_repo.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,12 +16,12 @@ part 'deposit_bloc.freezed.dart';
 
 class DepositBloc extends Bloc<DepositEvent, DepositState> {
   final AuthRepository authRepo;
-  final VoucherService voucherService;
+  final VoucherServiceRepository voucherServiceRepository;
 
-  DepositBloc({
-    required this.authRepo,
-    required this.voucherService,
-  }) : super(DepositState.initial()) {
+  DepositBloc(
+      {required this.authRepo,
+      required this.voucherServiceRepository})
+      : super(DepositState.initial()) {
     on<DepositAmount>((event, emit) async {
       emit(state.copyWith(depositIsLoading: true));
 
@@ -97,12 +97,22 @@ class DepositBloc extends Bloc<DepositEvent, DepositState> {
     });
 
     on<RedeemVoucher>((event, emit) async {
-      final amount = await VoucherService.redeemVoucher(event.voucher);
+      try {
+        final newResponse = await voucherServiceRepository
+            .redeemVoucher(event.voucher);
 
-      add(DepositEvent.depositAmount(amount: amount));
-      print(amount);
+        final amount =
+        newResponse['amount'] as int;
 
-      emit(state.copyWith(accountNumber: amount));
+        add(DepositEvent.depositAmount(amount: amount.toString()));
+        print('Redeemed amount: $amount');
+
+        emit(state.copyWith(accountNumber: amount.toString()));
+      } catch (e) {
+        print('Error redeeming voucher: $e');
+
+        // emit(state.copyWith(error: e.toString()));
+      }
     });
   }
 }
