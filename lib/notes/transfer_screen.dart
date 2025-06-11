@@ -3,8 +3,12 @@ import 'package:slide_to_act/slide_to_act.dart';
 
 class TransferScreen extends StatelessWidget {
   @override
+   const TransferScreen({super.key});
+
+
+  @override
   Widget build(BuildContext context) {
-    final GlobalKey<SlideActionState> _key = GlobalKey();
+    final GlobalKey<SlideActionState> key = GlobalKey();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -12,23 +16,23 @@ class TransferScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: SlideAction(
-            key: _key,
+            key: key,
             onSubmit: () {
-              // Trigger your transfer function here
-              Future.delayed(Duration(seconds: 1), () {
-                _key.currentState?.reset(); // Reset slider
+              Future.delayed(const Duration(seconds: 1), () {
+                key.currentState?.reset();
               });
+              return null;
             },
             innerColor: Colors.purple,
             outerColor: Colors.black,
             text: 'Send Now',
-            textStyle: TextStyle(
+            textStyle: const TextStyle(
               color: Colors.white,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
-            sliderButtonIcon: Icon(
-              Icons.camera_alt, // Change to appropriate icon
+            sliderButtonIcon: const Icon(
+              Icons.camera_alt,
               color: Colors.white,
             ),
             elevation: 0,
