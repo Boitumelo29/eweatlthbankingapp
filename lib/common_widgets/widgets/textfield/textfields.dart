@@ -36,7 +36,7 @@ class LongTextField extends StatelessWidget {
 
 class LongTextFieldForm extends StatefulWidget {
   final TextEditingController? controller;
-  final String hintText;
+  final String? hintText;
   final String labelText;
   final bool showSuffixIcon;
   final bool showPrefixIcon;
@@ -53,7 +53,7 @@ class LongTextFieldForm extends StatefulWidget {
       this.controller,
       this.focusNode,
       required this.onChanged,
-      required this.hintText,
+       this.hintText,
       required this.labelText,
       this.showSuffixIcon = false,
       this.showPrefixIcon = false,
