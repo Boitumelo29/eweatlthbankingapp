@@ -41,7 +41,6 @@ class ChuckJokePage extends StatelessWidget {
                 return Center(child: Text(state.errorMessage ?? 'Error'));
 
               case ChuckJokeStatus.initial:
-              default:
                 return Center(
                   child: ElevatedButton(
                     onPressed: () {

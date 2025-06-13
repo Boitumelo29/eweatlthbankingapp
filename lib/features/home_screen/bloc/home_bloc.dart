@@ -57,8 +57,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                       })
                   .toList();
 
-              print("all: $allTransactions");
-              print("my user: $userTransactions");
+              // print("all: $allTransactions");
+              // print("my user: $userTransactions");
 
               ///amount is just getting the values
               final amounts = deposits[accountId] ?? [];

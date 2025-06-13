@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:eweatlthbankingapp/clean_arch_example/chuck_joke/domain/model/chuck_joke_response_model.dart';
 import 'package:eweatlthbankingapp/clean_arch_example/chuck_joke/domain/repo/chuck_joke_repo.dart';
-import 'package:meta/meta.dart';
 
 part 'chuck_joke_event.dart';
 part 'chuck_joke_state.dart';

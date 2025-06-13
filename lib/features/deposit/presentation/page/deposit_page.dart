@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:eweatlthbankingapp/core/routes/router.dart';
 import 'package:eweatlthbankingapp/features/auth/data/auth_repo.dart';
 import 'package:eweatlthbankingapp/features/deposit/bloc/deposit_bloc.dart';
-import 'package:eweatlthbankingapp/notes/voucher_screen.dart';
+import 'package:eweatlthbankingapp/features/deposit/data/data_source/voucher_service_datasource.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart'
     show BlocConsumer, BlocProvider, ReadContext;
@@ -16,7 +16,8 @@ class DepositPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<DepositBloc>(
       create: (context) => DepositBloc(
-          authRepo: AuthRepository(), voucherService: VoucherService())
+          authRepo: AuthRepository(),
+          voucherServiceRepository: VoucherServiceDatasourceImpl())
         ..add(const LoadUser()),
       child: const DepositView(),
     );
@@ -118,7 +119,7 @@ class _DepositViewState extends State<DepositView> {
                     labelText: 'Amount',
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
-                        borderSide:  BorderSide(
+                        borderSide: BorderSide(
                           color: Colors.green,
                           width: 0.7,
                         )),
@@ -182,10 +183,11 @@ class _DepositViewState extends State<DepositView> {
                           backgroundColor: Colors.red,
                         ),
                       );
-                      return;
+
                     }
                     context.read<DepositBloc>().add(DepositEvent.redeemVoucher(
                         voucher: _amountController.text));
+                    return null;
                   },
                 )
                 // LongButton(

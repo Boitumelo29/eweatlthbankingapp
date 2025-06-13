@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:eweatlthbankingapp/common_widgets/widgets/buttons/long_rectangle_button.dart';
 import 'package:eweatlthbankingapp/features/pay_beneficiary/add_beneficary_bloc/add_beneficiary_bloc.dart';
 import 'package:flutter/material.dart';

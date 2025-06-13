@@ -38,14 +38,14 @@ class BeneficiaryBloc extends Bloc<BeneficiaryEvent, BeneficiaryState> {
         final String? depositsJson = prefs.getString('deposits');
         final Map<String, List<int>> deposits = depositsJson != null
             ? (jsonDecode(depositsJson) as Map<String, dynamic>).map(
-              (key, value) {
-            if (value is List<dynamic>) {
-              return MapEntry(key, List<int>.from(value));
-            } else {
-              return MapEntry(key, <int>[]);
-            }
-          },
-        )
+                (key, value) {
+                  if (value is List<dynamic>) {
+                    return MapEntry(key, List<int>.from(value));
+                  } else {
+                    return MapEntry(key, <int>[]);
+                  }
+                },
+              )
             : {};
 
         final int transferAmount = int.parse(event.amount);
@@ -80,7 +80,7 @@ class BeneficiaryBloc extends Bloc<BeneficiaryEvent, BeneficiaryState> {
         emit(state.copyWith(
             transferIsLoading: false,
             transferAmountFailureFailureOrUnit:
-            some(left(const Failure(message: "failure")))));
+                some(left(const Failure(message: "failure")))));
       }
     });
     on<LoadAmount>((event, emit) async {
@@ -94,8 +94,8 @@ class BeneficiaryBloc extends Bloc<BeneficiaryEvent, BeneficiaryState> {
         if (depositsJson != null) {
           try {
             final Map<String, List<int>> deposits =
-            (jsonDecode(depositsJson) as Map<String, dynamic>).map(
-                  (key, value) {
+                (jsonDecode(depositsJson) as Map<String, dynamic>).map(
+              (key, value) {
                 if (value is List<dynamic>) {
                   return MapEntry(key, List<int>.from(value));
                 } else {
@@ -108,12 +108,12 @@ class BeneficiaryBloc extends Bloc<BeneficiaryEvent, BeneficiaryState> {
               state.copyWith(
                   loadAmountFailureFailureOrUnit: some(right(unit)),
                   currentBalance:
-                  deposits[accountId]?.reduce((a, b) => a + b) ?? 0),
+                      deposits[accountId]?.reduce((a, b) => a + b) ?? 0),
             );
           } catch (e) {
             emit(state.copyWith(
                 loadAmountFailureFailureOrUnit:
-                some(left(const Failure(message: "error")))));
+                    some(left(const Failure(message: "error")))));
           }
         }
       }

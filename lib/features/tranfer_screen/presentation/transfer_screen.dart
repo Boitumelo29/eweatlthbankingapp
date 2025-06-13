@@ -14,9 +14,7 @@ class TransferPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<TransferBloc>(
-      create: (context) =>
-      TransferBloc()
-        ..add(const LoadDeposit()),
+      create: (context) => TransferBloc()..add(const LoadDeposit()),
       child: const TransferView(),
     );
   }
@@ -34,7 +32,7 @@ class _TransferViewState extends State<TransferView> {
   final TextEditingController accountNameController = TextEditingController();
   final TextEditingController accountNumberController = TextEditingController();
   final TextEditingController beneficiaryReferenceController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController myReferenceController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
   List<String> banks = ['FNB', 'Standard Bank', 'ABSA', 'Nedbank'];
@@ -47,16 +45,16 @@ class _TransferViewState extends State<TransferView> {
     return BlocConsumer<TransferBloc, TransferState>(
       listener: (context, state) {
         state.processTransferFailureFailureOrUnit.fold(() {},
-                (eitherFailureOrUnit) {
-              eitherFailureOrUnit.fold(
-                    (failure) {
-                  context.router.push(const TransferFailureRoute());
-                },
-                    (_) {
-                  context.router.push(const TransferSuccessRoute());
-                },
-              );
-            });
+            (eitherFailureOrUnit) {
+          eitherFailureOrUnit.fold(
+            (failure) {
+              context.router.push(const TransferFailureRoute());
+            },
+            (_) {
+              context.router.push(const TransferSuccessRoute());
+            },
+          );
+        });
       },
       builder: (context, state) {
         return Scaffold(
@@ -114,7 +112,7 @@ class _TransferViewState extends State<TransferView> {
                       );
                     }).toList(),
                     validator: (value) =>
-                    value == null ? 'Please select a bank' : null,
+                        value == null ? 'Please select a bank' : null,
                   ),
                   const SizedBox(height: 20),
                   LongTextFieldForm(
@@ -212,7 +210,7 @@ class _TransferViewState extends State<TransferView> {
                     outerColor: Colors.green,
                     text: "Transfer",
                     sliderButtonIcon:
-                    const Icon(Icons.keyboard_arrow_right_outlined),
+                        const Icon(Icons.keyboard_arrow_right_outlined),
                     // submittedIcon: Icon(Icons.corr),
                     onSubmit: () {
                       ///todo tumi review this
@@ -233,6 +231,8 @@ class _TransferViewState extends State<TransferView> {
                           accountName: accountNameController.text,
                           accountNumber: accountNumberController.text,
                           amount: amountController.text));
+
+                      return null;
                     },
                   )
 

@@ -13,6 +13,7 @@ class AuthRepository {
     await prefs.setBool(_isLoggedInKey, true);
   }
 
+  //todo need to rewrite my auth repo so I can stop calling the user like this: userDat["userdata]
   Future<Map<String, String>?> loadUserData() async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
