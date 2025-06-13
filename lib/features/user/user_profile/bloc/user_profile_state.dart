@@ -7,6 +7,7 @@ class UserProfileState with _$UserProfileState {
     @Default("") String accountNumber,
     @Default("") String cellNumber,
     @Default("") String id,
+    @Default("") String userImage,
     @Default(false) bool updateIsLoading,
     @Default(None())
     Option<Either<Failure, Unit>> updateProfileFailureFailureOrUnit,

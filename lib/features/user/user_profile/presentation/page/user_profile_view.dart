@@ -5,9 +5,7 @@ import 'package:eweatlthbankingapp/util/validation/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:typed_data';
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProfileView extends StatefulWidget {
   const UserProfileView({super.key});
@@ -17,20 +15,17 @@ class UserProfileView extends StatefulWidget {
 }
 
 class _UserProfileViewState extends State<UserProfileView> {
-  Uint8List? galleryFile;
-  final picker = ImagePicker();
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserProfileBloc, UserProfileState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
+      buildWhen: (p, c) => p.userImage != c.userImage,
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
             title: const Text("Profile"),
           ),
+          ///if i want to wrap multiples screens my
           body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -42,7 +37,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      galleryFile == null
+                      state.userImage.isEmpty
                           ? const Icon(
                               Icons.person,
                               size: 100,
@@ -53,7 +48,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                               child: Center(
                                 child: ClipOval(
                                   child: Image.memory(
-                                    galleryFile!,
+                                    base64Decode(state.userImage),
                                     fit: BoxFit.cover,
                                     width: 100,
                                     height: 100,
@@ -66,12 +61,14 @@ class _UserProfileViewState extends State<UserProfileView> {
                         right: 0,
                         child: IconButton(
                           onPressed: () {
-                            _showPicker(context);
+                            _showPicker(context, state.id);
                           },
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.camera,
-                            size: 20,
-                            color: Colors.grey,
+                            size: 30,
+                            color: state.userImage.isEmpty
+                                ? Colors.grey
+                                : Colors.black,
                           ),
                         ),
                       ),
@@ -163,7 +160,7 @@ class _UserProfileViewState extends State<UserProfileView> {
     );
   }
 
-  void _showPicker(BuildContext context) {
+  void _showPicker(BuildContext context, String accountId) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
@@ -175,36 +172,14 @@ class _UserProfileViewState extends State<UserProfileView> {
                     title: const Text("Pick a picture"),
                     trailing: const Icon(Icons.chevron_right_outlined),
                     onTap: () {
-                      getImage(ImageSource.gallery);
+                      context.read<UserProfileBloc>().add(GetUserImage(
+                          accountId: accountId, img: ImageSource.gallery));
                       Navigator.of(context).pop();
                     })
               ],
             )),
           );
         });
-  }
-
-  Future getImage(ImageSource img) async {
-    try {
-      final pickedFile = await picker.pickImage(source: img);
-      if (pickedFile != null) {
-        final bytes = await pickedFile.readAsBytes();
-        final base64Image = base64Encode(bytes); // Convert image to base64
-
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString(
-            'profile_image', base64Image); // Save to SharedPreferences
-
-        setState(() {
-          galleryFile = Uint8List.fromList(bytes); // Show the image in UI
-        });
-      } else {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Error occurred")));
-      }
-    } catch (e) {
-      print("get image error: $e");
-    }
   }
 
   void _showMyBottomSheet(BuildContext context, String id) {
