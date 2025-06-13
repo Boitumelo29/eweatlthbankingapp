@@ -16,7 +16,6 @@ import 'package:eweatlthbankingapp/features/user/user_sign_up/page/sign_up_page.
 import 'package:flutter/material.dart';
 import 'package:eweatlthbankingapp/features/home_screen/presenation/home_page.dart';
 
-
 part 'router.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'View|Screen|Page,Route')
@@ -26,20 +25,28 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: MyMainAuthRoute.page, initial: true),
-        AutoRoute(page: MainHomeRoute.page),
-        AutoRoute(page: LoginRoute.page),
-        AutoRoute(page: SignUpRoute.page),
-        AutoRoute(page: DepositRoute.page),
-        AutoRoute(page: TransferRoute.page),
-        AutoRoute(page: PaymentSuccessRoute.page),
-        AutoRoute(page: PaymentFailureRoute.page),
-        AutoRoute(page: OnboardingRoute.page),
-        AutoRoute(page: TransferSuccessRoute.page),
-        AutoRoute(page: TransferFailureRoute.page),
-        AutoRoute(page: BeneficiaryRoute.page),
-        AutoRoute(page: BeneficiaryListRoute.page),
-        AutoRoute(page: AddBeneficiaryRoute.page),
-        AutoRoute(page: UserProfileRoute.page),
+        AutoRoute(
+            page: MyMainAuthRoute.page, initial: true, path: '/myMainAuth'),
+        AutoRoute(page: MainHomeRoute.page, path: '/mainHome'),
+        AutoRoute(page: LoginRoute.page, path: '/login'),
+        AutoRoute(page: SignUpRoute.page, path: '/signUp'),
+        AutoRoute(page: DepositRoute.page, path: '/deposit'),
+        AutoRoute(page: TransferRoute.page, path: '/transfer'),
+        AutoRoute(page: PaymentSuccessRoute.page, path: '/paymentSuccess'),
+        AutoRoute(page: PaymentFailureRoute.page, path: '/paymentFailure'),
+        AutoRoute(page: OnboardingRoute.page, path: '/onboarding'),
+        AutoRoute(page: TransferSuccessRoute.page, path: '/transferSuccess'),
+        AutoRoute(page: TransferFailureRoute.page, path: '/transferFailure'),
+        AutoRoute(page: BeneficiaryRoute.page, path: '/beneficiary'),
+        AutoRoute(page: BeneficiaryListRoute.page, path: '/beneficiaryList'),
+        AutoRoute(page: AddBeneficiaryRoute.page, path: '/addBeneficiary'),
+        AutoRoute(page: UserProfileRoute.page, path: '/userProfile'),
       ];
+}
+
+class AuthGuard extends AutoRouteGuard {
+  @override
+  void onNavigation(NavigationResolver resolver, StackRouter router) {
+    resolver.next(true);
+  }
 }
