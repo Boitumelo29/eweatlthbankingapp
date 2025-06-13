@@ -179,6 +179,8 @@ class _BeneficiaryViewState extends State<BeneficiaryView> {
                         accountNumber:
                             state.usersList[widget.index].accountNumber,
                         amount: _amountController.text));
+
+                    return null;
                   },
                 )
               ],

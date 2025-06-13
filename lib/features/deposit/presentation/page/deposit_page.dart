@@ -183,10 +183,11 @@ class _DepositViewState extends State<DepositView> {
                           backgroundColor: Colors.red,
                         ),
                       );
-                      return;
+
                     }
                     context.read<DepositBloc>().add(DepositEvent.redeemVoucher(
                         voucher: _amountController.text));
+                    return null;
                   },
                 )
                 // LongButton(
