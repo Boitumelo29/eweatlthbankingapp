@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:eweatlthbankingapp/features/user/user_profile/bloc/user_profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:eweatlthbankingapp/core/routes/router.dart';
@@ -33,13 +36,37 @@ class _MainHomeViewState extends State<MainHomeView> {
                     color: Colors.green,
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Center(
-                        child: Text(
-                          "eWealth",
-                          style: TextStyle(color: Colors.white, fontSize: 30),
-                        ),
+                      Center(
+                        child: Builder(builder: (context) {
+                          context.read<UserProfileBloc>().add(const LoadUserProfile());
+                          context
+                              .read<UserProfileBloc>()
+                              .add(const FetchUserImage());
+                          final userImage =
+                              context.read<UserProfileBloc>().state.userImage;
+
+                          return userImage.isEmpty
+                              ? const Icon(
+                                  Icons.person,
+                                  size: 50,
+                                )
+                              : SizedBox(
+                                  height: 50,
+                                  width: 50,
+                                  child: Center(
+                                    child: ClipOval(
+                                      child: Image.memory(
+                                        base64Decode(userImage),
+                                        fit: BoxFit.cover,
+                                        width: 50,
+                                        height: 50,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                        }),
                       ),
                       const SizedBox(
                         height: 10,
